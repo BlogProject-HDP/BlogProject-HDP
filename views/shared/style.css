@@ -1,0 +1,79 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.vs-g{
+    
+    border: 3px solid green;
+}
+
+.vs-r{
+    border: 3px solid red;
+}
+
+
+.vs-b{
+    border: 3px solid blue;
+}
+
+.vs-y{
+    border: 3px solid yellow ;
+}
+
+:root{
+   
+    --bulma-primary-h: 278deg;
+    --bulma-primary-s: 94%;
+    --bulma-primary-l: 43%;
+
+    --bulma-family-primary: "Outfit", sans-serif;
+    --swag-bg: var(--bulma-primary-90);
+    --swag-text: var(--bulma-primary-invert);
+    
+}
+
+
+[data-theme=dark],
+.theme-dark {
+  /* Update CSS variables */
+    --swag-bg: var(--bulma-primary-00);
+    --swag-text: var(--bulma-primary-light);
+}
+
+
+#themeToggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: var(--toggle-bg, #ffffffaa);
+  color: var(--toggle-fg, #000);
+  border: none;
+  border-radius: 50%;
+  padding: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s, color 0.3s;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#themeToggle:hover {
+  background-color: var(--toggle-hover, #eee);
+}
+
+#themeToggle .material-icons {
+  font-size: 1.5rem;
+}
+
+/* Optional: shrink slightly on very small screens */
+@media (max-width: 400px) {
+  #themeToggle {
+    padding: 0.5rem;
+  }
+
+  #themeToggle .material-icons {
+    font-size: 1.25rem;
+  }
+}

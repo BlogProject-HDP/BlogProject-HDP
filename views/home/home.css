@@ -1,0 +1,14 @@
+
+
+.main-container{
+    margin-top: 3.5rem;
+}
+
+#post-container{
+    min-height: 100dvh;
+}
+
+.box:hover{
+    cursor: pointer;
+    scale: 100.05%;
+}
