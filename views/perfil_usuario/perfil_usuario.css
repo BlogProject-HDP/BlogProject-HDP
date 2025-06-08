@@ -1,5 +1,4 @@
 
-
 .main-container{
     margin-top: 3.5rem;
 }
@@ -12,6 +11,6 @@
     cursor: pointer;
     scale: 100.05%;
 }
-
-
-
+#statistics{
+    border-top: 1px solid #dbdbdb;
+}

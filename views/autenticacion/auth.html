@@ -13,167 +13,173 @@
 </head>
 
 <body class="">
-    <div id="form-container" class="is-flex is-align-items-center is-justify-content-center">
-        <div class="container is-fluid">
+  <div id="form-container" class="is-flex is-align-items-center is-justify-content-center">
+    <div class="container is-fluid">
 
-            <div class="fixed-grid has-12-cols has-4-cols-tablet has-6-cols-desktop">
-                <div class="grid">
+      <div class="fixed-grid has-12-cols has-4-cols-tablet has-6-cols-desktop">
+        <div class="grid">
 
-                    <div class="cell is-col-span-12 is-col-span-4-tablet is-col-span-4-desktop is-col-start-2-desktop">
+          <div class="cell is-col-span-12 is-col-span-4-tablet is-col-span-4-desktop is-col-start-2-desktop">
 
-                        <div id="auth-card">
-
-
-                            <!-- header de la card de autenticacion -->
-                            <section class="auth-header text-center hero is-primary">
-                                <div class="hero-body">
-                                    <p class="auth-title mb-2 title" id="authTitle">Bienvenido</p>
-                                    <p class="auth-subtitle subtitle" id="authSubtitle">Inicia sesión en tu cuenta</p>
-                                </div>
-                            </section>
-
-                            <!-- card body y form container -->
-                            <div id="auth-body" class="p-4">
-
-                                <!-- login form -->
-                                <form action="" id="login-form" class="auth-form">
-
-                                    <div class="field mb-3">
-                                        <label for="loginEmail" class="label">
-                                            Correo Electrónico
-                                        </label>
-                                        <div class="control has-icons-left has-icons-right">
-                                            <input type="email" class="input is-primary" id="loginEmail"
-                                                placeholder="tu@email.com" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-user"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <i class="fas fa-check"></i>
-                                            </span>
-                                        </div>
-                                        <!-- <p class="help is-success"></p> -->
-                                    </div>
+            <div id="auth-card">
 
 
-                                    <div class="field mb-4">
-                                        <label for="loginPassword" class="label">
-                                            Contraseña
-                                        </label>
-                                        <div class="control has-icons-left has-icons-right">
-                                            <input type="password" class="input is-primary" id="loginPassword"
-                                                placeholder="••••••••" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fa-solid fa-key"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <!-- <i class="fas fa-check"></i> -->
-                                                <i class="fa-solid fa-asterisk"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="is-flex is-justify-content-center">
-                                        <button type="submit" class="button custom-btn is-primary w-100 mb-3">
-                                            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
-                                        </button>
-                                    </div>
-
-                                    <div class="has-text-centered">
-                                        <a href="#" class="text-decoration-none custom-link">¿Olvidaste tu
-                                            contraseña?</a>
-                                    </div>
-                                </form>
-
-
-                                <!-- form de registro (oculto inicialmente, togleable)-->
-                                <form action="" id="register-form" class="auth-form is-hidden">
-
-                                    <div class="field mb-3">
-                                        <label for="registerName" class="label">
-                                            Nombre de usuario
-                                        </label>
-                                        <div class="control has-icons-left has-icons-right">
-                                            <input type="text" class="input is-primary" id="registerName"
-                                                placeholder="Tu nombre de usuario" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-user"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <i class="fas fa-check"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="field mb-3">
-                                        <label for="registerEmail" class="label">
-                                            Correo Electrónico
-                                        </label>
-                                        <div class="control has-icons-left has-icons-right">
-                                            <input type="email" class="input is-primary" id="registerEmail"
-                                                placeholder="tu@email.com" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-envelope"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <i class="fas fa-check"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="field mb-4">
-                                        <label for="registerPassword" class="label">
-                                            Contraseña
-                                        </label>
-                                        <div class="control has-icons-left has-icons-right">
-                                            <input type="password" class="input is-primary" id="registerPassword"
-                                                placeholder="••••••••" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-lock"></i>
-                                            </span>
-                                            <span class="icon is-small is-right">
-                                                <i class="fas fa-asterisk"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="is-flex is-justify-content-center">
-                                        <button type="submit" class="button custom-btn is-primary w-100 mb-3">
-                                            <i class="fas fa-user-plus me-2"></i>Crear Cuenta
-                                        </button>
-                                    </div>
-                                </form>
-
-
-                                <div class="mt-4 has-text-centered">
-                                    <p class="text-muted mb-3" id="toggleText">¿No tienes una cuenta?</p>
-                                    <button id="toggleBtn" class="btn btn-link custom-toggle p-0">
-                                        <span id="toggleBtnText">Crear cuenta</span>
-                                        <span class="toggle-underline"></span>
-                                    </button>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+              <!-- header de la card de autenticacion -->
+              <section class="auth-header text-center hero is-primary">
+                <div class="hero-body">
+                  <p class="auth-title mb-2 title" id="authTitle">Bienvenido</p>
+                  <p class="auth-subtitle subtitle" id="authSubtitle">Inicia sesión en tu cuenta</p>
                 </div>
+              </section>
+
+              <!-- card body y form container -->
+              <div id="auth-body" class="p-4">
+
+                <!-- login form -->
+                <form action="" id="login-form" class="auth-form">
+
+                  <div class="field mb-3">
+                    <label for="loginEmail" class="label">
+                      Correo Electrónico
+                    </label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="email" class="input is-primary" id="loginEmail" placeholder="tu@email.com" required>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                    <!-- LABEL PARA MOSTAR MENSAJE 'is-success' para mesaje positivo y 'is-danger' para mensaje negativo 'is-hidden' para mostrarlo/ocultar el elemento. Oculto por defecto -->
+                    <p id="usuarioIncorrecto" class="help is-danger is-hidden">Usuario incorrecto</p>
+                  </div>
+
+
+                  <div class="field mb-4">
+                    <label for="loginPassword" class="label">
+                      Contraseña
+                    </label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="password" class="input is-primary" id="loginPassword" placeholder="••••••••" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-key"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <!-- <i class="fas fa-check"></i> -->
+                        <i class="fa-solid fa-asterisk"></i>
+                      </span>
+                    </div>
+                    <!-- LABEL PARA MENSAJE -->
+                    <p id="passwordInvalida" class="help is-danger is-hidden">Contraseña incorrecta</p>
+                  </div>
+
+                  <div class="is-flex is-justify-content-center">
+                    <button type="submit" class="button custom-btn is-primary w-100 mb-3">
+                      <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                    </button>
+                  </div>
+
+                  <div class="has-text-centered">
+                    <a href="#" class="text-decoration-none custom-link">¿Olvidaste tu
+                      contraseña?</a>
+                  </div>
+                </form>
+
+
+                <!-- form de registro (oculto inicialmente, togleable)-->
+                <form action="" id="register-form" class="auth-form is-hidden">
+
+                  <div class="field mb-3">
+                    <label for="registerName" class="label">
+                      Nombre de usuario
+                    </label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="text" class="input is-primary" id="registerName" placeholder="Tu nombre de usuario" required>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                    <!-- LABEL PARA MENSAJE -->
+                    <p id="usuarioExiste" class="help is-danger is-hidden">El usuario ya existe</p>
+                  </div>
+
+                  <div class="field mb-3">
+                    <label for="registerEmail" class="label">
+                      Correo Electrónico
+                    </label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="email" class="input is-primary" id="registerEmail" placeholder="tu@email.com" required>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                    <!-- LABEL PARA MENSAJE -->
+                    <p id="emailExiste" class="help is-danger is-hidden">El email ya existe</p>
+                  </div>
+
+                  <div class="field mb-4">
+                    <label for="registerPassword" class="label">
+                      Contraseña
+                    </label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="password" class="input is-primary" id="registerPassword" placeholder="••••••••" required>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-asterisk"></i>
+                      </span>
+                    </div>
+                    <!-- LABEL PARA MENSAJE -->
+                    <p id="passwordInvalido" class="help is-danger is-hidden">La constraseña debe tener 8 caracteres y simbolos especiales (#$%)</p>
+                  </div>
+
+                  <div class="is-flex is-justify-content-center">
+                    <button type="submit" class="button custom-btn is-primary w-100 mb-3">
+                      <i class="fas fa-user-plus me-2"></i>Crear Cuenta
+                    </button>
+                  </div>
+                </form>
+
+
+                <div class="mt-4 has-text-centered">
+                  <p class="text-muted mb-3" id="toggleText">¿No tienes una cuenta?</p>
+                  <button id="toggleBtn" class="btn btn-link custom-toggle p-0">
+                    <span id="toggleBtnText">Crear cuenta</span>
+                    <span class="toggle-underline"></span>
+                  </button>
+                </div>
+
+              </div>
+
             </div>
 
+          </div>
 
         </div>
+      </div>
+
+
     </div>
+  </div>
 
 
-    <button id="themeToggle" aria-label="Toggle Theme">
-        <span class="material-icons" id="themeIcon">dark_mode</span>
-    </button>
+  <button id="themeToggle" aria-label="Toggle Theme">
+    <span class="material-icons" id="themeIcon">dark_mode</span>
+  </button>
 
-    <script src="./auth.js"></script>
-    <script src="../shared/global.js"></script>
-    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
+  <script src="./auth.js"></script>
+  <script type="module" src="../../js/autenticacion/autenticacion.js" defer></script>
+  <script src="../shared/global.js"></script>
+  <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->
 </body>
 
 </html>

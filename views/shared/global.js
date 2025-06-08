@@ -2,9 +2,19 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+
+  body.insertAdjacentHTML("beforeend",
+     `<button id="themeToggle" aria-label="Toggle Theme">
+        <span class="material-icons" id="themeIcon">dark_mode</span>
+  </button>`);
+
+
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
   const html = document.documentElement;
+
+  
 
   // Load theme from localStorage or default to light
   const storedTheme = localStorage.getItem('theme');
@@ -34,5 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.style.setProperty('--toggle-hover', '#eee');
     }
   }
+
+  
 });
 
