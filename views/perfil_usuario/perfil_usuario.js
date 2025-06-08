@@ -3,7 +3,7 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
     box.className = "box comment-box";
 
     const article = document.createElement("article");
-    article.className = "media";
+    article.className = "media is-flex-wrap-wrap";
 
     const mediaContent = document.createElement("div");
     mediaContent.className = "media-content";
@@ -22,17 +22,20 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
     contentDiv.appendChild(p);
     mediaContent.appendChild(contentDiv);
 
+    // Acciones (íconos)
     const nav = document.createElement("nav");
-    nav.className = "level is-mobile";
+    nav.className = "level is-mobile mt-2";
 
     const levelLeft = document.createElement("div");
-    levelLeft.className = "level-left is-flex-direction-row";
-    levelLeft.style.gap = "1.5rem";
+    levelLeft.className = "level-left is-flex is-align-items-center";
+    levelLeft.style.gap = "1rem";
+    levelLeft.style.flexWrap = "nowrap";
+    levelLeft.style.flexDirection = "row";
 
     const acciones = [
         { icon: "fas fa-reply", label: "reply" },
-        { icon: "fas fa-retweet", label: "retweet" },
-        { icon: "fa-solid fa-heart", label: "like", color: "red" }
+        { icon: "fa-regular fa-bookmark", label: "bookmark" },
+        { icon: "fa-regular fa-heart", label: "like", color: "red" }
     ];
 
     acciones.forEach(({ icon, label, color }) => {
@@ -54,6 +57,7 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
 
     nav.appendChild(levelLeft);
     mediaContent.appendChild(nav);
+
     article.appendChild(mediaContent);
     box.appendChild(article);
 
@@ -61,9 +65,6 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-
-});
 
 
 function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
