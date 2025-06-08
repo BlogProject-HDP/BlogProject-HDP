@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Comentarios con Usuarios (IndexedDB)</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        label,
+        input,
+        button,
+        select {
+            margin: 5px 0;
+            display: block;
+        }
+
+        .comentario {
+            margin-top: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Agregar Usuario</h2>
+    <input type="text" id="nombreUsuario" placeholder="Nombre de usuario">
+    <button onclick="agregarUsuario()">Guardar Usuario</button>
+
+    <h2>Agregar Comentario</h2>
+    <select id="selectUsuario"></select>
+    <input type="text" id="textoComentario" placeholder="Comentario">
+    <button onclick="agregarComentario()">Guardar Comentario</button>
+
+    <h2>Comentarios</h2>
+    <div id="listaComentarios"></div>
+
+    <script>
+        let db;
+
+        const request = indexedDB.open("comentariosDB", 1);
+
+        request.onupgradeneeded = function (event) {
+            db = event.target.result;
+            const userStore = db.createObjectStore("usuarios", { keyPath: "id", autoIncrement: true });
+            const commentStore = db.createObjectStore("comentarios", { keyPath: "id", autoIncrement: true });
+            commentStore.createIndex("userId", "userId", { unique: false });
+        };
+
+        request.onsuccess = function (event) {
+            db = event.target.result;
+            cargarUsuariosEnSelect();
+            mostrarComentarios();
+        };
+
+        // Agregar usuario
+        function agregarUsuario() {
+            const nombre = document.getElementById("nombreUsuario").value.trim();
+            if (!nombre) return alert("Escribe un nombre");
+
+            const tx = db.transaction("usuarios", "readwrite");
+            const store = tx.objectStore("usuarios");
+            store.add({ nombre });
+
+            tx.oncomplete = () => {
+                document.getElementById("nombreUsuario").value = "";
+                cargarUsuariosEnSelect();
+            };
+        }
+
+        // Cargar usuarios en el <select>
+        function cargarUsuariosEnSelect() {
+            const select = document.getElementById("selectUsuario");
+            select.innerHTML = "";
+
+            const tx = db.transaction("usuarios", "readonly");
+            const store = tx.objectStore("usuarios");
+
+            store.openCursor().onsuccess = function (event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    const option = document.createElement("option");
+                    option.value = cursor.value.id;
+                    option.textContent = cursor.value.nombre;
+                    select.appendChild(option);
+                    cursor.continue();
+                }
+            };
+        }
+
+        // Agregar comentario con validación de userId
+        function agregarComentario() {
+            const texto = document.getElementById("textoComentario").value.trim();
+            const userId = Number(document.getElementById("selectUsuario").value);
+            if (!texto) return alert("Escribe un comentario");
+
+            const tx = db.transaction(["usuarios", "comentarios"], "readwrite");
+            const userStore = tx.objectStore("usuarios");
+            const commentStore = tx.objectStore("comentarios");
+
+            const userReq = userStore.get(userId);
+            userReq.onsuccess = function () {
+                if (userReq.result) {
+                    commentStore.add({ texto, userId });
+                    document.getElementById("textoComentario").value = "";
+                    mostrarComentarios();
+                } else {
+                    alert("Usuario no válido.");
+                }
+            };
+        }
+
+        // Mostrar comentarios con nombres de usuario
+        function mostrarComentarios() {
+            const contenedor = document.getElementById("listaComentarios");
+            contenedor.innerHTML = "";
+
+            const tx = db.transaction(["comentarios", "usuarios"], "readonly");
+            const commentStore = tx.objectStore("comentarios");
+            const userStore = tx.objectStore("usuarios");
+
+            commentStore.openCursor().onsuccess = function (event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    const comentario = cursor.value;
+                    const userReq = userStore.get(comentario.userId);
+
+                    userReq.onsuccess = function () {
+                        const usuario = userReq.result;
+                        const div = document.createElement("div");
+                        div.className = "comentario";
+                        div.textContent = `${usuario?.nombre || 'Usuario desconocido'}: ${comentario.texto}`;
+                        contenedor.appendChild(div);
+                    };
+
+                    cursor.continue();
+                }
+            };
+        }
+
+        function darLike(comentarioId) {
+            const tx = db.transaction("comentarios", "readwrite");
+            const store = tx.objectStore("comentarios");
+
+            const req = store.get(comentarioId);
+            req.onsuccess = function () {
+                const comentario = req.result;
+                comentario.likes = (comentario.likes || 0) + 1;
+                store.put(comentario);
+                tx.oncomplete = mostrarComentarios;
+            };
+        }
+    </script>
+</body>
+
+</html>
