@@ -130,17 +130,17 @@ async function iniciarSesion(e) {
       // Redirigir a dashboard admi o user
       if (usuario.tipo === "user") {
         console.log("Redirigir a dashboar de usuario");
-         // Guarda el ID en localStorage
+        // Guarda el ID en localStorage
         localStorage.setItem("userId", usuario.id);
         // Redirigir al admin para el html
         window.location.href = "/views/home/home.html";
         // window.location.href = "";
-      if (usuario.tipo === "admin") {
+      } else if (usuario.tipo === "admin") {
         // Guarda el ID en localStorage
         localStorage.setItem("adminId", usuario.id);
         // Redirigir al admin para el html
         window.location.href = "/views/admin_view/dashboard_admin.html";
-        }
+      }
     } else {
       console.log("Error --> Password incorrecto");
       document.getElementById("passwordInvalida").classList.remove("is-hidden");
@@ -151,5 +151,4 @@ async function iniciarSesion(e) {
     document.getElementById("usuarioIncorrecto").classList.remove("is-hidden");
     document.getElementById("passwordInvalida").classList.add("is-hidden");
   }
-}
 }
