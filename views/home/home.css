@@ -8,10 +8,16 @@
     min-height: 100dvh;
 }
 
-.box:hover{
-    cursor: pointer;
-    scale: 100.05%;
+
+
+
+.level-item > .icon:hover{
+
+    transform: scale(1.08);
 }
 
+.level-item > .icon{
+    transition: transform 0.3 ease;
+}
 
 
