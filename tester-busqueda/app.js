@@ -5,9 +5,8 @@ let dataPosts;
 const request = indexedDB.open(nameDB, 1);
 
 //Consumir api
-
 async function consumirAPI() {
-    
+
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
     return response.json();
 }
@@ -25,16 +24,15 @@ request.onsuccess = (evento) => {
     db = evento.target.result;
     console.log('Se creo la base de datos');
 
-    consumirAPI().then( data => {
+    //Guardar los datos
+    consumirAPI().then(data => {
 
         dataPosts = data;
-
-        console.log(typeof dataPosts);
 
         const transaccion = db.transaction(['Posts'], 'readwrite');
         const almacen = transaccion.objectStore('Posts');
 
-        for(const post of dataPosts){
+        for (const post of dataPosts) {
 
             almacen.add(post);
         }
@@ -46,14 +44,15 @@ request.onsuccess = (evento) => {
     });
 }
 
+//Seleccionar la entrada
 document.getElementById('input-busqueda').addEventListener('input', dibujarPosts);
 
+//Render de los resultados
 function dibujarPosts() {
 
+    //Ubicar el texto a buscar
     const textoBuscado = document.getElementById('input-busqueda').value.toLowerCase();
     const contenedor = document.getElementById('resultados-busqueda');
-
-    contenedor.innerHTML = '';
 
     const transaccion = db.transaction(['Posts'], 'readonly');
     const almacen = transaccion.objectStore('Posts');
@@ -68,18 +67,18 @@ function dibujarPosts() {
 
             const post = cursor.value;
 
-            for(const post of dataPosts){
+            //Recorrer el obj extraido
+            for (const publicacion of dataPosts) {
 
-                if (post.title.includes(textoBuscado) && post.body.toLowerCase().includes(textoBuscado)) {
+                //Buscar por id del usuario que publico el post
+                if (textoBuscado == post.userId) {
 
-                console.log(`Lo contiene ${post.id}`);
-                //const divPost = document.createElement('div');
-                //divPost.textContent = post.contenido;
+                    console.log(`El usuario con el id ${textoBuscado} realizo los posts con el titulo ${post.title}`);
 
-                //contenedor.appendChild(divPost);
+                }
+
             }
-            }
-            
+
             cursor.continue();
         }
     };
