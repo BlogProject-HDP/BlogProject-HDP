@@ -12,7 +12,87 @@
 
 <body>
     <main>
+        <div id="modal-user" class="modal">
+            <div class="modal-background">
+
+            </div>
+            <div class="modal-content-user">
+                <form class="container">
+                
+                    <div class="field">
+                        <label class="label">User</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. " />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. alex@example.com" />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" placeholder="********" />
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button is-success">Save changes</button>
+                        <button type="button" class="button">Cancel</button>
+
+                    </div>
+                </form>
+            </div>
+            <!-- Botón para cerrar -->
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+        <div id="modal-info" class="modal">
+
+            <div class="modal-background">
+
+            </div>
+            <div class="modal-content-user">
+                <form class="container">
+
+                    <div class="field">
+                        <label class="label">nombre</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. " />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">bio</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="Hola, soy ..." />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Cumpleaños</label>
+                        <div class="control">
+                            <input class="input" type="date" id="birthday" name="birthday">
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button is-success">Save changes</button>
+                        <button type="button" class="button">Cancel</button>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- Botón para cerrar -->
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+        
         <div class="container is-max-desktop box">
+
+
             <div class="container is-max-desktop box profile-box">
 
                 <div class="columns is-vcentered is-variable is-6 is-multiline">
@@ -41,8 +121,12 @@
                     </div>
 
                     <!-- Botón -->
-                    <div class="column is-12-mobile is-narrow-tablet has-text-centered">
-                        <button id="btn-id" class="button is-link is-light">Edit profile</button>
+                    <div class="column is-full-mobile is-narrow-tablet">
+                        <div class="buttons is-centered">
+                            <button id="abrir-modal-user" class="button is-link is-light">Edit user</button>
+                            <button id="abrir-modal-info" class="button is-link is-light">Edit info</button>
+
+                        </div>
                     </div>
                 </div>
 

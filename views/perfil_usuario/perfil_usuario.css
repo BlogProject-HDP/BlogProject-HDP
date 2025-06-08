@@ -11,3 +11,6 @@
     cursor: pointer;
     scale: 100.05%;
 }
+#statistics{
+    border-top: 1px solid #dbdbdb;
+}

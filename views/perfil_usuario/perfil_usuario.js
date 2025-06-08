@@ -200,6 +200,8 @@ function actualizarPerfil({ nombre, usuario, bio, fechaNacimiento, imagen }) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    
+    
     const postData = {
         nombre: "John Smith",
         usuario: "johnsmith",
@@ -236,4 +238,30 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarPerfil(datosUsuario);
 
     actualizarEstadisticas();
+
+// Función para abrir un modal
+    function abrirModal(id) {
+        document.getElementById(id).classList.add("is-active");
+    }
+
+    // Función para cerrar todos los modales
+    function cerrarModales() {
+        document.querySelectorAll(".modal").forEach(modal => {
+            modal.classList.remove("is-active");
+        });
+    }
+
+    // Eventos para abrir modales
+    document.getElementById("abrir-modal-user").addEventListener("click", () => {
+        abrirModal("modal-user");
+    });
+
+    document.getElementById("abrir-modal-info").addEventListener("click", () => {
+        abrirModal("modal-info");
+    });
+
+    // Eventos para cerrar modales al hacer clic en fondo o botón de cierre
+    document.querySelectorAll(".modal-background, .modal-close, .modal .button[type='button']").forEach(elemento => {
+        elemento.addEventListener("click", cerrarModales);
+    });
 });
