@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/style.css">
+    <link rel="stylesheet" href="./perfil_usuario.css">
+</head>
+
+<body>
+    <main>
+        <div id="modal-user" class="modal">
+            <div class="modal-background">
+
+            </div>
+            <div class="modal-content-user">
+                <form class="container">
+                
+                    <div class="field">
+                        <label class="label">User</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. " />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. alex@example.com" />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" placeholder="********" />
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button is-success">Save changes</button>
+                        <button type="button" class="button">Cancel</button>
+
+                    </div>
+                </form>
+            </div>
+            <!-- Botón para cerrar -->
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+        <div id="modal-info" class="modal">
+
+            <div class="modal-background">
+
+            </div>
+            <div class="modal-content-user">
+                <form class="container">
+
+                    <div class="field">
+                        <label class="label">nombre</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="e.g. " />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">bio</label>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="Hola, soy ..." />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Cumpleaños</label>
+                        <div class="control">
+                            <input class="input" type="date" id="birthday" name="birthday">
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button is-success">Save changes</button>
+                        <button type="button" class="button">Cancel</button>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- Botón para cerrar -->
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+        
+        <div class="container is-max-desktop box">
+
+
+            <div class="container is-max-desktop box profile-box">
+
+                <div class="columns is-vcentered is-variable is-6 is-multiline">
+                    <!-- Avatar -->
+                    <div class="column is-12-mobile is-narrow-tablet">
+                        <figure class="image is-128x128 mx-auto">
+                            <img class="is-rounded" src="" alt="Avatar">
+                        </figure>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="column is-12-mobile is-flex-grow-1">
+                        <h1 id="name" class="title is-3 mb-1 has-text-centered-touch">Nombre</h1>
+                        <h2 id="user" class="subtitle is-5 has-text-grey-light mb-3 has-text-centered-touch">@usuario
+                        </h2>
+
+                        <p id="bio" class="content mb-3 has-text-centered-touch">
+                            <i class="fa-solid fa-quote-left mr-1"></i>
+                            <span>Bio</span>
+                        </p>
+
+                        <p id="birthday" class="has-text-grey has-text-centered-touch">
+                            <i class="fa-regular fa-calendar-days mr-1"></i>
+                            Fecha de nacimiento: <span>01 de enero de 2000</span>
+                        </p>
+                    </div>
+
+                    <!-- Botón -->
+                    <div class="column is-full-mobile is-narrow-tablet">
+                        <div class="buttons is-centered">
+                            <button id="abrir-modal-user" class="button is-link is-light">Edit user</button>
+                            <button id="abrir-modal-info" class="button is-link is-light">Edit info</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estadisticas -->
+                <div id="statistics" class="columns is-mobile has-text-centered mt-5">
+                    <div class="column">
+                        <p class="heading">Posts</p>
+                        <p class="title is-5">0</p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">Comments</p>
+                        <p class="title is-5">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="post" class="container is-max-desktop box">
+            <h1>Post</h1>
+
+
+        </div>
+
+        <div id="comments" class="container is-max-desktop box">
+            <h1>Comments</h1>
+        </div>
+    </main>
+
+
+    <script src="../shared/global.js"></script>
+    <script src="./perfil_usuario.js"></script>
+    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

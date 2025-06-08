@@ -28,6 +28,9 @@
     --bulma-family-primary: "Outfit", sans-serif;
     --swag-bg: var(--bulma-primary-90);
     --swag-text: var(--bulma-primary-invert);
+
+    --swag-panel-bg: var(--bulma-primary-95);
+    --swag-panel-fg: var(--bulma-primary-95-invert);
     
 }
 
@@ -37,6 +40,9 @@
   /* Update CSS variables */
     --swag-bg: var(--bulma-primary-00);
     --swag-text: var(--bulma-primary-light);
+
+    --swag-panel-bg: var(--bulma-primary-10);
+    --swag-panel-fg: var(--bulma-primary-10-invert);
 }
 
 
