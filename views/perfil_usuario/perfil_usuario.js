@@ -65,8 +65,6 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
 }
 
 
-
-
 function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
     const box = document.createElement("div");
     box.className = "box post-box";
