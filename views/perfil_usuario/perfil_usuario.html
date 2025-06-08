@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,62 @@
     <link rel="stylesheet" href="../shared/style.css">
     <link rel="stylesheet" href="./perfil_usuario.css">
 </head>
+
 <body>
-    
     <main>
         <div class="container is-max-desktop box">
+            <div class="container is-max-desktop box profile-box">
+                <div class="columns is-vcentered is-variable is-6">
+                    <div class="column is-narrow">
+                        <figure class="image is-128x128">
+                            <img class="is-rounded" src="" alt="Avatar">
+                        </figure>
+                    </div>
+
+                    <div class="column">
+                        <h1 id="name" class="title is-3 mb-1">Nombre</h1>
+                        <h2 id="user" class="subtitle is-5 has-text-grey-light mb-3">@usuario</h2>
+
+                        <p id="bio" class="content mb-3">
+                            <i class="fa-solid fa-quote-left mr-1"></i>
+                            <span>Bio</span>
+                        </p>
+
+                        <p id="birthday" class="has-text-grey">
+                            <i class="fa-regular fa-calendar-days mr-1"></i>
+                            Fecha de nacimiento: <span>01 de enero de 2000</span>
+                        </p>
+                    </div>
+
+
+                    <div class="column is-narrow">
+                        <button id="btn-id" class="button is-link is-light">Edit profile</button>
+                    </div>
+                </div>
+
+                <div id="statistics" class="columns is-mobile has-text-centered mt-5">
+                    <div class="column">
+                        <p class="heading">Posts</p>
+                        <p class="title is-5">0</p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">Comments</p>
+                        <p class="title is-5">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="post" class="container is-max-desktop box">
+            <h1>Post</h1>
+           
 
         </div>
+
+        <div id ="comments"class="container is-max-desktop box">
+            <h1>Comments</h1>
+        </div>
     </main>
-
-
 
     <button id="themeToggle" aria-label="Toggle Theme">
         <span class="material-icons" id="themeIcon">dark_mode</span>
@@ -26,4 +74,5 @@
     <script src="./perfil_usuario.js"></script>
     <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
