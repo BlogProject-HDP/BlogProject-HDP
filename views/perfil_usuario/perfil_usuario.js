@@ -71,18 +71,20 @@ function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
     box.className = "box post-box";
 
     const article = document.createElement("article");
-    article.className = "media";
+    article.className = "media is-flex-wrap-wrap";
 
     // media-left (imagen)
     const mediaLeft = document.createElement("div");
     mediaLeft.className = "media-left";
+    mediaLeft.style.flex = "none"; // evita que la imagen se estire
 
     const figure = document.createElement("figure");
-    figure.className = "image is-64x64";
+    figure.className = "image is-64x64 is-flex is-align-items-center";
 
     const img = document.createElement("img");
     img.src = imagen || "https://bulma.io/assets/images/placeholders/128x128.png";
     img.alt = "Image";
+    img.className = "is-rounded"; // para que se vea más estilizado
 
     figure.appendChild(img);
     mediaLeft.appendChild(figure);
@@ -102,45 +104,49 @@ function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
     `;
 
     const pTitulo = document.createElement("p");
-    pTitulo.className = "is-size-4";
+    pTitulo.className = "is-size-5 has-text-weight-medium has-text-left-touch has-text-centered-mobile";
     pTitulo.textContent = titulo;
 
     content.appendChild(pInfo);
     content.appendChild(pTitulo);
     mediaContent.appendChild(content);
 
-    // nivel de acciones
-    const nav = document.createElement("nav");
-    nav.className = "level is-mobile";
+   // nivel de acciones
+const nav = document.createElement("nav");
+nav.className = "level is-mobile mt-2";
 
-    const levelLeft = document.createElement("div");
-    levelLeft.className = "level-left";
+const levelLeft = document.createElement("div");
+levelLeft.className = "level-left is-flex is-align-items-center";
+levelLeft.style.gap = "1rem";         
+levelLeft.style.flexWrap = "nowrap";  
+levelLeft.style.flexDirection = "row"; 
 
-    const acciones = [
-        { icon: "fas fa-reply", label: "reply" },
-        { icon: "fa-regular fa-bookmark", label: "bookmark" },
-        { icon: "fa-regular fa-heart", label: "like", color: "red" }
-    ];
+const acciones = [
+    { icon: "fas fa-reply", label: "reply" },
+    { icon: "fa-regular fa-bookmark", label: "bookmark" },
+    { icon: "fa-regular fa-heart", label: "like", color: "red" }
+];
 
-    acciones.forEach(({ icon, label, color }) => {
-        const a = document.createElement("a");
-        a.className = "level-item";
-        a.setAttribute("aria-label", label);
+acciones.forEach(({ icon, label, color }) => {
+    const a = document.createElement("a");
+    a.className = "level-item";
+    a.setAttribute("aria-label", label);
 
-        const span = document.createElement("span");
-        span.className = "icon is-small";
+    const span = document.createElement("span");
+    span.className = "icon is-small";
 
-        const i = document.createElement("i");
-        i.className = icon;
-        if (color) i.style.color = color;
+    const i = document.createElement("i");
+    i.className = icon;
+    if (color) i.style.color = color;
 
-        span.appendChild(i);
-        a.appendChild(span);
-        levelLeft.appendChild(a);
-    });
+    span.appendChild(i);
+    a.appendChild(span);
+    levelLeft.appendChild(a);
+});
 
-    nav.appendChild(levelLeft);
-    mediaContent.appendChild(nav);
+nav.appendChild(levelLeft);
+mediaContent.appendChild(nav);
+
 
     // estructura final
     article.appendChild(mediaLeft);
@@ -149,6 +155,7 @@ function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
 
     return box;
 }
+
 
 
 
