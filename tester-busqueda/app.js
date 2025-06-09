@@ -74,9 +74,7 @@ function dibujarPosts() {
                 if (textoBuscado == post.userId) {
 
                     console.log(`El usuario con el id ${textoBuscado} realizo los posts con el titulo ${post.title}`);
-
                 }
-
             }
 
             cursor.continue();
