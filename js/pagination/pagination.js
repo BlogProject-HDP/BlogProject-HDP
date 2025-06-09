@@ -3,49 +3,16 @@ import { crearIndexedDB } from "../IndexedDB/indexDB.js";
 let bd, pagina = 1, total = 0;
 const LIMITE = 10;
 
+// --------------------------------------------------------------
+// main
 async function main() {
   await crearIndexedDB();
 
-  const nuevoPost = {
-    nombre: `Post de prueba ${Date.now()}`,
-    contenido: "Contenido de prueba para el post.",
-    fechaDePublicacion: new Date().toISOString(),
-    categorias: ["prueba"],
-    comentarios: [],
-    likes: [],
-    imagen: "",
-  };
-
-  agregarPost(nuevoPost, () => {
-    console.log("Post creado, recargando posts...");
-    iniciar();  // recarga la DB y posts
-  });
+    iniciar();
 }
 
-function agregarPost(post, callback) {
-  const request = indexedDB.open("dbBlog-Tech", 1);
-
-  request.onsuccess = (e) => {
-    const db = e.target.result;
-    const transaction = db.transaction("posts", "readwrite");
-    const store = transaction.objectStore("posts");
-    const addRequest = store.add(post);
-
-    addRequest.onsuccess = () => {
-      console.log("Post agregado correctamente");
-      if (callback) callback();
-    };
-
-    addRequest.onerror = (e) => {
-      console.error("Error al agregar post:", e.target.error);
-    };
-  };
-
-  request.onerror = (e) => {
-    console.error("Error al abrir IndexedDB:", e.target.error);
-  };
-}
-
+// --------------------------------------------------------------
+// iniciar
 function iniciar() {
   const solicitud = indexedDB.open("dbBlog-Tech", 1);
 
@@ -64,6 +31,8 @@ function iniciar() {
   };
 }
 
+// --------------------------------------------------------------
+// Carga los posts para almacenarlos en la lista
 function cargarPosts() {
   let lista = [];
   const desde = (pagina - 1) * LIMITE;
@@ -91,6 +60,8 @@ function cargarPosts() {
   };
 }
 
+// --------------------------------------------------------------
+// Muestra los post creado
 function mostrarPosts(posts) {
   const div = document.getElementById("posts");
   div.innerHTML = "";
@@ -137,6 +108,8 @@ function mostrarPosts(posts) {
   renderPagination();
 }
 
+// --------------------------------------------------------------
+// Crea la paginacion en base al numero de post
 function renderPagination() {
   const pag = document.getElementById("pagination");
   pag.innerHTML = "";
