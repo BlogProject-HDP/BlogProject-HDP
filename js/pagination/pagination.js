@@ -7,7 +7,6 @@ const LIMITE = 10;
 // main
 async function main() {
   await crearIndexedDB();
-
     iniciar();
 }
 
@@ -63,7 +62,7 @@ function cargarPosts() {
 // --------------------------------------------------------------
 // Muestra los post creado
 function mostrarPosts(posts) {
-  const div = document.getElementById("posts");
+  const div = document.getElementById("post-container");
   div.innerHTML = "";
 
   if (posts.length === 0) {

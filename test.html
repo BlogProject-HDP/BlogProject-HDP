@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Listado de Posts - Blog Tech</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    #posts {
+      margin-bottom: 20px;
+    }
+    .post h3 {
+      margin: 0 0 8px 0;
+    }
+    .post p {
+      margin: 4px 0;
+    }
+    #pagination {
+      text-align: center;
+    }
+    #pagination button {
+      margin: 0 4px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #pagination button.active {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: default;
+    }
+    #pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Listado de Posts</h1>
+  <div id="post-container">Cargando posts...</div>
+  <div id="pagination"></div>
+
+  <script src="js/IndexedDB/indexDB.js" type="module"></script>
+  <script src="js/pagination/pagination.js" type="module"></script>
+</body>
+</html>
