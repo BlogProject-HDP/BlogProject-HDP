@@ -1,5 +1,29 @@
+
+
+const btnAcceder = document.getElementById("btnAcceder");
+const perfilBtn = document.getElementById("perfilBtn")
+
+const user = localStorage.getItem("userId") || "L";
+
+perfilBtn.addEventListener("click", () => {
+
+  if (user === "L") {
+    alert("Mira loco tenes que estar logeado para acceder aqui")
+    return;
+  }
+
+})
+
 document.addEventListener("DOMContentLoaded", () => {
   // lógica para el evento de la barra de búsqueda
+
+  if(user !== "L"){
+    btnAcceder.classList.add("is-hidden")
+    perfilBtn.setAttribute("href", "../perfil_usuario/perfil_usuario.html")
+  }
+
+
+
   const inputBusqueda = document.getElementById("barra-busqueda");
   inputBusqueda.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -93,15 +117,13 @@ function crearPostHTML(post) {
     </article>
   `;
 
-  // Ahora, agregar el evento click a cada categoria:
-  // El postDiv ya tiene todo el HTML en innerHTML, así que seleccionamos las categorias
+  // Añadir evento click a cada categoria (como en busquedas.js)
   const categoriaElements = postDiv.querySelectorAll(".categoria");
-
   categoriaElements.forEach((el) => {
     el.addEventListener("click", (event) => {
       const categoria = el.dataset.categoria;
-      // redirigimos a la vista de busqueda con filtro=categoria
-      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categoria`;
+      // Redirigimos a la vista de busqueda con filtro=categorias (plural)
+      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
     });
   });
 
