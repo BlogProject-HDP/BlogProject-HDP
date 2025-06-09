@@ -115,8 +115,8 @@ const datosUsuario = {
     actualizarPerfil(datosUsuario);
 
     const datosUsuario2 = {
-        titulo: "Alexis Ventura",
-        texto: ["alexis_ve",'as'],
+        titulo: "titulo",
+        texto: ["hola",'cr7 balon de oro'],
         
     };
     actualizarPost(datosUsuario2)
