@@ -18,15 +18,6 @@
         });
     });
    
-//obtenemos aquí el id del admin
-const adminId = localStorage.getItem("adminId");
-if (adminId === "L") {
-  // Si no hay adminId en localStorage, redirige o muestra error
-  console.error("No estás logueado como admin.");
-  window.location.href = "../autenticacion/auth.html";
-} else {
-  console.log("Admin logueado con ID:", adminId);
-}
 
 // Al cargar la página o cuando se muestre la pestaña de admin-posts
 document.addEventListener('DOMContentLoaded', () => {
@@ -88,7 +79,7 @@ function cargarPostsAdmin() {
     };
 }
 
-// 2. Agregar lógica para crear un nuevo post
+// crear un nuevo post
 function agregarEventosCrudPost() {
     // Asume que tienes un formulario con ID "form-crear-post" en tu HTML
     const formCrear = document.getElementById('form-crear-post');
