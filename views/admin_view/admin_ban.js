@@ -58,24 +58,6 @@ function banner() {
 }
 
 // ----------------------------------------------------------------
-// Buscar usuario por id o nombre para bloquear o desbloquear
-async function buscar() {
-  // Donde se muestran
-  const divBan = document.getElementById("shadowban");
-
-  // Titulo
-  const titulo = document.createElement("h2");
-  titulo.className = "subtitle";
-  titulo.textContent = "Buscar usuario";
-  divBan.appendChild(titulo);
-
-  // <input type="email" class="input is-primary" id="loginEmail" placeholder="tu@email.com" required>
-
-  const input = document.createElement("input");
-  // input
-}
-
-// ----------------------------------------------------------------
 // Mostrar tabla de baneado
 async function mostrarBaneados() {
   // Donde se muestran

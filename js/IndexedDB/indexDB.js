@@ -247,75 +247,6 @@ export function buscarEmail(email) {
 
 // ----------------------------------------------------------------
 // Bucar usuario por id: Devuelve el usuario si existe o null
-/*export function buscarId(id) {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("dbBlog-Tech", 1);
-
-    request.onsuccess = (e) => {
-      const db = e.target.result;
-
-      const transaccion = db.transaction("users", "readonly");
-      const objeto = transaccion.objectStore("users");
-      const getRequest = objeto.get(id);
-
-      getRequest.onsuccess = () => {
-        const resultado = getRequest.result;
-        if (resultado) {
-          resolve(resultado);
-        } else {
-          resolve(null);
-        }
-      };
-
-      getRequest.onerror = () => {
-        console.log("Error al buscar el usuario");
-        reject("Error al buscar el usuario");
-      };
-    };
-
-    request.onerror = () => {
-      console.log("Error al abrir la base de datos");
-      reject("Error al abrir la base de datos");
-    };
-  });
-}
-*/
-// ----------------------------------------------------------------
-// Obtener todos los usuarios
-/*
-export function obtenerTodosLosUsers() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("dbBlog-Tech", 1);
-
-    request.onsuccess = (e) => {
-      const db = e.target.result;
-
-      const transaccion = db.transaction("users", "readonly");
-      const objeto = transaccion.objectStore("users");
-      const getAllRequest = objeto.getAll();
-
-      getAllRequest.onsuccess = () => {
-        const resultados = getAllRequest.result;
-        db.close();
-        resolve(resultados); // Esto será un array con todos los usuarios
-      };
-
-      getAllRequest.onerror = () => {
-        db.close();
-        console.log("Error al obtener todos los usuarios");
-        reject("Error al obtener todos los usuarios");
-      };
-    };
-
-    request.onerror = () => {
-      console.log("Error al abrir la base de datos");
-      reject("Error al abrir la base de datos");
-    };
-  });
-}*/
-
-// ----------------------------------------------------------------
-// Bucar usuario por id: Devuelve el usuario si existe o null
 export function buscarId(id) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
@@ -386,8 +317,8 @@ export function obtenerTodosLosUsers() {
 // Función para agregar un post
 // Función para agregar un post
 
-export function deletePost(postID){
-   return new Promise((resolve, reject) => {
+export function deletePost(postID) {
+  return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
 
     request.onsuccess = (e) => {
@@ -413,7 +344,6 @@ export function deletePost(postID){
       reject(e.target.error);
     };
   });
-    
 }
 export function addPost(post) {
   return new Promise((resolve, reject) => {

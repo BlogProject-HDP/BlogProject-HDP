@@ -1,4 +1,21 @@
-import { addPost, cargarPosts, deletePost } from "../../js/IndexedDB/indexDB.js";
+import {
+  addPost,
+  cargarPosts,
+  deletePost,
+} from "../../js/IndexedDB/indexDB.js";
+
+import {
+  getBaneados,
+  getNoBaneados,
+  desbloquear,
+  bannear,
+} from "../../js/baneados/baneador.js";
+
+import {
+  buscarId,
+  buscarUser,
+  obtenerTodosLosUsers,
+} from "../../js/IndexedDB/indexDB.js";
 
 // Manejo de las pestañas principales
 document.addEventListener("DOMContentLoaded", () => {
@@ -74,8 +91,12 @@ async function cargarPostsAdmin() {
             }
           </td>
           <td>
-            <button class="button is-danger is-small" onclick="eliminarPost(${post.id})">Eliminar</button>
-            <button class="button is-warning is-small" onclick="editarPost(${post.id})">Editar</button>
+            <button class="button is-danger is-small" onclick="eliminarPost(${
+              post.id
+            })">Eliminar</button>
+            <button class="button is-warning is-small" onclick="editarPost(${
+              post.id
+            })">Editar</button>
           </td>
         </tr>`;
     });
@@ -165,3 +186,305 @@ function editarPost(postID) {
   alert(`Función para editar el post con ID: ${postID} aún no implementada.`);
   // Aquí puedes implementar la lógica para editar un post
 }
+
+// PARTE DE DAVID PARA BAN Y UNBAN
+// ----------------------------------------------------------------
+// Buscar usuario por id o nombre para bloquear o desbloquear
+async function buscar() {
+  // Donde se muestran
+  const divBan = document.getElementById("shadowban");
+
+  // Titulo
+  const titulo = document.createElement("h2");
+  titulo.className = "subtitle";
+  titulo.textContent = "Buscar usuario";
+  divBan.appendChild(titulo);
+
+  // Container
+  const container = document.createElement("div");
+  container.className = "container box pb-4";
+  container.style.maxWidth = "700px";
+  divBan.appendChild(container);
+
+  // Form
+  const form = document.createElement("form");
+  container.appendChild(form);
+
+  // Campo de texto
+  const fieldTexto = document.createElement("div");
+  fieldTexto.className = "field";
+  form.appendChild(fieldTexto);
+
+  const labelTexto = document.createElement("label");
+  labelTexto.className = "label";
+  labelTexto.textContent = "Busca un usuario por ID o nombre:";
+  fieldTexto.appendChild(labelTexto);
+
+  const controlTexto = document.createElement("div");
+  controlTexto.className = "control";
+  fieldTexto.appendChild(controlTexto);
+
+  const inputTexto = document.createElement("input");
+  inputTexto.className = "input";
+  inputTexto.type = "text";
+  inputTexto.placeholder = "nombre o ID";
+  controlTexto.appendChild(inputTexto);
+
+  // Aqui se mostraran los resultados de la busqueda
+  const divPadre = document.createElement("div");
+  container.appendChild(divPadre);
+  inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
+}
+
+// Busqueda
+async function busqueda(inputTexto, divPadre) {
+  const input = inputTexto.value.trim().toLowerCase();
+  divPadre.innerHTML = "";
+
+  const usuarios = await obtenerTodosLosUsers();
+
+  const adminId = localStorage.getItem("adminId");
+
+  if (input !== "") {
+    usuarios.forEach((element) => {
+      if (adminId !== element.id.toString()) {
+        //  BUSQUEDA POR NOMBRE DE USUARIO
+        if (element.usuario.toLowerCase().includes(input)) {
+          // Crear UL
+          const ul = document.createElement("ul");
+          ul.className = "mb-5";
+          divPadre.appendChild(ul);
+
+          // Crear LI
+          const li = document.createElement("li");
+          li.className =
+            "box is-flex is-justify-content-space-between is-align-items-center mb-1 mt-1";
+          ul.appendChild(li);
+
+          // Texto del item
+          const span = document.createElement("span");
+          span.textContent = element.usuario;
+          li.appendChild(span);
+
+          // Contenedor de botones
+          const divButtons = document.createElement("div");
+          divButtons.className = "buttons";
+          li.appendChild(divButtons);
+
+          if (element.banned) {
+            // Boton bannear
+            const btnUnBan = document.createElement("button");
+            btnUnBan.className = "button is-danger";
+            btnUnBan.textContent = "Unban";
+            btnUnBan.onclick = () => unBan(element.usuario); // es un nombre de usuario
+            divButtons.appendChild(btnUnBan);
+          } else {
+            // Boton bannear
+            const btnBan = document.createElement("button");
+            btnBan.className = "button is-danger";
+            btnBan.textContent = "Banear";
+            btnBan.onclick = () => bannea(element.usuario); // es un nombre de usuario
+            divButtons.appendChild(btnBan);
+          }
+        } // BUSQUEDA POR ID
+        else if (element.id.toString().includes(input)) {
+          // Crear UL
+          const ul = document.createElement("ul");
+          ul.className = "mb-5";
+          divPadre.appendChild(ul);
+
+          // Crear LI
+          const li = document.createElement("li");
+          li.className =
+            "box is-flex is-justify-content-space-between is-align-items-center mb-1 mt-1";
+          ul.appendChild(li);
+
+          // Texto del item
+          const span = document.createElement("span");
+          span.textContent = element.usuario;
+          li.appendChild(span);
+
+          // Contenedor de botones
+          const divButtons = document.createElement("div");
+          divButtons.className = "buttons";
+          li.appendChild(divButtons);
+
+          if (element.banned) {
+            // Boton bannear
+            const btnUnBan = document.createElement("button");
+            btnUnBan.className = "button is-danger";
+            btnUnBan.textContent = "Unban";
+            btnUnBan.onclick = () => unBan(element.usuario); // es un nombre de usuario
+            divButtons.appendChild(btnUnBan);
+          } else {
+            // Boton bannear
+            const btnBan = document.createElement("button");
+            btnBan.className = "button is-danger";
+            btnBan.textContent = "Banear";
+            btnBan.onclick = () => bannea(element.usuario); // es un nombre de usuario
+            divButtons.appendChild(btnBan);
+          }
+        }
+      }
+    });
+  }
+}
+
+// ----------------------------------------------------------------
+// Mostrar baneados y no baneados con opciones para
+// desbloquear y bannear respectivamente y un input
+// de busqueda
+document.getElementById("ban").addEventListener("click", crearTablaDoble);
+
+async function crearTablaDoble() {
+  // Donde se va a colocar (puedes cambiar el id)
+  const divBan = document.getElementById("shadowban");
+  divBan.innerHTML = ""; // Limpiar contenido anterior
+
+  // Titulo buscar
+  await buscar();
+
+  // Titulo
+  const titulo = document.createElement("h2");
+  titulo.className = "subtitle";
+  titulo.textContent = "Silenciar Usuarios (ShadowBan)";
+  divBan.appendChild(titulo);
+
+  // Tabla principal
+  const table = document.createElement("table");
+  table.className = "table is-bordered";
+  table.style.width = "100%";
+  divBan.appendChild(table);
+
+  // Thead principal
+  const tableHead = document.createElement("thead");
+  tableHead.className = "has-background-primary";
+  table.appendChild(tableHead);
+
+  const trHead = document.createElement("tr");
+  tableHead.appendChild(trHead);
+
+  const thBaneados = document.createElement("th");
+  thBaneados.textContent = "Usuarios baneados";
+  trHead.appendChild(thBaneados);
+
+  const thNoBaneados = document.createElement("th");
+  thNoBaneados.textContent = "Usuarios No baneados";
+  trHead.appendChild(thNoBaneados);
+
+  // Tbody principal
+  const tableBody = document.createElement("tbody");
+  table.appendChild(tableBody);
+
+  const trBody = document.createElement("tr");
+  tableBody.appendChild(trBody);
+
+  // --------------------------
+  // Celda: tabla usuarios baneados
+  const tdBaneados = document.createElement("td");
+  trBody.appendChild(tdBaneados);
+
+  const tableBaneados = document.createElement("table");
+  tableBaneados.className = "table is-bordered is-fullwidth";
+  tdBaneados.appendChild(tableBaneados);
+
+  const theadBaneados = document.createElement("thead");
+  // theadBaneados.className = "has-background-danger";
+  tableBaneados.appendChild(theadBaneados);
+
+  const trBaneadosHead = document.createElement("tr");
+  theadBaneados.appendChild(trBaneadosHead);
+
+  const thNombreBaneados = document.createElement("th");
+  thNombreBaneados.textContent = "Nombre de usuario";
+  trBaneadosHead.appendChild(thNombreBaneados);
+
+  const thAccionBaneados = document.createElement("th");
+  thAccionBaneados.textContent = "Accion";
+  trBaneadosHead.appendChild(thAccionBaneados);
+
+  const tbodyBaneados = document.createElement("tbody");
+  tableBaneados.appendChild(tbodyBaneados);
+
+  // Obtener usuarios baneados
+  const baneados = await getBaneados();
+  console.log(baneados);
+
+  baneados.forEach((element) => {
+    const trBaneado = document.createElement("tr");
+    tbodyBaneados.appendChild(trBaneado);
+
+    const tdNombreBaneado = document.createElement("td");
+    tdNombreBaneado.textContent = element;
+    trBaneado.appendChild(tdNombreBaneado);
+
+    const tdAccionBaneado = document.createElement("td");
+    const spanUnban = document.createElement("span");
+    spanUnban.className = "button is-danger";
+    spanUnban.textContent = "Unban";
+    spanUnban.onclick = () => unBan(element); // es un nombre de usuario
+    tdAccionBaneado.appendChild(spanUnban);
+    trBaneado.appendChild(tdAccionBaneado);
+  });
+
+  // --------------------------
+  // Celda: tabla usuarios NO baneados
+  const tdNoBaneados = document.createElement("td");
+  trBody.appendChild(tdNoBaneados);
+
+  const tableNoBaneados = document.createElement("table");
+  tableNoBaneados.className = "table is-bordered is-fullwidth is-striped";
+  tdNoBaneados.appendChild(tableNoBaneados);
+
+  const theadNoBaneados = document.createElement("thead");
+  // theadNoBaneados.className = "has-background-danger";
+  tableNoBaneados.appendChild(theadNoBaneados);
+
+  const trNoBaneadosHead = document.createElement("tr");
+  theadNoBaneados.appendChild(trNoBaneadosHead);
+
+  const thNombreNoBaneados = document.createElement("th");
+  thNombreNoBaneados.textContent = "Nombre de usuario";
+  trNoBaneadosHead.appendChild(thNombreNoBaneados);
+
+  const thAccionNoBaneados = document.createElement("th");
+  thAccionNoBaneados.textContent = "Accion";
+  trNoBaneadosHead.appendChild(thAccionNoBaneados);
+
+  const tbodyNoBaneados = document.createElement("tbody");
+  tableNoBaneados.appendChild(tbodyNoBaneados);
+
+  const noBaneados = await getNoBaneados();
+  console.log(baneados);
+
+  // Obtener usuarios no baneados
+  noBaneados.forEach((element) => {
+    const trNoBaneado = document.createElement("tr");
+    tbodyNoBaneados.appendChild(trNoBaneado);
+
+    const tdNombreNoBaneado = document.createElement("td");
+    tdNombreNoBaneado.textContent = element;
+    trNoBaneado.appendChild(tdNombreNoBaneado);
+
+    const tdAccionNoBaneado = document.createElement("td");
+    const spanBanear = document.createElement("span");
+    spanBanear.className = "button is-danger";
+    spanBanear.textContent = "Banear";
+    spanBanear.onclick = () => bannea(element); // es un nombre de usuario
+    tdAccionNoBaneado.appendChild(spanBanear);
+    trNoBaneado.appendChild(tdAccionNoBaneado);
+  });
+}
+
+// Banear
+async function bannea(nombre) {
+  await bannear(nombre);
+  await crearTablaDoble();
+}
+
+// UnBan
+async function unBan(nombre) {
+  await desbloquear(nombre);
+  await crearTablaDoble();
+}
+// FIN PARTE DE DAVID BAN Y UNBAN
