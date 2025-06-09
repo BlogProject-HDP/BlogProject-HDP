@@ -71,6 +71,25 @@ function actualizarComments() {
     document.getElementById('numeroComments').textContent = numeroComentarios
 }
 
+function actualizarPerfil({ nombre, usuario, fechapost }) {
+    // Actualiza nombre
+    const nombreElem = document.getElementById("name");
+    if (nombreElem) nombreElem.textContent = nombre;
+
+    // Actualiza usuario
+    const usuarioElem = document.getElementById("user");
+    if (usuarioElem) usuarioElem.textContent = `@${usuario}`;
+
+    // Actualiza bio
+    const fechaPost = document.querySelector("#fechaPost");
+    if (fechaPost) fechaPost.textContent = fechapost;
+
+    // Actualiza imagen de perfil
+    const imagenElem = document.querySelector(".image img.is-rounded");
+    if (imagenElem) imagenElem.src = imagen;
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const datosPost = {
         nombre: "John Smith",
@@ -87,6 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 actualizarComments();
+
+const datosUsuario = {
+        nombre: "Alexis Ventura",
+        usuario: "alexis_ve",
+        fechapost: "15/05/2005",
+        imagen: "https://i.pravatar.cc/64?img=55"
+    };
+
+    actualizarPerfil(datosUsuario);
 
 
 });
