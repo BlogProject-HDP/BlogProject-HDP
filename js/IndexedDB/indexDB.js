@@ -247,7 +247,7 @@ export function buscarEmail(email) {
 
 // ----------------------------------------------------------------
 // Bucar usuario por id: Devuelve el usuario si existe o null
-export function buscarId(id) {
+/*export function buscarId(id) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
 
@@ -279,9 +279,10 @@ export function buscarId(id) {
     };
   });
 }
-
+*/
 // ----------------------------------------------------------------
 // Obtener todos los usuarios
+/*
 export function obtenerTodosLosUsers() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
@@ -311,7 +312,7 @@ export function obtenerTodosLosUsers() {
       reject("Error al abrir la base de datos");
     };
   });
-}
+}*/
 
 // ----------------------------------------------------------------
 // Bucar usuario por id: Devuelve el usuario si existe o null
@@ -401,7 +402,7 @@ export function deletePost(postID){
         resolve();
       };
 
-      addRequest.onerror = (e) => {
+      deleteRequest.onerror = (e) => {
         console.error("Error al agregar el post:", e.target.error);
         reject(e.target.error);
       };
