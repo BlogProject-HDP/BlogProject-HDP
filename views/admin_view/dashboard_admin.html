@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Panel de Administración</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
-    <link rel="stylesheet" href="../shared/style.css">
+  <meta charset="UTF-8">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+  <link rel="stylesheet" href="../shared/style.css">
 </head>
+
 <body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title has-text-primary">Panel de Administración</h1>
+  <section class="section">
+    <div class="container">
+      <h1 class="title has-text-primary">Panel de Administración</h1>
 
-            <!-- Tabs principales con is-fullwidth e is-mobile -->
-            <div class="tabs is-boxed is-fullwidth is-mobile">
-                <ul>
-                    <li class="is-active" data-tab="usuarios"><a>Administración de Usuarios</a></li>
-                    <li data-tab="admin-posts"><a>Mis Posts</a></li>
-                    <li data-tab="shadowban"><a>ShadowBan</a></li>
-                    <li data-tab="comentarios"><a>Administrador de Comentarios</a></li>
-                </ul>
-            </div>
+      <!-- Tabs principales con is-fullwidth e is-mobile -->
+      <div class="tabs is-boxed is-fullwidth is-mobile">
+        <ul>
+          <li class="is-active" data-tab="usuarios"><a>Administración de Usuarios</a></li>
+          <li data-tab="admin-posts"><a>Mis Posts</a></li>
+          <li id="ban" data-tab="shadowban"><a>ShadowBan</a></li>
+          <li data-tab="comentarios"><a>Administrador de Comentarios</a></li>
+        </ul>
+      </div>
 
-            <!-- Administración de Usuarios -->
-            <div class="tab-content" id="usuarios">
-                <h2 class="subtitle">CRUD de Usuarios</h2>
-                <div id="usuarios-lista"></div>
-            </div>
+      <!-- Administración de Usuarios -->
+      <div class="tab-content" id="usuarios">
+        <h2 class="subtitle">CRUD de Usuarios</h2>
+        <div id="usuarios-lista"></div>
+      </div>
 
-            <!-- Admin Posts -->
-            <div class="tab-content is-hidden" id="admin-posts">
-                <h2 class="subtitle">CRUD de Mis Posts</h2>
-                <div id="admin-posts-lista"></div>
-            </div>
+      <!-- Admin Posts -->
+      <div class="tab-content is-hidden" id="admin-posts">
+        <h2 class="subtitle">CRUD de Mis Posts</h2>
+        <div id="admin-posts-lista"></div>
+      </div>
 
-            <!-- ShadowBan -->
-            <div class="tab-content is-hidden" id="shadowban">
-                <h2 class="subtitle">Silenciar Usuarios (ShadowBan)</h2>
-                <div id="shadowban-lista"></div>
-            </div>
+      <!-- ShadowBan -->
+      <div class="tab-content is-hidden" id="shadowban">
+        <h2 class="subtitle">Silenciar Usuarios (ShadowBan)</h2>
+        <div id="shadowban-lista"></div>
+      </div>
 
-            <!-- Administrador de Comentarios -->
-            <div class="tab-content is-hidden" id="comentarios">
-                <h2 class="subtitle">Administrador de Comentarios</h2>
-                <div class="tabs is-toggle is-small is-fullwidth is-mobile">
-                    <ul>
-                        <li class="is-active" data-subtab="pendientes"><a>Pendientes</a></li>
-                        <li data-subtab="eliminar"><a>Eliminar Comentarios</a></li>
-                    </ul>
-                </div>
-                <!-- Pendientes -->
-                <div class="subtab-content" id="pendientes">
-                    <div class="field">
-                        <label class="label">Buscar por Post</label>
-                        <div class="control">
-                            <input class="input" type="text" id="busqueda-post-pendientes" placeholder="Buscar por título o ID de post">
-                        </div>
-                    </div>
-                    <div id="comentarios-pendientes-lista"></div>
-                </div>
-                <!-- Eliminar -->
-                <div class="subtab-content is-hidden" id="eliminar">
-                    <div class="field">
-                        <label class="label">Buscar Comentario</label>
-                        <div class="control">
-                            <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario por texto, usuario, post...">
-                        </div>
-                    </div>
-                    <div id="comentarios-eliminar-lista"></div>
-                </div>
-            </div>
+      <!-- Administrador de Comentarios -->
+      <div class="tab-content is-hidden" id="comentarios">
+        <h2 class="subtitle">Administrador de Comentarios</h2>
+        <div class="tabs is-toggle is-small is-fullwidth is-mobile">
+          <ul>
+            <li class="is-active" data-subtab="pendientes"><a>Pendientes</a></li>
+            <li data-subtab="eliminar"><a>Eliminar Comentarios</a></li>
+          </ul>
         </div>
-    </section>
-    <script src="dashboard_admin.js"></script>
+        <!-- Pendientes -->
+        <div class="subtab-content" id="pendientes">
+          <div class="field">
+            <label class="label">Buscar por Post</label>
+            <div class="control">
+              <input class="input" type="text" id="busqueda-post-pendientes" placeholder="Buscar por título o ID de post">
+            </div>
+          </div>
+          <div id="comentarios-pendientes-lista"></div>
+        </div>
+        <!-- Eliminar -->
+        <div class="subtab-content is-hidden" id="eliminar">
+          <div class="field">
+            <label class="label">Buscar Comentario</label>
+            <div class="control">
+              <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario por texto, usuario, post...">
+            </div>
+          </div>
+          <div id="comentarios-eliminar-lista"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script type="module" src="dashboard_admin.js"></script>
 </body>
+
 </html>

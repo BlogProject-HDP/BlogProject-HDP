@@ -60,6 +60,22 @@ export async function crearIndexedDB() {
       tipo: "admin",
       email: "admin@gmail.com",
       password: hash,
+      banned: false, // NO BANEADO
+    };
+    const admin2 = {
+      usuario: "admin2",
+      tipo: "admin",
+      email: "admin2@gmail.com",
+      password: hash,
+      banned: true, // BANEADO
+    };
+
+    const admin3 = {
+      usuario: "admin3",
+      tipo: "admin",
+      email: "admin3@gmail.com",
+      password: hash,
+      banned: false, // NO BANEADO
     };
 
     const transaccion = db.transaction("users", "readwrite");
@@ -67,6 +83,20 @@ export async function crearIndexedDB() {
     const add = objeto.add(admin);
     add.onsuccess = () => {
       console.log("Se creo admin e IndexedDB con exito");
+    };
+
+    const transaccion2 = db.transaction("users", "readwrite");
+    const objeto2 = transaccion2.objectStore("users");
+    const add2 = objeto2.add(admin2);
+    add2.onsuccess = () => {
+      console.log("Se creo admin 2 e IndexedDB con exito");
+    };
+
+    const transaccion3 = db.transaction("users", "readwrite");
+    const objeto3 = transaccion3.objectStore("users");
+    const add3 = objeto3.add(admin3);
+    add3.onsuccess = () => {
+      console.log("Se creo admin 3 e IndexedDB con exito");
     };
   };
 
@@ -106,6 +136,39 @@ export function addUser(usuario) {
       console.log("Se agrego usuario con exito");
     };
   };
+}
+
+// ----------------------------------------------------------------
+// Put usuario: actualiza el usuario (usuario es un objeto javascript)
+export function putUser(usuario) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("users", "readwrite");
+      const objeto = transaccion.objectStore("users");
+      const add = objeto.put(usuario);
+
+      add.onsuccess = () => {
+        console.log("Se actualizó el usuario con éxito");
+        db.close();
+        resolve();
+      };
+
+      add.onerror = () => {
+        console.error("Error al actualizar el usuario");
+        db.close();
+        reject("Error al actualizar el usuario");
+      };
+    };
+
+    request.onerror = () => {
+      console.error("Error al abrir la base de datos");
+      reject("Error al abrir la base de datos");
+    };
+  });
 }
 
 // ----------------------------------------------------------------
@@ -172,6 +235,74 @@ export function buscarEmail(email) {
       getRequest.onerror = () => {
         console.log("Error al buscar el email");
         reject("Error al buscar el email");
+      };
+    };
+
+    request.onerror = () => {
+      console.log("Error al abrir la base de datos");
+      reject("Error al abrir la base de datos");
+    };
+  });
+}
+
+// ----------------------------------------------------------------
+// Bucar usuario por id: Devuelve el usuario si existe o null
+export function buscarId(id) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("users", "readonly");
+      const objeto = transaccion.objectStore("users");
+      const getRequest = objeto.get(id);
+
+      getRequest.onsuccess = () => {
+        const resultado = getRequest.result;
+        if (resultado) {
+          resolve(resultado);
+        } else {
+          resolve(null);
+        }
+      };
+
+      getRequest.onerror = () => {
+        console.log("Error al buscar el usuario");
+        reject("Error al buscar el usuario");
+      };
+    };
+
+    request.onerror = () => {
+      console.log("Error al abrir la base de datos");
+      reject("Error al abrir la base de datos");
+    };
+  });
+}
+
+// ----------------------------------------------------------------
+// Obtener todos los usuarios
+export function obtenerTodosLosUsers() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("users", "readonly");
+      const objeto = transaccion.objectStore("users");
+      const getAllRequest = objeto.getAll();
+
+      getAllRequest.onsuccess = () => {
+        const resultados = getAllRequest.result;
+        db.close();
+        resolve(resultados); // Esto será un array con todos los usuarios
+      };
+
+      getAllRequest.onerror = () => {
+        db.close();
+        console.log("Error al obtener todos los usuarios");
+        reject("Error al obtener todos los usuarios");
       };
     };
 
