@@ -250,22 +250,6 @@ async function buscar() {
   const divPadre = document.createElement("div");
   container.appendChild(divPadre);
   inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
-
-  // // Botón centrado
-  // const fieldBoton = document.createElement("div");
-  // fieldBoton.className = "field is-grouped is-grouped-centered";
-  // form.appendChild(fieldBoton);
-
-  // const controlBoton = document.createElement("div");
-  // controlBoton.className = "control";
-  // fieldBoton.appendChild(controlBoton);
-
-  // const buttonEnviar = document.createElement("button");
-  // buttonEnviar.className = "button is-info";
-  // buttonEnviar.type = "submit";
-  // buttonEnviar.textContent = "Enviar";
-  // buttonEnviar.onclick = () => busqueda(inputTexto, container); // es un nombre de usuario
-  // controlBoton.appendChild(buttonEnviar);
 }
 
 // Busqueda
@@ -315,7 +299,7 @@ async function busqueda(inputTexto, divPadre) {
             const btnBan = document.createElement("button");
             btnBan.className = "button is-danger";
             btnBan.textContent = "Banear";
-            btnBan.onclick = () => bannear(element.usuario); // es un nombre de usuario
+            btnBan.onclick = () => bannea(element.usuario); // es un nombre de usuario
             divButtons.appendChild(btnBan);
           }
         } // BUSQUEDA POR ID
@@ -353,7 +337,7 @@ async function busqueda(inputTexto, divPadre) {
             const btnBan = document.createElement("button");
             btnBan.className = "button is-danger";
             btnBan.textContent = "Banear";
-            btnBan.onclick = () => bannear(element.usuario); // es un nombre de usuario
+            btnBan.onclick = () => bannea(element.usuario); // es un nombre de usuario
             divButtons.appendChild(btnBan);
           }
         }
