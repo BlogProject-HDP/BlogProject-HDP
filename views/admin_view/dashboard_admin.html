@@ -5,18 +5,19 @@
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
     <link rel="stylesheet" href="../shared/style.css">
+    
 </head>
 <body>
     <section class="section">
         <div class="container">
             <h1 class="title has-text-primary">Panel de Administración</h1>
 
-            <!-- Tabs principales con is-fullwidth e is-mobile -->
+            <!-- Tabs principales -->
             <div class="tabs is-boxed is-fullwidth is-mobile">
                 <ul>
                     <li class="is-active" data-tab="usuarios"><a>Administración de Usuarios</a></li>
                     <li data-tab="admin-posts"><a>Mis Posts</a></li>
-                    <li data-tab="shadowban"><a>ShadowBan</a></li>
+                    <li id = "ban" data-tab="shadowban"><a>ShadowBan</a></li>
                     <li data-tab="comentarios"><a>Administrador de Comentarios</a></li>
                 </ul>
             </div>
@@ -26,10 +27,45 @@
                 <h2 class="subtitle">CRUD de Usuarios</h2>
                 <div id="usuarios-lista"></div>
             </div>
-
+            <!-- BAN de usuarios -->
             <!-- Admin Posts -->
             <div class="tab-content is-hidden" id="admin-posts">
                 <h2 class="subtitle">CRUD de Mis Posts</h2>
+
+                <!-- FORMULARIO PARA CREAR POST -->
+                <form id="form-crear-post" class="box">
+                    <div class="field">
+                        <label class="label">Nombre del Post</label>
+                        <div class="control">
+                            <input class="input" type="text" id="post-nombre" placeholder="Ingrese el nombre..." required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Categorías (separadas por coma)</label>
+                        <div class="control">
+                            <input class="input" type="text" id="post-categorias" placeholder="Ej: Tecnología, Noticias" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Contenido</label>
+                        <div class="control">
+                            <textarea class="textarea" id="post-contenido" placeholder="Escriba el contenido..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Imagen (opcional)</label>
+                        <div class="control">
+                            <input class="input" type="file" id="post-imagen" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Crear Post</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- LISTADO DE POSTS -->
                 <div id="admin-posts-lista"></div>
             </div>
 
@@ -63,7 +99,7 @@
                     <div class="field">
                         <label class="label">Buscar Comentario</label>
                         <div class="control">
-                            <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario por texto, usuario, post...">
+                            <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario...">
                         </div>
                     </div>
                     <div id="comentarios-eliminar-lista"></div>
@@ -71,6 +107,7 @@
             </div>
         </div>
     </section>
-    <script src="dashboard_admin.js"></script>
 </body>
+<script src="dashboard_admin.js" type="module"></script>
+<script src = "admin_ban.js" type = "module"></script>
 </html>
