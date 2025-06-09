@@ -2,6 +2,7 @@ import {
   addPost,
   cargarPosts,
   deletePost,
+  editPost
 } from "../../js/IndexedDB/indexDB.js";
 
 import {
@@ -11,12 +12,7 @@ import {
   bannear,
 } from "../../js/baneados/baneador.js";
 
-import {
-  buscarId,
-  buscarUser,
-  obtenerTodosLosUsers,
-} from "../../js/IndexedDB/indexDB.js";
-
+let currentEditingPost = null;
 // Manejo de las pestañas principales
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tabs ul li");
@@ -107,8 +103,8 @@ async function cargarPostsAdmin() {
     console.error(error);
   }
 }
-
-// Función para agregar un nuevo post
+window.eliminarPost = eliminarPost;
+window.editarPost = editarPost;
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -123,10 +119,11 @@ function agregarEventosCrearPost() {
       const imagenInput = document.getElementById("post-imagen");
       let imagenBase64 = null;
 
-      // Convertir la imagen a base64 si se seleccionó
       if (imagenInput.files.length > 0) {
         const file = imagenInput.files[0];
         imagenBase64 = await convertirImagenABase64(file);
+      } else if (currentEditingPost && currentEditingPost.imagen) {
+        imagenBase64 = currentEditingPost.imagen;
       }
 
       if (!nombre || !categorias.length || !contenido) {
@@ -134,23 +131,43 @@ function agregarEventosCrearPost() {
         return;
       }
 
-      const post = {
+      const postData = {
         nombre,
         categorias,
         contenido,
         imagen: imagenBase64,
-        fechaDePublicacion: new Date().toISOString(),
-        likes: [],
-        comentarios: [],
+        // Si no es edición, se asignan estos valores. Si es edición, se podrían mantener los originales o actualizar.
+        fechaDePublicacion: currentEditingPost
+          ? currentEditingPost.fechaDePublicacion
+          : new Date().toISOString(),
+        likes: currentEditingPost ? currentEditingPost.likes : [],
+        comentarios: currentEditingPost ? currentEditingPost.comentarios : [],
       };
 
       try {
-        await addPost(post);
+        if (currentEditingPost) {
+          // Estamos editando
+          const postActualizado = { ...currentEditingPost, ...postData };
+          await editPost(postActualizado);
+          alert("Post actualizado con éxito.");
+          currentEditingPost = null; // Resetear estado de edición
+          const submitButton = formCrear.querySelector("button[type='submit']");
+          if (submitButton) {
+            submitButton.textContent = "Crear Post";
+            submitButton.classList.remove("is-link");
+            submitButton.classList.add("is-primary");
+          }
+        } else {
+          // Estamos creando
+          await addPost(postData);
+          alert("Post creado con éxito.");
+        }
         formCrear.reset();
         cargarPostsAdmin();
-        alert("Post creado con éxito.");
       } catch (error) {
-        alert('Error al crear el post (posible duplicado en "nombre").');
+        alert(
+          `Error al ${currentEditingPost ? "actualizar" : "crear"} el post.`
+        );
         console.error(error);
       }
     });
@@ -181,10 +198,43 @@ async function eliminarPost(postID) {
   }
 }
 
-// Función para editar un post
-function editarPost(postID) {
-  alert(`Función para editar el post con ID: ${postID} aún no implementada.`);
-  // Aquí puedes implementar la lógica para editar un post
+// Función para preparar la edición de un post
+async function editarPost(postID) {
+  try {
+    const posts = await cargarPosts();
+    const postToEdit = posts.find((p) => p.id === postID);
+
+    if (!postToEdit) {
+      alert("Post no encontrado para editar.");
+      return;
+    }
+
+    currentEditingPost = postToEdit; // Guarda el post actual para edición
+
+    // Llenar el formulario con los datos del post
+    document.getElementById("post-nombre").value = postToEdit.nombre;
+    document.getElementById("post-categorias").value = (
+      postToEdit.categorias || []
+    ).join(", ");
+    document.getElementById("post-contenido").value = postToEdit.contenido;
+    document.getElementById("post-imagen").value = ""; // Limpiar por si había algo seleccionado
+
+    // Cambiar el texto y estilo del botón del formulario
+    const formCrear = document.getElementById("form-crear-post");
+    const submitButton = formCrear.querySelector("button[type='submit']");
+    if (submitButton) {
+      submitButton.textContent = "Guardar Cambios";
+      submitButton.classList.remove("is-primary");
+      submitButton.classList.add("is-link");
+    }
+
+    //  hacer scroll hasta el formulario para que sea visible
+    formCrear.scrollIntoView({ behavior: "smooth" });
+  } catch (error) {
+    alert("Error al cargar los datos del post para editar.");
+    console.error(error);
+    currentEditingPost = null; // Limpiar estado en caso de error
+  }
 }
 
 // PARTE DE DAVID PARA BAN Y UNBAN
@@ -235,7 +285,6 @@ async function buscar() {
   container.appendChild(divPadre);
   inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
 }
-
 // Busqueda
 async function busqueda(inputTexto, divPadre) {
   const input = inputTexto.value.trim().toLowerCase();

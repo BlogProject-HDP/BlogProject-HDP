@@ -312,39 +312,9 @@ export function obtenerTodosLosUsers() {
     };
   });
 }
-
 /*ACÁ COMIENZA LA SECCIÓN PARA PODER HACER CRUD DE UN POST*/
 // Función para agregar un post
 // Función para agregar un post
-
-export function deletePost(postID) {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("dbBlog-Tech", 1);
-
-    request.onsuccess = (e) => {
-      const db = e.target.result;
-
-      const transaccion = db.transaction("posts", "readwrite");
-      const store = transaccion.objectStore("posts");
-      const deleteRequest = store.delete(postID);
-
-      deleteRequest.onsuccess = () => {
-        console.log("Post eliminado con éxito");
-        resolve();
-      };
-
-      deleteRequest.onerror = (e) => {
-        console.error("Error al agregar el post:", e.target.error);
-        reject(e.target.error);
-      };
-    };
-
-    request.onerror = (e) => {
-      console.error("Error al abrir la base de datos:", e.target.error);
-      reject(e.target.error);
-    };
-  });
-}
 export function addPost(post) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
@@ -393,6 +363,83 @@ export function cargarPosts() {
       getAllRequest.onerror = (e) => {
         console.error("Error al cargar los posts:", e.target.error);
         reject(e.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+}
+export function deletePost(postID) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+      const transaccion = db.transaction("posts", "readwrite");
+      const store = transaccion.objectStore("posts");
+      const deleteRequest = store.delete(postID);
+
+      deleteRequest.onsuccess = () => {
+        console.log("Post eliminado con éxito:", postID);
+        resolve();
+      };
+
+      deleteRequest.onerror = (event) => {
+        console.error("Error al eliminar el post:", event.target.error);
+        reject(event.target.error);
+      };
+
+
+      transaccion.onerror = (event) => {
+        console.error("Error en la transacción al eliminar el post:", event.target.error);
+        reject(event.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+}
+
+// Función para editar/actualizar un post existente
+export function editPost(post) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+      // Asegúrate de que el objectStore exista y la transacción sea readwrite
+      if (!db.objectStoreNames.contains("posts")) {
+        console.error("El objectStore 'posts' no existe.");
+        reject("El objectStore 'posts' no existe.");
+        db.close();
+        return;
+      }
+      const transaccion = db.transaction("posts", "readwrite");
+      const store = transaccion.objectStore("posts");
+      
+      // El método put actualiza el objeto si existe, o lo crea si no.
+      // Es importante que el objeto 'post' tenga la propiedad 'id' correcta.
+      const updateRequest = store.put(post);
+
+      updateRequest.onsuccess = () => {
+        console.log("Post actualizado con éxito:", post.id);
+        resolve();
+      };
+
+      updateRequest.onerror = (event) => {
+        console.error("Error al actualizar el post:", event.target.error);
+        reject(event.target.error);
+      };
+
+      transaccion.onerror = (event) => {
+        console.error("Error en la transacción al actualizar el post:", event.target.error);
+        reject(event.target.error);
       };
     };
 
