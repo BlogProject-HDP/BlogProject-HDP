@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/style.css">
+    <link rel="stylesheet" href="./post.css">
+</head>
+
+<body>
+    <main class="container is-max-desktop mt-5">
+        <!-- Autor -->
+        <div class="box post-box">
+            <article class="media is-flex-direction-column  box mb-5">
+                <!-- Avatar -->
+                <div class="media-left is-flex is-flex-direction-row">
+                    <figure class="image is-64x64 is-flex is-align-items-center mr-4">
+                        <img class="is-rounded" src="https://i.pravatar.cc/64?img=55" alt="Anita Olsen">
+                    </figure>
+                    <div class="content mb-2 is-flex is-align-items-center">
+                        <p>
+                            <strong id="name">Anita Olsen</strong><br>
+                            <small id="user" class="has-text-grey">@anitaolsen</small><br>
+                            <small id="fechaPost" class="has-text-grey">• Posted on 3 Jun • Edited on 6 Jun</small>
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Contenido -->
+                <div class=" column media-content">
+                    <div>
+                        <!-- Título -->
+                        <h2 id="titulo" class="title is-3 mb-3"></h2>
+
+                        <!-- Texto del post -->
+                        
+
+                    </div>
+                    <!-- Acciones -->
+                    
+
+                </div>
+            </article>
+
+            <article>
+                <div id="Contenido" class="content">
+                          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia, ullam aliquid! Consequuntur perferendis mollitia magnam labore aspernatur! Aliquam culpa, aperiam ratione nemo corporis dolores itaque fugiat, nihil ipsa quod neque, quibusdam incidunt! Fugit vero magni ut nihil nostrum! Autem officia est eius dignissimos eum ab cum facilis modi deserunt molestias possimus, magnam explicabo dolorum maxime, animi consectetur velit similique laudantium quo harum natus obcaecati delectus maiores iste? Porro, quia molestiae eos maxime reiciendis adipisci soluta labore fugit saepe dolorum hic blanditiis laudantium provident aut. Doloremque recusandae rem maxime doloribus rerum fuga voluptatem beatae illo. Tempora rem totam dicta consequuntur id.
+                        </div>
+            </article>
+
+
+
+            <!-- Comentarios -->
+            <div id="container-comments" class=" mt-4">
+                <h2 class="title is-4">Top comments (<span id="numeroComments">35</span>)</h2>
+                <div class="field">
+                    <label class="label">Add to the discussion</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Leave a comment..."></textarea>
+                    </div>
+                    <div class="control mt-2">
+                        <button class="button is-link">Comment</button>
+                    </div>
+                </div>
+                <div id="comments">
+
+                </div>
+            </div>
+
+            <nav class="media-content mt-4" style="position: sticky; bottom: 0px; background-color: black;">
+                        <div class="is-flex is-align-items-center is-justify-content-start" style="gap: 1rem;">
+                            <a class="level-item" aria-label="reply">
+                                <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                            </a>
+                            <a class="level-item" aria-label="bookmark">
+                                <span class="icon is-small"><i class="fa-regular fa-bookmark"></i></span>
+                            </a>
+                            <a class="level-item" aria-label="like">
+                                <span class="icon is-small"><i class="fa-regular fa-heart"
+                                        style="color: red;"></i></span>
+                            </a>
+                        </div>
+                    </nav>
+    </main>
+
+
+
+
+    <script src="../shared/global.js"></script>
+    <script src="./post.js"></script>
+    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -9,9 +9,26 @@
     min-height: 100dvh;
 }
 
-.box:hover{
+
+
+.level-item > .icon:hover{
+
+    transform: scale(1.08);
+}
+
+.level-item > .icon{
+    transition: transform 0.3 ease;
+}
+
+
+.categoria{
+    border-radius: 9999px;
+    padding: 0.25rem !important;
+}
+.categoria:hover{
+
     cursor: pointer;
-    scale: 100.05%;
+    background-color: rgba(58, 60, 61, 0.432);
 }
 
 
