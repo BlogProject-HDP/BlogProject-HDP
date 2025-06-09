@@ -2,7 +2,8 @@ import {
   addPost,
   cargarPosts,
   deletePost,
-  editPost
+  editPost,
+  obtenerTodosLosUsers,
 } from "../../js/IndexedDB/indexDB.js";
 
 import {
