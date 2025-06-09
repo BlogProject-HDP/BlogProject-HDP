@@ -11,23 +11,81 @@
 </head>
 
 <body>
-    <main>
+    <main class="container is-max-desktop mt-5">
+        <!-- Autor -->
+        <div class="box post-box">
+            <article class="media is-flex-wrap-wrap box mb-5">
+                <!-- Avatar -->
+                <div class="media-left is-flex is-flex-direction-row">
+                    <figure class="image is-64x64 is-flex is-align-items-center mr-4">
+                        <img class="is-rounded" src="https://i.pravatar.cc/64?img=55" alt="Anita Olsen">
+                    </figure>
+                    <div class="content mb-2 is-flex is-align-items-center">
+                        <p>
+                            <strong>Anita Olsen</strong><br>
+                            <small class="has-text-grey">@anitaolsen</small><br>
+                            <small class="has-text-grey">• Posted on 3 Jun • Edited on 6 Jun</small>
+                        </p>
+                    </div>
 
-        <!--Post base-->
-        <div id="post" class="container is-max-desktop box">
-            <h1>Post</h1>
-            <!--el post-->
+                </div>
 
-            <!--comentarios-->
-            <div id="comments" class="container is-max-desktop box mt-4">
-                <h1>Comments</h1>
+                <!-- Contenido -->
+                <div class="media-content">
+                    <!-- Encabezado -->
 
-                <!--todos los comentarios-->
+
+                    <!-- Título -->
+                    <h2 class="title is-3 mb-3">What is Your Approach to Solving Problems With Code?</h2>
+
+                    <!-- Texto del post -->
+                    <div id="Contenido" class="content">
+                        <p>I do my best to remember what I have learned, to think outside the box, to be creative and
+                            break the code into smaller parts when necessary, but it is not always easy to do so.</p>
+                        <p><a href="https://codecombat.com" target="_blank">CodeCombat</a> sometimes asks me to complete
+                            a level with x lines of code...</p>
+                        <p>Problem-solving is one of the most important skills a programmer should have...</p>
+                        <p><strong>Do you have a particular approach to problem solving?</strong></p>
+                    </div>
+
+                    <!-- Acciones -->
+                    <nav class="level is-mobile mt-4">
+                        <div class="level-left" style="gap: 1rem; flex-wrap: nowrap;">
+                            <a class="level-item" aria-label="reply">
+                                <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                            </a>
+                            <a class="level-item" aria-label="bookmark">
+                                <span class="icon is-small"><i class="fa-regular fa-bookmark"></i></span>
+                            </a>
+                            <a class="level-item" aria-label="like">
+                                <span class="icon is-small"><i class="fa-regular fa-heart"
+                                        style="color: red;"></i></span>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </article>
+
+
+
+            <!-- Comentarios -->
+            <div id="container-comments" class="box mt-4">
+                <h2 class="title is-4">Top comments (<span id="numeroComments">35</span>)</h2>
+                <div class="field">
+                    <label class="label">Add to the discussion</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Leave a comment..."></textarea>
+                    </div>
+                    <div class="control mt-2">
+                        <button class="button is-link">Comment</button>
+                    </div>
+                </div>
+                <div id="comments">
+                    
+                </div>
             </div>
-        </div>
-
-
     </main>
+
 
 
 
