@@ -48,11 +48,13 @@ async function crearCuenta(e) {
       // Agregar usuario
       // Encriptar contraseña
       const hash = await hashPassword(password);
+
       const usuario = {
         usuario: user,
         tipo: "user",
         email: email,
         password: hash,
+        banned: false, // NO BANEADO
       };
       addUser(usuario); // Agregar
     } else if (userExiste && emailExiste) {
