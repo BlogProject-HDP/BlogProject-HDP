@@ -1,27 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-  //logica para el evento de la barra de busqueda
+  // lógica para el evento de la barra de búsqueda
   const inputBusqueda = document.getElementById("barra-busqueda");
   inputBusqueda.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       const query = inputBusqueda.value.trim();
       if (query !== "") {
-        // Codificamos el término de búsqueda para que sea seguro en una URL
         const encodedQuery = encodeURIComponent(query);
-        //la brarra inicial en la ruta indica que es desde la razi del server
-        // window.location.href = `/views/busqueda/busquedas.html?q=${encodedQuery}`;
         window.location.href = `/views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`;
         inputBusqueda.value = "";
       }
     }
   });
 
-
-  renderizarPosts(posts)
+  renderizarPosts(posts);
 });
-
-
-
-
 
 const posts = [
   {
@@ -30,6 +22,7 @@ const posts = [
     tiempo: "31m",
     titulo: "Titulo del post mandanga mandanaga",
     avatar: "../perfil_usuario/imagenPrueba.jpeg",
+    categorias: ["Tecnología", "Programación", "AI"],
   },
   {
     autor: "Maria López",
@@ -37,17 +30,28 @@ const posts = [
     tiempo: "12m",
     titulo: "Un título diferente para otro post",
     avatar: "../perfil_usuario/imagenPrueba.jpeg",
+    categorias: ["Diseño", "Creatividad"],
   },
   // más posts...
 ];
 
-
-
-
-
 function crearPostHTML(post) {
   const postDiv = document.createElement("div");
   postDiv.className = "box is-clickable";
+
+  // Generar el HTML dinámico para las categorías
+  let categoriasHTML = "";
+  if (Array.isArray(post.categorias)) {
+    categoriasHTML = post.categorias
+      .map(
+        (categoria) =>
+          `<span class="column is-narrow">
+            <p class="categoria is-clickable" data-categoria="${encodeURIComponent(categoria)}">${categoria}</p>
+          </span>`
+      )
+      .join("");
+  }
+
   postDiv.innerHTML = `
     <article class="media">
       <div class="media-left is-flex">
@@ -56,13 +60,15 @@ function crearPostHTML(post) {
         </figure>
       </div>
       <div class="media-content">
-        <div class="content">
+        <div class="content is-clipped">
           <p>
             <strong>${post.autor}</strong> <small>${post.usuario}</small>
             <small>${post.tiempo}</small>
           </p>
           <p class="is-size-5">${post.titulo}</p>
-          <p class="is-size-5">C# Python</p>
+          <div class="columns is-mobile is-multiline">
+            ${categoriasHTML}
+          </div>  
         </div>
         <nav class="level is-mobile">
           <div class="level-left is-flex-direction-row" style="gap: 1.5rem;">
@@ -86,6 +92,19 @@ function crearPostHTML(post) {
       </div>
     </article>
   `;
+
+  // Ahora, agregar el evento click a cada categoria:
+  // El postDiv ya tiene todo el HTML en innerHTML, así que seleccionamos las categorias
+  const categoriaElements = postDiv.querySelectorAll(".categoria");
+
+  categoriaElements.forEach((el) => {
+    el.addEventListener("click", (event) => {
+      const categoria = el.dataset.categoria;
+      // redirigimos a la vista de busqueda con filtro=categoria
+      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categoria`;
+    });
+  });
+
   return postDiv;
 }
 
@@ -95,10 +114,8 @@ function renderizarPosts(posts) {
   // Borra los posts anteriores si los hay
   container.innerHTML = "";
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     const postHTML = crearPostHTML(post);
     container.appendChild(postHTML);
   });
 }
-
-

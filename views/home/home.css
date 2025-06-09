@@ -21,3 +21,12 @@
 }
 
 
+.categoria{
+    border-radius: 9999px;
+    padding: 0.25rem !important;
+}
+.categoria:hover{
+
+    cursor: pointer;
+    background-color: rgba(58, 60, 61, 0.432);
+}
