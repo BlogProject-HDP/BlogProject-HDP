@@ -71,23 +71,20 @@ function actualizarComments() {
     document.getElementById('numeroComments').textContent = numeroComentarios
 }
 
-function actualizarPerfil({ nombre, usuario, fechapost }) {
-    // Actualiza nombre
+function actualizarPerfil({ nombre, usuario, fechapost, imagen }) {
     const nombreElem = document.getElementById("name");
     if (nombreElem) nombreElem.textContent = nombre;
 
-    // Actualiza usuario
     const usuarioElem = document.getElementById("user");
     if (usuarioElem) usuarioElem.textContent = `@${usuario}`;
 
-    // Actualiza bio
     const fechaPost = document.querySelector("#fechaPost");
     if (fechaPost) fechaPost.textContent = fechapost;
 
-    // Actualiza imagen de perfil
     const imagenElem = document.querySelector(".image img.is-rounded");
     if (imagenElem) imagenElem.src = imagen;
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -114,7 +111,29 @@ const datosUsuario = {
         imagen: "https://i.pravatar.cc/64?img=55"
     };
 
+
     actualizarPerfil(datosUsuario);
 
-
+    const datosUsuario2 = {
+        titulo: "Alexis Ventura",
+        texto: ["alexis_ve",'as'],
+        
+    };
+    actualizarPost(datosUsuario2)
 });
+
+function actualizarPost({ titulo, texto }) {
+    const title = document.getElementById('titulo');
+    const contenido = document.getElementById('Contenido');
+
+    if (title) title.textContent = titulo;
+
+    if (contenido) {
+        
+        texto.forEach(element => {
+            const p = document.createElement('p');
+            p.textContent = element;
+            contenido.appendChild(p);
+        });
+    }
+}
