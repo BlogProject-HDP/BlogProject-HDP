@@ -181,3 +181,94 @@ export function buscarEmail(email) {
     };
   });
 }
+
+/*ACÁ COMIENZA LA SECCIÓN PARA PODER HACER CRUD DE UN POST*/
+// Función para agregar un post
+// Función para agregar un post
+
+export function deletePost(postID){
+   return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("posts", "readwrite");
+      const store = transaccion.objectStore("posts");
+      const deleteRequest = store.delete(postID);
+
+      deleteRequest.onsuccess = () => {
+        console.log("Post eliminado con éxito");
+        resolve();
+      };
+
+      addRequest.onerror = (e) => {
+        console.error("Error al agregar el post:", e.target.error);
+        reject(e.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+    
+}
+export function addPost(post) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("posts", "readwrite");
+      const store = transaccion.objectStore("posts");
+      const addRequest = store.add(post);
+
+      addRequest.onsuccess = () => {
+        console.log("Post agregado con éxito");
+        resolve();
+      };
+
+      addRequest.onerror = (e) => {
+        console.error("Error al agregar el post:", e.target.error);
+        reject(e.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+}
+
+// Función para cargar todos los posts
+export function cargarPosts() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("posts", "readonly");
+      const store = transaccion.objectStore("posts");
+      const getAllRequest = store.getAll();
+
+      getAllRequest.onsuccess = () => {
+        resolve(getAllRequest.result);
+      };
+
+      getAllRequest.onerror = (e) => {
+        console.error("Error al cargar los posts:", e.target.error);
+        reject(e.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+}
