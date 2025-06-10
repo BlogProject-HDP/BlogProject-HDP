@@ -1,5 +1,5 @@
 
-
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 @media only screen and (max-width: 480px) {
     .toastui-editor-dropdown-toolbar {
@@ -7,3 +7,8 @@
         overflow-y: auto;
     }
 }
+
+
+
+
+
