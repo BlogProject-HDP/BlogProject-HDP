@@ -21,14 +21,21 @@
 
 :root{
    
-    --bulma-primary-h: 278deg;
+    /* --bulma-primary-h: 278deg;
     --bulma-primary-s: 94%;
     --bulma-primary-l: 43%;
 
 
     --bulma-link-h: 292deg;
-  --bulma-link-s: 71%;
-  --bulma-link-l: 43%;
+    --bulma-link-s: 71%;
+    --bulma-link-l: 43%; */
+
+     --bulma-primary-h: 258deg;
+    --bulma-primary-s: 76%;
+    --bulma-primary-l: 49%;
+    --bulma-link-h: 270deg;
+    --bulma-link-s: 81%;
+    --bulma-link-l: 51%;
 
   
 
@@ -41,12 +48,28 @@
 
     --swag-level-bg: var(--bulma-primary-90);
     --swag-level-fg: var(--bulma-primary-invert);
+
+    --swag-navbar-bg: var(--bulma-primary-base);
+    --swag-navbar-border: 0.12rem solid var(--bulma-primary-30);
     
 }
 
+.navbar{
+    /* bulma-navbar-background-color */
+    background-color: var(--swag-navbar-bg);
+    border: var(--swag-navbar-border);
+    /* border: 0.15rem solid red; */
+}
+
+/* modo oscuro para la fonkig navbar */
+[data-theme=dark] .navbar,
+.theme-dark .navbar {
+  background-color: var(--bulma-primary-35);
+  border: none; /* aquí sí afecta .navbar, no todo */
+}
 
 [data-theme=dark],
-.theme-dark {
+.theme-dark{
   /* Update CSS variables */
 
     /* para elementos en general (usado en auth) */
@@ -61,6 +84,9 @@
     /* usado en el custom level de post.html */
     --swag-level-bg: var(--bulma-primary-00);
     --swag-level-fg: var(--bulma-primary-light);
+
+    /* para navbar */
+
 }
 
 
