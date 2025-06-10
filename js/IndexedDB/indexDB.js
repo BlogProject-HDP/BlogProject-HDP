@@ -17,6 +17,7 @@ export async function crearIndexedDB() {
 
     userStore.createIndex("usuario", "usuario", { unique: true });
     userStore.createIndex("tipo", "tipo", { unique: false });
+    userStore.createIndex("fotoPerfil", "fotoPerfil", {unique:false}); //Perfil usuario
     userStore.createIndex("email", "email", { unique: true });
     userStore.createIndex("password", "password", { unique: false });
     userStore.createIndex("banned", "banned", { unique: false });
@@ -24,6 +25,7 @@ export async function crearIndexedDB() {
     userStore.createIndex("ciudad", "ciudad", { unique: false });
     userStore.createIndex("telefono", "telefono", { unique: true });
     userStore.createIndex("edad", "edad", { unique: false });
+    userStore.createIndex("descripcion", "descripcion", {unique: false})
     userStore.createIndex("comentarios", "comentarios", { multiEntry: true });
     userStore.createIndex("likes", "likes", { multiEntry: true });
 
@@ -33,7 +35,8 @@ export async function crearIndexedDB() {
       keyPath: "id",
       autoIncrement: true,
     });
-
+    postStore.createIndex("autor", "autor", {unique: false}); //Autor del post
+    postStore.createIndex("fotoPerfilAutor", "fotoPerfilAutor", {unique: false})
     postStore.createIndex("nombre", "nombre", { unique: true });
     postStore.createIndex("imagen", "imagen", { unique: false });
     postStore.createIndex("contenido", "contenido", { unique: false });
@@ -424,7 +427,6 @@ export function editPost(post) {
       const store = transaccion.objectStore("posts");
       
       // El método put actualiza el objeto si existe, o lo crea si no.
-      // Es importante que el objeto 'post' tenga la propiedad 'id' correcta.
       const updateRequest = store.put(post);
 
       updateRequest.onsuccess = () => {
@@ -449,3 +451,45 @@ export function editPost(post) {
     };
   });
 }
+/*
+export function obtenerInformacionPerfil(User){
+    return new Promise((resolve, reject) =>{
+      const request = indexedDB.open("dbBlog-Tech", 1);
+
+      request.onsuccess = (e) =>{
+        const db = e.target.result;
+
+        if(!db.objectStoreNames.contains("users")){
+          console.error("El objecStore no contiene a los usuarios");
+          reject("El objeto de users no existe");
+          db.close();
+          return;
+        }
+        const transaccion = db.transaccion("users", "readwrite");
+        const store = transaccion.objectStore("users");
+
+        const updateRequest = store.put(User)
+
+        updateRequest.onsuccess = () =>{
+          console.log("usuario actualizado con éxito" , User.id);
+          resolve();
+
+        };
+        updateRequest.onerror = (event) => {
+        console.error("Error al actualizar el usuario:", event.target.error);
+        reject(event.target.error);
+      };
+
+      transaccion.onerror = (event) => {
+        console.error("Error en la transacción al actualizar el usuario:", event.target.error);
+        reject(event.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+      
+    })
+}*/
