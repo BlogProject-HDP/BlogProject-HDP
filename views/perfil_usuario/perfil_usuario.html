@@ -11,13 +11,13 @@
 </head>
 
 <body>
-     <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
 
         <div class="navbar-brand">
-            
 
-            
-            
+
+
+
             <a class="navbar-item" href="../home/home.html">
                 <figure class="image is-64x64-desktop is-flex is-align-items-center">
                     <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
@@ -29,7 +29,7 @@
                     <div class="control has-icons-left">
                         <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
                         <span class="icon is-small is-left">
-                                <!-- <i class="fas fa-user"></i> -->
+                            <!-- <i class="fas fa-user"></i> -->
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
                     </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                
+
 
 
             </div>
@@ -85,7 +85,7 @@
                     </span>
                     <span>Perfil</span>
                 </a>
-                
+
 
                 <div class="navbar-item">
                     <div class="buttons">
@@ -96,9 +96,9 @@
                     </div>
                 </div>
 
-                
 
-               
+
+
             </div>
         </div>
     </nav>
@@ -111,28 +111,36 @@
             <div class="modal-content-user">
                 <form class="container box">
                     <div class="field">
-                        <label class="label">User</label>
+                        <label class="label">Usuario</label>
                         <div class="control">
-                            <input class="input" type="email" placeholder="e.g. " />
+                            <input class="input" type="text" name="user" placeholder="ej. Alexis Vega " />
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="email" placeholder="e.g. alex@example.com" />
+                            <input class="input" type="email" name="email" placeholder="ej. alex@example.com" />
                         </div>
                     </div>
 
                     <div class="field">
-                        <label class="label">Password</label>
+                        <label class="label">Contraseña</label>
                         <div class="control">
-                            <input class="input" type="password" placeholder="********" />
+                            <input class="input" type="password" name="password" placeholder="********" />
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <label class="label">Confirmar contraseña</label>
+                        <div class="control">
+                            <input class="input" type="password" name="password" placeholder="********" />
                         </div>
                     </div>
 
                     <div class="buttons">
-                        <button class="button is-success">Save changes</button>
-                        <button type="button" class="button">Cancel</button>
+                        <button class="button is-success">Guardar cambios</button>
+                        <button type="button" class="button">Cancelar</button>
 
                     </div>
                 </form>
@@ -149,28 +157,56 @@
             <div class="modal-content-user">
                 <form class="container box">
 
+                    <!-- Nombre -->
                     <div class="field">
-                        <label class="label">nombre</label>
+                        <label class="label">Nombre</label>
                         <div class="control">
-                            <input class="input" type="email" placeholder="e.g. " />
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">bio</label>
-                        <div class="control">
-                            <input class="input" type="email" placeholder="Hola, soy ..." />
+                            <input class="input" type="text" name="nombre" placeholder="ej. Dembele" required />
                         </div>
                     </div>
 
+                    <!-- Ciudad -->
                     <div class="field">
-                        <label class="label">Cumpleaños</label>
+                        <label class="label">Ciudad</label>
                         <div class="control">
-                            <input class="input" type="date" id="birthday" name="birthday">
+                            <input class="input" type="text" name="ciudad" placeholder="ej. Morazan" />
+                        </div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="field">
+                        <label class="label">Teléfono</label>
+                        <div class="control">
+                            <input class="input" type="tel" name="telefono" placeholder="ej. +503 7123 4567" />
+                        </div>
+                    </div>
+
+                    <!-- Edad -->
+                    <div class="field">
+                        <label class="label">Edad</label>
+                        <div class="control">
+                            <input class="input" type="number" name="edad" min="14" placeholder="ej. 21" />
+                        </div>
+                    </div>
+
+                    <!-- Imagen -->
+                    <div class="field">
+                        <label class="label">Imagen</label>
+                        <div class="control">
+                            <input class="input" type="file" name="imagen" accept="image/*" />
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="field">
+                        <label class="label">Bio</label>
+                        <div class="control">
+                            <textarea class="textarea" name="bio" placeholder="Hola, soy..."></textarea>
                         </div>
                     </div>
 
                     <div class="buttons">
-                        <button class="button is-success">Save changes</button>
+                        <button class="button is-success">Guardar cambios</button>
                         <button type="button" class="button">Cancel</button>
 
                     </div>
