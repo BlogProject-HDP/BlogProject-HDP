@@ -17,7 +17,7 @@ export async function crearIndexedDB() {
 
     userStore.createIndex("usuario", "usuario", { unique: true });
     userStore.createIndex("tipo", "tipo", { unique: false });
-    userStore.createIndex("fotoPerfil", "fotoPerfil", {unique:false}); //Perfil usuario
+    userStore.createIndex("fotoPerfil", "fotoPerfil", { unique: false }); //Perfil usuario
     userStore.createIndex("email", "email", { unique: true });
     userStore.createIndex("password", "password", { unique: false });
     userStore.createIndex("banned", "banned", { unique: false });
@@ -25,8 +25,9 @@ export async function crearIndexedDB() {
     userStore.createIndex("ciudad", "ciudad", { unique: false });
     userStore.createIndex("telefono", "telefono", { unique: true });
     userStore.createIndex("edad", "edad", { unique: false });
-    userStore.createIndex("descripcion", "descripcion", {unique: false})
+    userStore.createIndex("descripcion", "descripcion", { unique: false });
     userStore.createIndex("comentarios", "comentarios", { multiEntry: true });
+    // Un array con los id de los post [1, 3, 5] a los que dio like
     userStore.createIndex("likes", "likes", { multiEntry: true });
 
     // ----------------------------------------------------------------
@@ -35,8 +36,10 @@ export async function crearIndexedDB() {
       keyPath: "id",
       autoIncrement: true,
     });
-    postStore.createIndex("autor", "autor", {unique: false}); //Autor del post
-    postStore.createIndex("fotoPerfilAutor", "fotoPerfilAutor", {unique: false})
+    postStore.createIndex("autor", "autor", { unique: false }); //Autor del post
+    postStore.createIndex("fotoPerfilAutor", "fotoPerfilAutor", {
+      unique: false,
+    });
     postStore.createIndex("nombre", "nombre", { unique: true });
     postStore.createIndex("imagen", "imagen", { unique: false });
     postStore.createIndex("contenido", "contenido", { unique: false });
@@ -45,6 +48,7 @@ export async function crearIndexedDB() {
     });
     postStore.createIndex("categorias", "categorias", { multiEntry: true });
     postStore.createIndex("comentarios", "comentarios", { multiEntry: true });
+    // Un array con los id de los usuarios [1, 3, 5] que dieron likes
     postStore.createIndex("likes", "likes", { multiEntry: true });
   };
 
@@ -395,9 +399,11 @@ export function deletePost(postID) {
         reject(event.target.error);
       };
 
-
       transaccion.onerror = (event) => {
-        console.error("Error en la transacción al eliminar el post:", event.target.error);
+        console.error(
+          "Error en la transacción al eliminar el post:",
+          event.target.error
+        );
         reject(event.target.error);
       };
     };
@@ -425,7 +431,7 @@ export function editPost(post) {
       }
       const transaccion = db.transaction("posts", "readwrite");
       const store = transaccion.objectStore("posts");
-      
+
       // El método put actualiza el objeto si existe, o lo crea si no.
       const updateRequest = store.put(post);
 
@@ -440,7 +446,10 @@ export function editPost(post) {
       };
 
       transaccion.onerror = (event) => {
-        console.error("Error en la transacción al actualizar el post:", event.target.error);
+        console.error(
+          "Error en la transacción al actualizar el post:",
+          event.target.error
+        );
         reject(event.target.error);
       };
     };
@@ -493,3 +502,37 @@ export function obtenerInformacionPerfil(User){
       
     })
 }*/
+
+// Bucar usuario por id: Devuelve el usuario si existe o null
+export function buscarPostPoId(id) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("posts", "readonly");
+      const objeto = transaccion.objectStore("posts");
+      const getRequest = objeto.get(id);
+
+      getRequest.onsuccess = () => {
+        const resultado = getRequest.result;
+        if (resultado) {
+          resolve(resultado);
+        } else {
+          resolve(null);
+        }
+      };
+
+      getRequest.onerror = () => {
+        console.log("Error al buscar el usuario");
+        reject("Error al buscar el usuario");
+      };
+    };
+
+    request.onerror = () => {
+      console.log("Error al abrir la base de datos");
+      reject("Error al abrir la base de datos");
+    };
+  });
+}
