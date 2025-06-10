@@ -65,95 +65,75 @@ function crearComment({ nombre, usuario, tiempo, contenido }) {
 }
 
 
-function crearPost({ nombre, usuario, tiempo, titulo, imagen }) {
-    const box = document.createElement("div");
-    box.className = "box post-box";
+function crearPost({ nombre, usuario, tiempo, titulo, imagen, categorias = [] }) {
+    const postDiv = document.createElement("div");
+    postDiv.className = "box post-box is-clickable";
 
-    const article = document.createElement("article");
-    article.className = "media is-flex-wrap-wrap";
+    let categoriasHTML = "";
+    if (Array.isArray(categorias)) {
+        categoriasHTML = categorias
+            .map(
+                (categoria) =>
+                    `<span class="column is-narrow">
+                        <p class="categoria is-clickable" data-categoria="${encodeURIComponent(categoria)}">${categoria}</p>
+                    </span>`
+            )
+            .join("");
+    }
 
-    // media-left (imagen)
-    const mediaLeft = document.createElement("div");
-    mediaLeft.className = "media-left";
-    mediaLeft.style.flex = "none"; // evita que la imagen se estire
-
-    const figure = document.createElement("figure");
-    figure.className = "image is-64x64 is-flex is-align-items-center";
-
-    const img = document.createElement("img");
-    img.src = imagen || "https://bulma.io/assets/images/placeholders/128x128.png";
-    img.alt = "Image";
-    img.className = "is-rounded"; // para que se vea más estilizado
-
-    figure.appendChild(img);
-    mediaLeft.appendChild(figure);
-
-    // media-content
-    const mediaContent = document.createElement("div");
-    mediaContent.className = "media-content";
-
-    const content = document.createElement("div");
-    content.className = "content";
-
-    const pInfo = document.createElement("p");
-    pInfo.innerHTML = `
-        <strong>${nombre}</strong> <small>@${usuario}</small>
-        <small>${tiempo}</small>
-        <br />
+    postDiv.innerHTML = `
+    <article class="media">
+      <div class="media-left is-flex">
+        <figure class="image is-64x64 is-flex">
+          <img src="${imagen || "https://bulma.io/assets/images/placeholders/128x128.png"}" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content is-clipped">
+          <p>
+            <strong>${nombre}</strong> <small>@${usuario}</small>
+            <small>${tiempo}</small>
+          </p>
+          <p class="is-size-5">${titulo}</p>
+          <div class="columns is-mobile is-multiline">
+            ${categoriasHTML}
+          </div>  
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left is-flex-direction-row" style="gap: 1.5rem;">
+            <a class="level-item pt-2" aria-label="reply">
+              <span class="icon is-small">
+                <i class="fa-regular fa-comment" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="level-item pt-2" aria-label="retweet">
+              <span class="icon is-small">
+                <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="level-item pt-2" aria-label="like">
+              <span class="icon is-small">
+                <i class="fa-solid fa-heart" style="color: red;"></i>
+              </span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
     `;
 
-    const pTitulo = document.createElement("p");
-    pTitulo.className = "is-size-5 has-text-weight-medium has-text-left-touch has-text-centered-mobile";
-    pTitulo.textContent = titulo;
+    // Hacer las categorías clicables (como en el resto del sistema)
+    const categoriaElements = postDiv.querySelectorAll(".categoria");
+    categoriaElements.forEach((el) => {
+        el.addEventListener("click", (event) => {
+            const categoria = el.dataset.categoria;
+            window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+        });
+    });
 
-    content.appendChild(pInfo);
-    content.appendChild(pTitulo);
-    mediaContent.appendChild(content);
-
-   // nivel de acciones
-const nav = document.createElement("nav");
-nav.className = "level is-mobile mt-2";
-
-const levelLeft = document.createElement("div");
-levelLeft.className = "level-left is-flex is-align-items-center";
-levelLeft.style.gap = "1rem";         
-levelLeft.style.flexWrap = "nowrap";  
-levelLeft.style.flexDirection = "row"; 
-
-const acciones = [
-    { icon: "fas fa-reply", label: "reply" },
-    { icon: "fa-regular fa-bookmark", label: "bookmark" },
-    { icon: "fa-regular fa-heart", label: "like", color: "red" }
-];
-
-acciones.forEach(({ icon, label, color }) => {
-    const a = document.createElement("a");
-    a.className = "level-item";
-    a.setAttribute("aria-label", label);
-
-    const span = document.createElement("span");
-    span.className = "icon is-small";
-
-    const i = document.createElement("i");
-    i.className = icon;
-    if (color) i.style.color = color;
-
-    span.appendChild(i);
-    a.appendChild(span);
-    levelLeft.appendChild(a);
-});
-
-nav.appendChild(levelLeft);
-mediaContent.appendChild(nav);
-
-
-    // estructura final
-    article.appendChild(mediaLeft);
-    article.appendChild(mediaContent);
-    box.appendChild(article);
-
-    return box;
+    return postDiv;
 }
+
 
 
 
@@ -198,21 +178,22 @@ function actualizarPerfil({ nombre, usuario, bio, fechaNacimiento, imagen }) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    
+
+
     const postData = {
-        nombre: "John Smith",
-        usuario: "johnsmith",
-        tiempo: "31m",
-        titulo: "Este es un título dinámico",
-        imagen: "https://i.pravatar.cc/64?img=55"
-    };
+    nombre: "John Smith",
+    usuario: "johnsmith",
+    tiempo: "31m",
+    titulo: "Este es un título dinámico",
+    imagen: "https://i.pravatar.cc/64?img=55",
+    categorias: ["Tecnología", "Programación", "IA"]
+};
 
     const contenedor = document.getElementById("post");
     const nuevoPost = crearPost(postData);
     contenedor.appendChild(nuevoPost);
-    const nuevoPost2 = crearPost(postData);
-    contenedor.appendChild(nuevoPost2);
+    // const nuevoPost2 = crearPost(postData);
+    // contenedor.appendChild(nuevoPost2);
 
     const datosPost = {
         nombre: "John Smith",
@@ -237,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     actualizarEstadisticas();
 
-// Función para abrir un modal
+    // Función para abrir un modal
     function abrirModal(id) {
         document.getElementById(id).classList.add("is-active");
     }
