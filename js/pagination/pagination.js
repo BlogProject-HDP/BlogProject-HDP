@@ -73,42 +73,76 @@ function mostrarPosts(posts) {
   }
 
   posts.forEach((post) => {
+    // Crear el div principal con Bulma
     const postDiv = document.createElement("div");
-    postDiv.className = "post";
-    postDiv.style.border = "1px solid #ccc";
-    postDiv.style.padding = "10px";
-    postDiv.style.marginBottom = "10px";
-    postDiv.style.display = "flex";
-    postDiv.style.gap = "15px";
-    postDiv.style.alignItems = "center";
+    postDiv.className = "box is-clickable";
 
-    const img = document.createElement("img");
-    img.src = post.imagen || "";
-    img.alt = post.nombre;
-    img.style.width = "120px";
-    img.style.height = "80px";
-    img.style.objectFit = "cover";
-    postDiv.appendChild(img);
+    // Construir categorías
+    let categoriasHTML = "";
+    if (Array.isArray(post.categorias)) {
+      categoriasHTML = post.categorias
+        .map(
+          (categoria) =>
+            `<span class="column is-narrow">
+              <p class="categoria is-clickable" data-categoria="${encodeURIComponent(categoria)}">${categoria}</p>
+            </span>`
+        )
+        .join("");
+    }
 
-    const info = document.createElement("div");
-    info.style.flex = "1";
-
-    info.innerHTML = `
-      <h3>${post.nombre}</h3>
-      <p>${post.contenido}</p>
-      <p><strong>Publicado:</strong> ${
-        new Date(post.fechaDePublicacion).toLocaleDateString() || "Sin fecha"
-      }</p>
-      <p><strong>Categorías:</strong> ${(post.categorias || []).join(", ")}</p>
-      <p><strong>Comentarios:</strong> ${
-        post.comentarios ? post.comentarios.length : 0
-      }</p>
-      <p><strong>Likes:</strong> ${post.likes ? post.likes.length : 0}</p>
+    // Insertar el HTML completo
+    postDiv.innerHTML = `
+      <article class="media">
+        <div class="media-left is-flex">
+          <figure class="image is-64x64 is-flex">
+            <img src="${post.imagen || ''}" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content is-clipped">
+            <p>
+              <strong>${post.nombre}</strong> 
+              <small>${new Date(post.fechaDePublicacion).toLocaleDateString() || "Sin fecha"}</small>
+            </p>
+            <p class="is-size-5">${post.contenido}</p>
+            <div class="columns is-mobile is-multiline">
+              ${categoriasHTML}
+            </div>  
+          </div>
+          <nav class="level is-mobile">
+            <div class="level-left is-flex-direction-row" style="gap: 1.5rem;">
+              <a class="level-item pt-2" aria-label="reply">
+                <span class="icon is-small">
+                  <i class="fa-regular fa-comment" aria-hidden="true"></i>
+                </span>
+              </a>
+              <a class="level-item pt-2" aria-label="retweet">
+                <span class="icon is-small">
+                  <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+                </span>
+              </a>
+              <a class="level-item pt-2" aria-label="like">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-heart" style="color: red;"></i>
+                </span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </article>
     `;
 
-    postDiv.appendChild(info);
+    // Evento para categorías que redirige al filtro de búsqueda
+    const categoriaElements = postDiv.querySelectorAll(".categoria");
+    categoriaElements.forEach((el) => {
+      el.addEventListener("click", (event) => {
+        event.stopPropagation(); // evitar que se dispare el click general
+        const categoria = el.dataset.categoria;
+        window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+      });
+    });
 
-    // AGREGADO POR DAVID
+    // Evento click para abrir post
     postDiv.addEventListener("click", () => abrirPost(post.id));
 
     div.appendChild(postDiv);
@@ -116,6 +150,7 @@ function mostrarPosts(posts) {
 
   renderPagination();
 }
+
 
 // AGREGADO POR DAVID
 function abrirPost(id) {

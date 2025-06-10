@@ -1,6 +1,11 @@
+import { cargarPosts } from "/js/indexedDB/IndexDB.js";  
+
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("window.location.search:", window.location.search);
   const params = new URLSearchParams(window.location.search);
   const query = params.get("q");
+    console.log("query obtenida:", query);
+
   let filtro = params.get("filtro") || "posts";
 
   const paramLabel = document.getElementById("paramLabel");
@@ -75,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function crearPostHTML(post) {
+    console.log("Post:", post);
   const postDiv = document.createElement("div");
   postDiv.className = "box is-clickable";
 
@@ -94,16 +100,16 @@ function crearPostHTML(post) {
     <article class="media">
       <div class="media-left is-flex">
         <figure class="image is-64x64 is-flex">
-          <img src="${post.avatar}" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
+          <img src="${post.imagen}" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
         </figure>
       </div>
       <div class="media-content">
         <div class="content is-clipped">
           <p>
-            <strong>${post.autor}</strong> <small>${post.usuario}</small>
-            <small>${post.tiempo}</small>
+            <strong>${post.nombre}</strong> 
+            <small>${new Date(post.fechaDePublicacion).toLocaleDateString() || "Sin fecha"}</small>
           </p>
-          <p class="is-size-5">${post.titulo}</p>
+          <p class="is-size-5">${post.contenido}</p>
           <div class="columns is-mobile is-multiline">
             ${categoriasHTML}
           </div>  
@@ -143,58 +149,44 @@ function crearPostHTML(post) {
 }
 
 // Simulación de renderizado
-function renderizarResultados(query, filtro) {
+async function renderizarResultados(query, filtro) {
   const container = document.getElementById("post-container");
-
-  // Elimina los resultados anteriores
   container.innerHTML = "";
 
-  // Simulación de posts (esto lo reemplazarás luego por los resultados de la búsqueda real)
-  const allPosts = [
-    {
-      autor: "John Smith",
-      usuario: "@jo",
-      tiempo: "31m",
-      titulo: `Post sobre ${query}`,
-      avatar: "../perfil_usuario/imagenPrueba.jpeg",
-      categorias: ["Tecnología", "Programación", "AI"],
-    },
-    {
-      autor: "Maria López",
-      usuario: "@marilo",
-      tiempo: "12m",
-      titulo: `Otro post relacionado con ${query}`,
-      avatar: "../perfil_usuario/imagenPrueba.jpeg",
-      categorias: ["Diseño", "Creatividad", query],
-    },
-  ];
+  try {
+    const allPosts = await cargarPosts();
+    console.log("Posts cargados:", allPosts);  // <--- Aquí
 
-  // Filtro de resultados
-  let resultados = [];
+    let resultados = [];
 
-  if (filtro === "posts") {
-    resultados = allPosts.filter((post) =>
-      post.titulo.toLowerCase().includes(query.toLowerCase())
-    );
-  } else if (filtro === "categorias") {
-    resultados = allPosts.filter((post) =>
-      post.categorias.some((cat) =>
-        cat.toLowerCase() === query.toLowerCase()
-      )
-    );
-  }
+    if (filtro === "posts") {
+      resultados = allPosts.filter((post) =>
+        typeof post.nombre === "string" &&
+        post.nombre.toLowerCase().includes(query.toLowerCase())
+      );
+    } else if (filtro === "categorias") {
+      resultados = allPosts.filter((post) =>
+        Array.isArray(post.categorias) &&
+        post.categorias.some((cat) => typeof cat === "string" && cat.toLowerCase() === query.toLowerCase())
+      );
+    }
 
-  // Renderizar posts encontrados
-  resultados.forEach((post) => {
-    const postHTML = crearPostHTML(post);
-    container.appendChild(postHTML);
-  });
-
-  // Si no hay resultados, mostrar un mensaje
-  if (resultados.length === 0) {
+    if (resultados.length > 0) {
+      resultados.forEach((post) => {
+        const postHTML = crearPostHTML(post);
+        container.appendChild(postHTML);
+      });
+    } else {
+      const mensaje = document.createElement("div");
+      mensaje.className = "notification is-warning";
+      mensaje.textContent = `No se encontraron resultados para "${query}" en ${filtro}`;
+      container.appendChild(mensaje);
+    }
+  } catch (error) {
+    console.error("Error al cargar los posts desde IndexedDB:", error);
     const mensaje = document.createElement("div");
-    mensaje.className = "notification is-warning";
-    mensaje.textContent = `No se encontraron resultados para "${query}" en ${filtro}`;
+    mensaje.className = "notification is-danger";
+    mensaje.textContent = "Hubo un error al cargar los resultados.";
     container.appendChild(mensaje);
   }
 }
