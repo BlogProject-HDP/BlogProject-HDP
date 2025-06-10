@@ -25,6 +25,7 @@ export async function crearIndexedDB() {
     userStore.createIndex("telefono", "telefono", { unique: true });
     userStore.createIndex("edad", "edad", { unique: false });
     userStore.createIndex("comentarios", "comentarios", { multiEntry: true });
+    // Un array con los id de los post [1, 3, 5] a los que dio like
     userStore.createIndex("likes", "likes", { multiEntry: true });
 
     // ----------------------------------------------------------------
@@ -42,6 +43,7 @@ export async function crearIndexedDB() {
     });
     postStore.createIndex("categorias", "categorias", { multiEntry: true });
     postStore.createIndex("comentarios", "comentarios", { multiEntry: true });
+    // Un array con los id de los usuarios [1, 3, 5] que dieron likes
     postStore.createIndex("likes", "likes", { multiEntry: true });
   };
 
@@ -62,41 +64,12 @@ export async function crearIndexedDB() {
       password: hash,
       banned: false, // NO BANEADO
     };
-    const admin2 = {
-      usuario: "admin2",
-      tipo: "admin",
-      email: "admin2@gmail.com",
-      password: hash,
-      banned: true, // BANEADO
-    };
-
-    const admin3 = {
-      usuario: "admin3",
-      tipo: "admin",
-      email: "admin3@gmail.com",
-      password: hash,
-      banned: false, // NO BANEADO
-    };
 
     const transaccion = db.transaction("users", "readwrite");
     const objeto = transaccion.objectStore("users");
     const add = objeto.add(admin);
     add.onsuccess = () => {
       console.log("Se creo admin e IndexedDB con exito");
-    };
-
-    const transaccion2 = db.transaction("users", "readwrite");
-    const objeto2 = transaccion2.objectStore("users");
-    const add2 = objeto2.add(admin2);
-    add2.onsuccess = () => {
-      console.log("Se creo admin 2 e IndexedDB con exito");
-    };
-
-    const transaccion3 = db.transaction("users", "readwrite");
-    const objeto3 = transaccion3.objectStore("users");
-    const add3 = objeto3.add(admin3);
-    add3.onsuccess = () => {
-      console.log("Se creo admin 3 e IndexedDB con exito");
     };
   };
 
@@ -152,7 +125,7 @@ export function putUser(usuario) {
       const add = objeto.put(usuario);
 
       add.onsuccess = () => {
-        console.log("Se actualizó el usuario con éxito");
+        console.log("Se actualizó el usuario con éxito: ", usuario.id);
         db.close();
         resolve();
       };
@@ -372,6 +345,8 @@ export function cargarPosts() {
     };
   });
 }
+
+// Funcion para eliminar un post
 export function deletePost(postID) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
@@ -392,9 +367,11 @@ export function deletePost(postID) {
         reject(event.target.error);
       };
 
-
       transaccion.onerror = (event) => {
-        console.error("Error en la transacción al eliminar el post:", event.target.error);
+        console.error(
+          "Error en la transacción al eliminar el post:",
+          event.target.error
+        );
         reject(event.target.error);
       };
     };
@@ -422,7 +399,7 @@ export function editPost(post) {
       }
       const transaccion = db.transaction("posts", "readwrite");
       const store = transaccion.objectStore("posts");
-      
+
       // El método put actualiza el objeto si existe, o lo crea si no.
       // Es importante que el objeto 'post' tenga la propiedad 'id' correcta.
       const updateRequest = store.put(post);
@@ -438,7 +415,10 @@ export function editPost(post) {
       };
 
       transaccion.onerror = (event) => {
-        console.error("Error en la transacción al actualizar el post:", event.target.error);
+        console.error(
+          "Error en la transacción al actualizar el post:",
+          event.target.error
+        );
         reject(event.target.error);
       };
     };
@@ -446,6 +426,40 @@ export function editPost(post) {
     request.onerror = (e) => {
       console.error("Error al abrir la base de datos:", e.target.error);
       reject(e.target.error);
+    };
+  });
+}
+
+// Bucar usuario por id: Devuelve el usuario si existe o null
+export function buscarPostPoId(id) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("posts", "readonly");
+      const objeto = transaccion.objectStore("posts");
+      const getRequest = objeto.get(id);
+
+      getRequest.onsuccess = () => {
+        const resultado = getRequest.result;
+        if (resultado) {
+          resolve(resultado);
+        } else {
+          resolve(null);
+        }
+      };
+
+      getRequest.onerror = () => {
+        console.log("Error al buscar el usuario");
+        reject("Error al buscar el usuario");
+      };
+    };
+
+    request.onerror = () => {
+      console.log("Error al abrir la base de datos");
+      reject("Error al abrir la base de datos");
     };
   });
 }
