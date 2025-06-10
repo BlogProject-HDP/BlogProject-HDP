@@ -199,5 +199,50 @@
     
 }
 
+.custom-grid-container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
 
+.custom-grid-column{
+    
+    grid-column: span 12;
+}
+
+
+
+@media (min-width: 426px){
+
+   
+    .custom-grid-column{
+        grid-column: 2/12;
+    }
+}
+
+@media (min-width: 767px) {
+  /* Estilos que se aplican desde 723px en adelante */
+  .custom-grid-container{
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .custom-grid-column{
+    grid-column: 2/4;
+
+  }
+
+
+}
+
+
+@media (min-width: 1023px) {
+  /* Estilos que se aplican desde 723px en adelante */
+  .custom-grid-container{
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .custom-grid-column{
+    grid-column: 2/3;
+
+  }
+
+
+}
 
