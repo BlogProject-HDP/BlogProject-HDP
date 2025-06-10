@@ -4,6 +4,7 @@ import {
   deletePost,
   editPost,
   obtenerTodosLosUsers,
+  buscarId
 } from "../../js/IndexedDB/indexDB.js";
 
 import {
@@ -21,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      // Remover la clase "is-active" de todas las pestañas
       tabs.forEach((t) => t.classList.remove("is-active"));
 
       // Agregar la clase "is-active" a la pestaña seleccionada
@@ -106,6 +106,7 @@ async function cargarPostsAdmin() {
 }
 window.eliminarPost = eliminarPost;
 window.editarPost = editarPost;
+
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -132,12 +133,38 @@ function agregarEventosCrearPost() {
         return;
       }
 
+      let nombreDelAutor = "Autor Desconocido"; // Valor por defecto
+      const adminIdString = localStorage.getItem("adminId");
+      let fotoPerfilDelAutor = null; 
+      if (adminIdString) {
+        try {
+          const adminUser = await buscarId(parseInt(adminIdString, 10));
+          if (adminUser) {
+            if (adminUser.usuario) {
+              nombreDelAutor = adminUser.usuario;
+            }
+            if (adminUser.fotoPerfil) { 
+              fotoPerfilDelAutor = adminUser.fotoPerfil;
+            } else {
+              console.warn("El usuario administrador no tiene foto de perfil configurada.");
+            }
+          } else {
+            console.warn("No se encontró el usuario administrador con ID:", adminIdString);
+          }
+        } catch (error) {
+          console.error("Error al buscar los detalles del administrador:", error);
+        }
+      } else {
+        console.warn("No se encontró 'adminId' en localStorage.");
+      }
+
       const postData = {
+        autor: nombreDelAutor, // Usar el nombre del autor obtenido
+        fotoPerfilAutor: fotoPerfilDelAutor,
         nombre,
         categorias,
         contenido,
         imagen: imagenBase64,
-        // Si no es edición, se asignan estos valores. Si es edición, se podrían mantener los originales o actualizar.
         fechaDePublicacion: currentEditingPost
           ? currentEditingPost.fechaDePublicacion
           : new Date().toISOString(),

@@ -35,7 +35,8 @@ export async function crearIndexedDB() {
       keyPath: "id",
       autoIncrement: true,
     });
-
+    postStore.createIndex("autor", "autor", {unique: false}); //Autor del post
+    postStore.createIndex("fotoPerfilAutor", "fotoPerfilAutor", {unique: false})
     postStore.createIndex("nombre", "nombre", { unique: true });
     postStore.createIndex("imagen", "imagen", { unique: false });
     postStore.createIndex("contenido", "contenido", { unique: false });
