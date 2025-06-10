@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar</title>
-    <link rel="stylesheet" href="../shared/style.css">
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@toast-ui/editor@3.0.0/dist/theme/toastui-editor-dark.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@toast-ui/editor@3.0.0/dist/theme/toastui-editor-dark.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/style.css">
     <link rel="stylesheet" href="crear_post.css">
 
 </head>
@@ -107,6 +108,69 @@
     </nav>
 
     <main class="box container is-max-desktop mt-6">
+
+        <div class="columns mt-5">
+
+            <div id="botonAgregarPortada" class="column is-narrow">
+
+                <label class="button is-outlined is-primary">
+                    Agregar portada
+                    <input type="file" accept="image/*" style="display: none;" id="inputAgregarPortada">
+                </label>
+
+            </div>
+
+            <div class="column is-narrow is-hidden" id="controlesImagen">
+
+                <div class="is-flex is-flex-direction-column" style="gap: 0.50rem;">
+                    <div class="">
+                        <label class="button is-outlined is-link">
+                            Cambiar imagen
+                            <input type="file" accept="image/*" style="display: none;" id="inputCambiarImagen">
+                        </label>
+                    </div>
+                    <div class="">
+                        <label class="button is-outlined is-danger">
+                            Eliminar imagen
+                            <input type="file" accept="image/*" style="display: none;" id="btnEliminarImagen">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- previsualizacion de la imagen preseleccionada -->
+            <div class="column is-hidden" id="previewImagen">
+                <figure>
+                    <img id="imgPreview" src="../../resources/test_portada.webp" class="image"
+                        style="object-fit: contain; width: 100%; height: 128px;">
+                </figure>
+            </div>
+
+        </div>
+        <!-- AQUI PARA OBTENER EL TITULO DEL POST -->
+        <div class="mb-3 postTitleContainer">
+            <input type="text" name="" id="" class="input" placeholder="Ingrese el titulo aqui"
+                style="border: none; height: 7rem;">
+        </div>
+
+        <!-- Sección para almacenar categorías -->
+        <div class="box" id="seccionCategorias">
+            <h3 class="title is-5">Categorías (máx. 4)</h3>
+
+            <div class="field has-addons mb-3">
+                <div class="control is-expanded">
+                    <input type="text" class="input" placeholder="Agregar categoría" id="inputCategoria">
+                </div>
+                <div class="control">
+                    <button class="button is-primary" id="btnAgregarCategoria">Agregar</button>
+                </div>
+            </div>
+
+            <!-- Lista de categorías -->
+            <div class="tags" id="listaCategorias">
+                <!-- Aquí se van agregando las categorías -->
+            </div>
+        </div>
 
         <div id="editor">
 

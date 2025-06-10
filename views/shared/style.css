@@ -51,6 +51,9 @@
 
     --swag-navbar-bg: var(--bulma-primary-base);
     --swag-navbar-border: 0.12rem solid var(--bulma-primary-30);
+
+    --swag-title-input-text-color: rgb(45, 43, 43);
+    /* --swag-title-input-text-color: rgb(119, 105, 105); */
     
 }
 
@@ -88,6 +91,60 @@
     /* para navbar */
 
 }
+
+.postTitleContainer .input{
+
+    color: var(--swag-title-input-text-color);
+    font-size: 2.5rem;
+    /* font-family: "Permanent Marker", cursive;
+    font-style: normal; */
+}
+
+[data-theme=dark] .postTitleContainer .input,
+.theme-dark .postTitleContainer .input {
+
+  color: var(--swag-level-fg);
+
+}
+
+.postTitleContainer .input::placeholder{
+
+    color: var(--swag-title-input-text-color);
+    font-size: 2.5rem;
+    /* font-family: "Permanent Marker", cursive;
+    font-style: normal; */
+}
+
+[data-theme=dark] .postTitleContainer .input::placeholder,
+.theme-dark .postTitleContainer .input::placeholder {
+
+  color: var(--swag-level-fg);
+  /* NO TENGO NI  IDEA PERO FUNCIONO */
+}
+
+/* @keyframes blinkPlaceholder {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.postTitleContainer .input::placeholder {
+  animation: blinkPlaceholder 1.2s infinite;
+} */
+
+
+
+
+
+
+
+
+
+
+
 
 
 #themeToggle {
