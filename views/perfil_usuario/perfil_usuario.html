@@ -109,32 +109,33 @@
 
             </div>
             <div class="modal-content-user">
-                <form class="container box">
+                <form class="container box" id="form-editar-user-perfil">
+                        <!--Nombre de usuario-->
                     <div class="field">
-                        <label class="label">Usuario</label>
+                        <label class="label">Nombre de Usuario</label>
                         <div class="control">
-                            <input class="input" type="text" name="user" placeholder="ej. Alexis Vega " />
+                            <input class="input" type="text" name="usuario" placeholder="ej. usuario123" id="modal-user-usuario" />
                         </div>
                     </div>
+                    <!--Email-->
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="email" name="email" placeholder="ej. alex@example.com" />
+                            <input class="input" type="email" name="email" placeholder="ej. correo@example.com" id="modal-user-email" />
                         </div>
                     </div>
 
                     <div class="field">
-                        <label class="label">Contraseña</label>
+                        <label class="label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
                         <div class="control">
-                            <input class="input" type="password" name="password" placeholder="********" />
+                            <input class="input" type="password" name="password" placeholder="********" id="modal-user-password" />
                         </div>
                     </div>
 
-
                     <div class="field">
-                        <label class="label">Confirmar contraseña</label>
+                        <label class="label">Confirmar Nueva Contraseña</label>
                         <div class="control">
-                            <input class="input" type="password" name="password" placeholder="********" />
+                            <input class="input" type="password" name="password_confirm" placeholder="********" id="modal-user-password-confirm" />
                         </div>
                     </div>
 
@@ -155,13 +156,13 @@
 
             </div>
             <div class="modal-content-user">
-                <form class="container box">
+                <form class="container box" id = "form-editar-info-perfil">
 
                     <!-- Nombre -->
                     <div class="field">
-                        <label class="label">Nombre</label>
+                        <label class="label" >Nombre</label>
                         <div class="control">
-                            <input class="input" type="text" name="nombre" placeholder="ej. Dembele" required />
+                            <input class="input" type="text" name="nombre" placeholder="ej. Dembele" required id="modal-info-nombre"/>
                         </div>
                     </div>
 
@@ -169,7 +170,7 @@
                     <div class="field">
                         <label class="label">Ciudad</label>
                         <div class="control">
-                            <input class="input" type="text" name="ciudad" placeholder="ej. Morazan" />
+                            <input class="input" type="text" name="ciudad" placeholder="ej. Morazan"  id="modal-info-ciudad"/>
                         </div>
                     </div>
 
@@ -177,7 +178,7 @@
                     <div class="field">
                         <label class="label">Teléfono</label>
                         <div class="control">
-                            <input class="input" type="tel" name="telefono" placeholder="ej. +503 7123 4567" />
+                            <input class="input" type="tel" name="telefono" id="modal-info-telefono" placeholder="ej. +503 7123 4567" />
                         </div>
                     </div>
 
@@ -185,7 +186,7 @@
                     <div class="field">
                         <label class="label">Edad</label>
                         <div class="control">
-                            <input class="input" type="number" name="edad" min="14" placeholder="ej. 21" />
+                            <input class="input" type="number" name="edad" min="14" placeholder="ej. 21" id="modal-info-birthday-input" />
                         </div>
                     </div>
 
@@ -193,7 +194,7 @@
                     <div class="field">
                         <label class="label">Imagen</label>
                         <div class="control">
-                            <input class="input" type="file" name="imagen" accept="image/*" />
+                            <input class="input" type="file" name="imagen" accept="image/*"  id="modal-info-imagen"/>
                         </div>
                     </div>
 
@@ -201,7 +202,7 @@
                     <div class="field">
                         <label class="label">Bio</label>
                         <div class="control">
-                            <textarea class="textarea" name="bio" placeholder="Hola, soy..."></textarea>
+                            <textarea class="textarea" name="bio" placeholder="Hola, soy..." id="modal-info-bio"></textarea>
                         </div>
                     </div>
 
@@ -286,6 +287,7 @@
 
     <script src="./perfil_usuario.js"></script>
     <script src="../shared/global.js"></script>
+    <script src = "editarperfil.js" type = "module"></script>
     <script src="../shared/navbar.js"></script>
     <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>

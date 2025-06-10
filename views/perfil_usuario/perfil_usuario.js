@@ -206,15 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const nuevoComment = crearComment(datosPost);
     postWrapper.appendChild(nuevoComment);
 
-    const datosUsuario = {
-        nombre: "Alexis Ventura",
-        usuario: "alexis_ve",
-        bio: "Apasionado por la tecnología y el desarrollo web.",
-        fechaNacimiento: "7 de junio de 2001",
-        imagen: "imagenPrueba.jpeg"
-    };
-
-    actualizarPerfil(datosUsuario);
 
     actualizarEstadisticas();
 
