@@ -1,4 +1,4 @@
-
+import { cargarPosts } from "/js/indexedDB/IndexDB.js";  
 
 const btnAcceder = document.getElementById("btnAcceder");
 const perfilBtn = document.getElementById("perfilBtn")
@@ -14,15 +14,13 @@ perfilBtn.addEventListener("click", () => {
 
 })
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // lógica para el evento de la barra de búsqueda
 
   if(user !== "L"){
     btnAcceder.classList.add("is-hidden")
     perfilBtn.setAttribute("href", "../perfil_usuario/perfil_usuario.html")
   }
-
-
 
   const inputBusqueda = document.getElementById("barra-busqueda");
   inputBusqueda.addEventListener("keydown", (event) => {
@@ -36,28 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  renderizarPosts(posts);
-});
+  try {
+    const posts = await cargarPosts();
+    renderizarPosts(posts);
+  } catch (error) {
+    console.error("Error al cargar los posts desde IndexedDB:", error);
+  }
 
-const posts = [
-  {
-    autor: "John Smith",
-    usuario: "@jo",
-    tiempo: "31m",
-    titulo: "Titulo del post mandanga mandanaga",
-    avatar: "../perfil_usuario/imagenPrueba.jpeg",
-    categorias: ["Tecnología", "Programación", "AI"],
-  },
-  {
-    autor: "Maria López",
-    usuario: "@marilo",
-    tiempo: "12m",
-    titulo: "Un título diferente para otro post",
-    avatar: "../perfil_usuario/imagenPrueba.jpeg",
-    categorias: ["Diseño", "Creatividad"],
-  },
-  // más posts...
-];
+});
 
 function crearPostHTML(post) {
   const postDiv = document.createElement("div");

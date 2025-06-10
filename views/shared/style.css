@@ -25,12 +25,22 @@
     --bulma-primary-s: 94%;
     --bulma-primary-l: 43%;
 
+
+    --bulma-link-h: 292deg;
+  --bulma-link-s: 71%;
+  --bulma-link-l: 43%;
+
+  
+
     --bulma-family-primary: "Outfit", sans-serif;
     --swag-bg: var(--bulma-primary-90);
     --swag-text: var(--bulma-primary-invert);
 
     --swag-panel-bg: var(--bulma-primary-95);
     --swag-panel-fg: var(--bulma-primary-95-invert);
+
+    --swag-level-bg: var(--bulma-primary-90);
+    --swag-level-fg: var(--bulma-primary-invert);
     
 }
 
@@ -38,11 +48,19 @@
 [data-theme=dark],
 .theme-dark {
   /* Update CSS variables */
+
+    /* para elementos en general (usado en auth) */
     --swag-bg: var(--bulma-primary-00);
     --swag-text: var(--bulma-primary-light);
 
+
+    /* para panel de busquedas */
     --swag-panel-bg: var(--bulma-primary-10);
     --swag-panel-fg: var(--bulma-primary-10-invert);
+
+    /* usado en el custom level de post.html */
+    --swag-level-bg: var(--bulma-primary-00);
+    --swag-level-fg: var(--bulma-primary-light);
 }
 
 
@@ -83,3 +101,6 @@
     font-size: 1.25rem;
   }
 }
+
+
+

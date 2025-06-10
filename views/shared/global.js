@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setTheme(theme) {
     html.setAttribute('data-theme', theme);
+    window.dispatchEvent(new CustomEvent('themeChanged', {
+      detail: { theme }
+    }));
+
     localStorage.setItem('theme', theme);
     themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
 
