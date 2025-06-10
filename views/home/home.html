@@ -2,190 +2,151 @@
 <html lang="en" data-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../shared/style.css">
-    <link rel="stylesheet" href="./home.css">
-    <title>Inicio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/style.css">
+  <link rel="stylesheet" href="./home.css">
+  <title>Inicio</title>
 </head>
 
 <body>
 
-    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-            
+    <div class="navbar-brand">
 
-            
-            
-            <a class="navbar-item" href="">
-                <figure class="image is-64x64-desktop is-flex is-align-items-center">
-                    <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
-                </figure>
-            </a>
 
-            <div class="navbar-item is-flex-shrink-1">
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
-                        <span class="icon is-small is-left">
-                                <!-- <i class="fas fa-user"></i> -->
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+
+      <a class="navbar-item" href="">
+        <figure class="image is-64x64-desktop is-flex is-align-items-center">
+          <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
+        </figure>
+      </a>
+
+      <div class="navbar-item is-flex-shrink-1">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
+            <span class="icon is-small is-left">
+              <!-- <i class="fas fa-user"></i> -->
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+          </div>
         </div>
+      </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-            <div class="navbar-start">
+    <div id="navbarBasicExample" class="navbar-menu">
+
+      <div class="navbar-start">
 
 
-                <div class="navbar-item has-dropdown" id="dropDownItem">
-                    <a class="navbar-link">
-                        Mas
-                    </a>
+        <div class="navbar-item has-dropdown" id="dropDownItem">
+          <a class="navbar-link">
+            Mas
+          </a>
 
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Algo mas 1
-                        </a>
-                        <a class="navbar-item ">
-                            Algo mas 2
-                        </a>
-                        <!-- <a class="navbar-item">
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Algo mas 1
+            </a>
+            <a class="navbar-item ">
+              Algo mas 2
+            </a>
+            <!-- <a class="navbar-item">
                             Contact
                         </a>
                         <hr class="navbar-divider">
                         <a class="navbar-item">
                             Report an issue
                         </a> -->
-                    </div>
-                </div>
-
-                
-
-
-            </div>
-
-            <div class="navbar-end">
-
-                <a id="perfilBtn" href="" class="navbar-item is-flex is-align-items-center">
-                    <span class="icon-text">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span>Perfil</span>
-                </a>
-                
-
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a id="btnAcceder" class="button is-primary is-light" href="../autenticacion/auth.html">
-                            <strong>Acceder</strong>
-                        </a>
-
-                    </div>
-                </div>
-
-                
-
-               
-            </div>
-        </div>
-    </nav>
-
-
-    <main class="main-container">
-        <div id="post-container" class="container is-max-desktop box">
-
-            
-
-
-            <!-- LOS POST SE RENDRIZAN AQUI ORDEN CRONOLOGICO -->
-
-            
-
-
-            
-
-
-
-
-
-
-
-
-        </div>
-        <!-- end main -->
-
-        <!-- paginacion container -->
-
-        <div class="container is-max-desktop mb-6">
-            <nav class="pagination" role="navigation" aria-label="pagination">
-                <a href="#" class="pagination-previous is-disabled">Anterior</a>
-                <a href="#" class="pagination-next">Siguiente pagina</a>
-                <ul class="pagination-list">
-                    <li>
-                        <a href="#" class="pagination-link" aria-label="Goto page 1">1</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a href="#" class="pagination-link" aria-label="Goto page 45">45</a>
-                    </li>
-                    <li>
-                        <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pagination-link" aria-label="Goto page 47">47</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a href="#" class="pagination-link" aria-label="Goto page 86">86</a>
-                    </li>
-                </ul>
-            </nav>
+          </div>
         </div>
 
-        <!-- fin paginacion lboque -->
 
-    </main>
 
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>THE BLOG</strong> by <a href="https://github.com/BlogProject-HDP/BlogProject-HDP" target="_blank">Grupo de competriots de la Universidad de El Salvador</a>.
-                The source code is licensed
-                <a href="https://opensource.org/license/mit">MIT</a>.
-                
-            </p>
+
+      </div>
+
+      <div class="navbar-end">
+
+        <a id="perfilBtn" href="" class="navbar-item is-flex is-align-items-center">
+          <span class="icon-text">
+            <i class="fa-solid fa-user"></i>
+          </span>
+          <span>Perfil</span>
+        </a>
+
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a id="btnAcceder" class="button is-primary is-light" href="../autenticacion/auth.html">
+              <strong>Acceder</strong>
+            </a>
+
+          </div>
         </div>
-    </footer>
+
+
+
+
+      </div>
+    </div>
+  </nav>
+
+
+  <main class="main-container">
+    <div id="post-container" class="container is-max-desktop box">
+
+
+
+
+      <!-- LOS POST SE RENDRIZAN AQUI ORDEN CRONOLOGICO -->
 
 
 
 
 
+    </div>
+    <!-- end main -->
 
-    
+    <!-- paginacion container -->
 
-    <script src="./home.js"></script>
-    <script src="../shared/global.js"></script>
-    <script src="../shared/navbar.js"></script>
-    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+    <div class="container is-max-desktop mb-6">
+      <nav class="pagination" id="pagination" role="navigation" aria-label="pagination">
+
+      </nav>
+    </div>
+
+    <!-- fin paginacion lboque -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>THE BLOG</strong> by <a href="https://github.com/BlogProject-HDP/BlogProject-HDP" target="_blank">Grupo de competriots de la Universidad de El Salvador</a>.
+        The source code is licensed
+        <a href="https://opensource.org/license/mit">MIT</a>.
+
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="./home.js"></script>
+  <script type="module" src="/js/pagination/pagination.js"></script>
+  <script src="../shared/global.js"></script>
+  <script src="../shared/navbar.js"></script>
+  <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
