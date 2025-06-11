@@ -1,5 +1,5 @@
 import { iniciar } from "../../js/pagination/pagination.js";
-import { cargarPosts, crearIndexedDB } from "/js/indexedDB/IndexDB.js";
+import { cargarPosts, crearIndexedDB } from "../../js/IndexedDB/indexDB.js";
 
 // Botones acceder y perfil
 const btnAcceder = document.getElementById("btnAcceder");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Si esta logueado ocultar el boton acceder
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
-    perfilBtn.setAttribute("href", "../perfil_usuario/perfil_usuario.html");
+    perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
   }
 
   // Logica para el evento de la barra de busqueda
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const query = inputBusqueda.value.trim();
       if (query !== "") {
         const encodedQuery = encodeURIComponent(query);
-        window.location.href = `/views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`;
-        inputBusqueda.value = "";
+         window.location.href = `views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`; 
+         inputBusqueda.value = "";
       }
     }
   });
