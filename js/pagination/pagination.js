@@ -12,14 +12,8 @@ let bd,
 const LIMITE = 10;
 
 // --------------------------------------------------------------
-// Cargar vista
-document.addEventListener("DOMContentLoaded", () => {
-  iniciar();
-});
-
-// --------------------------------------------------------------
 // iniciar
-async function iniciar() {
+export async function iniciar() {
   await crearIndexedDB();
 
   const solicitud = indexedDB.open("dbBlog-Tech", 1);
@@ -81,7 +75,7 @@ function mostrarPosts(posts) {
   div.appendChild(titulo);
 
   if (posts.length === 0) {
-    div.textContent = "No hay posts creados.";
+    titulo.textContent = "No hay posts creados ...";
     return;
   }
 
@@ -127,7 +121,7 @@ function mostrarPosts(posts) {
     info.innerHTML = `
       <h3><strong>Nombre:</strong> ${post.nombre}</h3>
       <p><strong>Publicado:</strong> ${
-        new Date(post.fechaDePublicacion).toLocaleDateString() || "Sin fecha"
+        new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"
       }</p>
       <p><strong>Comentarios: </strong> ${
         post.comentarios ? post.comentarios.length : 0
@@ -209,7 +203,7 @@ function mostrarPosts(posts) {
   renderPagination();
 }
 
-// Evento like
+// Evento like: cuando se da like a un post
 async function like(idPost, contenedor) {
   const prueba = localStorage.getItem("userId");
 
