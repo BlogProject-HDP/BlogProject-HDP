@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Hacer la categoría clicable
     span.querySelector(".categoria").addEventListener("click", () => {
-      window.location.href = `/views/busqueda/busquedas.html?q=${encodeURIComponent(cat)}&filtro=categorias`;
+      window.location.href = `../busqueda/busquedas.html?q=${encodeURIComponent(cat)}&filtro=categorias`;
     });
   });
 

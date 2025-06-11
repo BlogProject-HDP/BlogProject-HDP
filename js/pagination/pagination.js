@@ -193,7 +193,7 @@ function mostrarPosts(posts) {
       el.addEventListener("click", (event) => {
         event.stopPropagation(); // evitar que se dispare el click general
         const categoria = el.dataset.categoria;
-        window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+        window.location.href = `../busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
       });
     });
 

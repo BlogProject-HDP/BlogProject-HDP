@@ -127,7 +127,7 @@ function crearPost({ nombre, usuario, tiempo, titulo, imagen, categorias = [] })
     categoriaElements.forEach((el) => {
         el.addEventListener("click", (event) => {
             const categoria = el.dataset.categoria;
-            window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+            window.location.href = `../busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
         });
     });
 

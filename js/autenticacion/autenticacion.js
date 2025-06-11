@@ -141,7 +141,7 @@ async function iniciarSesion(e) {
         // Guarda el ID en localStorage
         localStorage.setItem("adminId", usuario.id);
         // Redirigir al admin para el html
-        window.location.href = "../admin_view/dashboard_admin.html";
+        window.location.href = "../../views/admin_view/dashboard_admin.html";
       }
     } else {
       console.log("Error --> Password incorrecto");
