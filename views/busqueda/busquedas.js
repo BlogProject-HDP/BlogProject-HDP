@@ -88,115 +88,125 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function crearPostHTML(post) {
-  console.log("Post:", post);
-
-  let categoriasHTML = "";
-  if (Array.isArray(post.categorias)) {
-    categoriasHTML = post.categorias
-      .map(
-        (categoria) =>
-          `<span class="column is-narrow">
-            <p class="categoria is-clickable" data-categoria="${encodeURIComponent(
-              categoria
-            )}">${categoria}</p>
-          </span>`
-      )
-      .join("");
-  }
-
   const postDiv = document.createElement("div");
   postDiv.className = "box";
-  postDiv.style.border = "1px solid #ccc";
-  // postDiv.style.padding = "10px";
-  // postDiv.style.borderRadius = "10px";
-  // postDiv.style.marginBottom = "10px";
   postDiv.style.display = "flex";
+  postDiv.style.alignItems = "flex-start";
   postDiv.style.gap = "10px";
-  postDiv.style.alignItems = "center";
+  postDiv.style.cursor = "pointer";
 
-  const img = document.createElement("img");
-  img.src = post.imagen || "";
-  img.alt = post.nombre;
-  img.style.width = "300px";
-  img.style.padding = "2px";
-  img.style.height = "150px";
-  img.style.objectFit = "cover";
-  postDiv.appendChild(img);
+  postDiv.addEventListener("click", () => {
+    localStorage.setItem("IdPostUser", post.id.toString());
+    window.location.href = "../../views/post/post.html";
+  });
 
-  const info = document.createElement("div");
-  info.style.flex = "1";
+  // Columna 1: Foto de perfil del autor
+  const columna1 = document.createElement("div");
+  columna1.style.width = "90px";
+  columna1.style.display = "flex";
+  columna1.style.justifyContent = "center";
 
-  info.innerHTML = `
-        <h3><strong>Nombre:</strong> ${post.nombre}</h3>
-        <p><strong>Publicado:</strong> ${
-          new Date(post.fechaDePublicacion).toLocaleDateString() || "Sin fecha"
-        }</p>
-        <p><strong>Comentarios: </strong> ${
-          post.comentarios ? post.comentarios.length : 0
-        }</p>
-        <p><strong>Likes:</strong> ${post.likes ? post.likes.length : 0}</p>
-        <p><strong>Categorías: </strong></p>
-        <div class="columns is-mobile is-multiline">
-                ${categoriasHTML}
-              </div>  
-      `;
+  const mainImg = document.createElement("img");
+  mainImg.src = post.fotoPerfilAutor || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
+  mainImg.alt = post.autor || "Autor";
+  mainImg.style.width = "80px";
+  mainImg.style.height = "80px";
+  mainImg.style.objectFit = "cover";
+  mainImg.style.borderRadius = "50%";
+  columna1.appendChild(mainImg);
+  postDiv.appendChild(columna1);
 
-  postDiv.appendChild(info);
+  // Columna central: contenido del post
+  const contenido = document.createElement("div");
+  contenido.style.flex = "1";
+  contenido.style.display = "flex";
+  contenido.style.flexDirection = "column";
+  contenido.style.gap = "10px";
 
-  // -- Contenedor de los botones
-  const contenedor = document.createElement("div");
-  contenedor.className = "box is-clickable";
-  contenedor.style.padding = "5px";
-  contenedor.style.height = "160px";
-  contenedor.style.width = "150px";
-  contenedor.style.display = "flex";
-  contenedor.style.flexDirection = "column";
-  contenedor.style.gap = "10px";
-  contenedor.style.justifyContent = "center";
-  postDiv.appendChild(contenedor);
+  // Cabecera con autor y fecha
+  const cabecera = document.createElement("div");
+  cabecera.style.display = "flex";
+  cabecera.style.justifyContent = "space-between";
 
-  // -- Boton ver
-  const btnVer = document.createElement("button");
-  btnVer.style.background = "transparent";
-  btnVer.style.border = "none";
-  btnVer.style.padding = "10px";
-  btnVer.style.cursor = "pointer";
-  btnVer.style.color = "#3498db"; // azul
-
-  btnVer.innerHTML = `
-    <i class="fas fa-eye"> Ver</i>
+  cabecera.innerHTML = `
+    <strong>${post.autor || "Desconocido"}</strong>
+    <p><strong>Publicado:</strong> ${new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"}</p>
   `;
-  contenedor.appendChild(btnVer);
 
-  // -- Boton like
-  const btnLike = document.createElement("button");
-  btnLike.style.background = "transparent";
-  btnLike.style.border = "none";
-  btnLike.style.padding = "10px";
-  btnLike.style.cursor = "pointer";
-  btnLike.style.color = "#e74c3c";
-  btnLike.addEventListener("click", () => like(post.id, contenedor));
+  contenido.appendChild(cabecera);
 
-  btnLike.innerHTML = `
-    <i class="fas fa-heart"> Like</i>
-  `;
-  contenedor.appendChild(btnLike);
+  // Título
+  const titulo = document.createElement("h1");
+  titulo.innerHTML = `<strong>${post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre}</strong>`;
+  titulo.style.fontSize = "22px";
+  contenido.appendChild(titulo);
 
+  // Imagen del post
+  const imagen = document.createElement("img");
+  imagen.src = post.imagen || "https://www.cronobierzo.es/wp-content/uploads/2020/01/no-image.jpg";
+  imagen.alt = "Imagen del post";
+  imagen.style.width = "100%";
+  imagen.style.height = "200px";
+  imagen.style.objectFit = "cover";
+  imagen.style.borderRadius = "4px";
+  contenido.appendChild(imagen);
+
+  const contenidopost = document.createElement("p");
+  contenidopost.innerHTML = post.contenido.length > 300
+  ? post.contenido.slice(0, 300) + '<strong> Ver más...</strong>'
+  : post.contenido;
+
+  contenido.appendChild(contenidopost);
+  // Likes y comentarios
+  const interacciones = document.createElement("div");
+  interacciones.style.display = "flex";
+  interacciones.style.gap = "20px";
+
+  const comentariosElem = document.createElement("p");
+  comentariosElem.innerHTML = `<strong><i class="fas fa-comment" style="color: #3498db;"></i></strong> ${post.comentarios?.length || 0}`;
+
+  const likeElem = document.createElement("p");
   const idUsuario = parseInt(localStorage.getItem("userId"));
-  //
-  //
-  // Cambiar color a "contenedor" si ese post tiene like
-  // del usuario actual
-  if (post.likes.includes(idUsuario)) {
-    contenedor.classList.add("has-background-primary");
-  }
-  //
-  //
-  //
+  const yaDioLike = post.likes?.includes(idUsuario);
+  const likeCount = post.likes?.length || 0;
 
-  const categoriaElements = postDiv.querySelectorAll(".categoria");
-  categoriaElements.forEach((el) => {
+  likeElem.innerHTML = `<strong><i class="${yaDioLike ? 'fas' : 'far'} fa-heart" style="color: #e74c3c;"></i></strong> ${likeCount}`;
+
+  likeElem.style.cursor = "pointer";
+  likeElem.addEventListener("click", (e) => {
+    e.stopPropagation();
+    like(post.id);
+  });
+
+  interacciones.appendChild(comentariosElem);
+  interacciones.appendChild(likeElem);
+  contenido.appendChild(interacciones);
+
+  // Categorías
+  if (Array.isArray(post.categorias)) {
+    const catContenedor = document.createElement("div");
+    catContenedor.innerHTML = `
+      <div class="columns is-mobile is-multiline" style="align-items: center;">
+        <p><strong></strong></p>
+        ${post.categorias
+          .map(
+            (cat) => `
+            <span class="column is-narrow">
+              <p class="categoria is-clickable" data-categoria="${encodeURIComponent(cat)}">${cat}</p>
+            </span>`
+          )
+          .join("")}
+      </div>
+    `;
+    contenido.appendChild(catContenedor);
+  }
+
+  postDiv.appendChild(contenido);
+
+  // Evitar que el click en categoría redirija al post
+  postDiv.querySelectorAll(".categoria").forEach((el) => {
     el.addEventListener("click", (event) => {
+      event.stopPropagation();
       const categoria = el.dataset.categoria;
       window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
     });
@@ -294,17 +304,20 @@ async function renderizarResultados(query, filtro) {
           post.categorias.some(
             (cat) =>
               typeof cat === "string" &&
-              cat.toLowerCase() === query.toLowerCase()
+              cat.toLowerCase().includes(query.toLowerCase())
           )
       );
     }
 
-    if (resultados.length > 0) {
-      resultados.forEach((post) => {
+  if (resultados.length > 0) {
+    resultados
+      .sort((a, b) => new Date(b.fechaDePublicacion) - new Date(a.fechaDePublicacion)) // <-- Orden descendente
+      .forEach((post) => {
         const postHTML = crearPostHTML(post);
         container.appendChild(postHTML);
       });
-    } else {
+  }
+  else {
       const mensaje = document.createElement("div");
       mensaje.className = "notification is-warning";
       mensaje.textContent = `No se encontraron resultados para "${query}" en ${filtro}`;
