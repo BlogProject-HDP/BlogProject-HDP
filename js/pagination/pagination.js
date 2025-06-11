@@ -43,7 +43,7 @@ function cargarPosts() {
   const transaction = bd.transaction("posts", "readonly");
   const store = transaction.objectStore("posts");
 
-  const cursorRequest = store.openCursor();
+  const cursorRequest = store.openCursor(null, "prev");
 
   cursorRequest.onsuccess = (e) => {
     const cursor = e.target.result;
@@ -79,128 +79,175 @@ function mostrarPosts(posts) {
     return;
   }
 
-  posts.forEach((post) => {
-    const postDiv = document.createElement("div");
-    postDiv.className = "box";
-    postDiv.style.border = "1px solid #ccc";
-    // postDiv.style.padding = "10px";
-    // postDiv.style.borderRadius = "10px";
-    // postDiv.style.marginBottom = "10px";
-    postDiv.style.display = "flex";
-    postDiv.style.gap = "10px";
-    postDiv.style.alignItems = "center";
+posts.forEach((post) => {
+  const postDiv = document.createElement("div");
+  postDiv.className = "box";
+  postDiv.style.display = "flex";
+  postDiv.style.alignItems = "flex-start";
+  postDiv.style.gap = "10px";
+  postDiv.style.cursor = "pointer";
 
-    const img = document.createElement("img");
-    img.src = post.imagen || "";
-    img.alt = post.nombre;
-    img.style.width = "300px";
-    img.style.padding = "2px";
-    img.style.height = "150px";
-    img.style.objectFit = "cover";
-    postDiv.appendChild(img);
-
-    const info = document.createElement("div");
-    info.style.flex = "1";
-
-    // Categorias
-    // Construir categorías
-    let categoriasHTML = "";
-    if (Array.isArray(post.categorias)) {
-      categoriasHTML = post.categorias
-        .map(
-          (categoria) =>
-            `<span class="column is-narrow">
-              <p class="categoria is-clickable" data-categoria="${encodeURIComponent(
-                categoria
-              )}">${categoria}</p>
-            </span>`
-        )
-        .join("");
-    }
-
-    info.innerHTML = `
-      <h3><strong>Nombre:</strong> ${post.nombre}</h3>
-      <p><strong>Publicado:</strong> ${
-        new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"
-      }</p>
-      <p><strong>Comentarios: </strong> ${
-        post.comentarios ? post.comentarios.length : 0
-      }</p>
-      <p><strong>Likes:</strong> ${post.likes ? post.likes.length : 0}</p>
-      <p><strong>Categorías: </strong></p>
-      <div class="columns is-mobile is-multiline">
-              ${categoriasHTML}
-            </div>  
-    `;
-
-    postDiv.appendChild(info);
-
-    // -- Contenedor de los botones
-    const contenedor = document.createElement("div");
-    contenedor.className = "box is-clickable";
-    contenedor.style.padding = "5px";
-    contenedor.style.height = "160px";
-    contenedor.style.width = "150px";
-    contenedor.style.display = "flex";
-    contenedor.style.flexDirection = "column";
-    contenedor.style.gap = "10px";
-    contenedor.style.justifyContent = "center";
-    postDiv.appendChild(contenedor);
-
-    // -- Boton ver
-    const btnVer = document.createElement("button");
-    btnVer.style.background = "transparent";
-    btnVer.style.border = "none";
-    btnVer.style.padding = "10px";
-    btnVer.style.cursor = "pointer";
-    btnVer.style.color = "#3498db"; // azul
-    // btnVer.addEventListener("click", () => abrirPost(post.id));
-
-    btnVer.innerHTML = `
-  <i class="fas fa-eye"> Ver</i>
-`;
-    contenedor.appendChild(btnVer);
-
-    // -- Boton like
-    const btnLike = document.createElement("button");
-    btnLike.style.background = "transparent";
-    btnLike.style.border = "none";
-    btnLike.style.padding = "10px";
-    btnLike.style.cursor = "pointer";
-    btnLike.style.color = "#e74c3c";
-    btnLike.addEventListener("click", () => like(post.id, contenedor));
-
-    btnLike.innerHTML = `
-  <i class="fas fa-heart"> Like</i>
-`;
-    contenedor.appendChild(btnLike);
-
-    const idUsuario = parseInt(localStorage.getItem("userId"));
-    //
-    //
-    // Cambiar color a "contenedor" si ese post tiene like
-    // del usuario actual
-    if (post.likes.includes(idUsuario)) {
-      contenedor.classList.add("has-background-primary");
-    }
-    //
-    //
-    //
-
-    // Evento para categorías que redirige al filtro de búsqueda
-    const categoriaElements = postDiv.querySelectorAll(".categoria");
-    categoriaElements.forEach((el) => {
-      el.addEventListener("click", (event) => {
-        event.stopPropagation(); // evitar que se dispare el click general
-        const categoria = el.dataset.categoria;
-        window.location.href = `../busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
-      });
-    });
-
-    div.appendChild(postDiv);
+  postDiv.addEventListener("click", () => {
+    abrirPost(post.id); // 👉 Función que muestra detalle del post
   });
 
-  renderPagination();
+  // Columna 1: Imagen de perfil
+  const columna1 = document.createElement("div");
+  columna1.style.display = "flex";
+  columna1.style.flexDirection = "column";
+  columna1.style.justifyContent = "flex-start";
+  columna1.style.alignItems = "center";
+  columna1.style.width = "90px";
+
+  const mainImg = document.createElement("img");
+  mainImg.src = post.fotoPerfilAutor || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
+  mainImg.alt = post.autor;
+  mainImg.style.width = "80px";
+  mainImg.style.height = "80px";
+  mainImg.style.objectFit = "cover";
+  mainImg.style.borderRadius = "50%";
+  mainImg.style.padding = "2px";
+  columna1.appendChild(mainImg);
+  postDiv.appendChild(columna1);
+
+  const filaCentro = document.createElement("div");
+  filaCentro.style.display = "flex";
+  filaCentro.style.flex = "1";
+  filaCentro.style.flexDirection = "column";
+  filaCentro.style.gap = "10px";
+
+  const headerRow = document.createElement("div");
+  headerRow.style.display = "flex";
+  headerRow.style.justifyContent = "space-between";
+  headerRow.style.alignItems = "center";
+  headerRow.style.width = "100%";
+
+  const autorYFecha = document.createElement("div");
+  autorYFecha.style.flex = "1";
+  autorYFecha.style.display = "flex";
+  autorYFecha.style.justifyContent = "space-between";
+  autorYFecha.innerHTML = `
+    <strong>${post.autor || "Desconocido"}</strong>
+    <p><strong>Publicado:</strong> ${new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"}</p>
+  `;
+
+  headerRow.appendChild(autorYFecha);
+  filaCentro.appendChild(headerRow);
+
+  const filaInferior = document.createElement("div");
+  filaInferior.style.display = "flex";
+  filaInferior.style.gap = "10px";
+  filaInferior.style.width = "100%";
+
+  const columna2 = document.createElement("div");
+  columna2.style.flex = "1";
+  columna2.style.display = "flex";
+  columna2.style.flexDirection = "column";
+  columna2.style.gap = "10px";
+
+  const titulo = document.createElement("h3");
+  const nombreCorto = post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre;
+  titulo.innerHTML = `<h1 style="font-size: 25px;"><strong>${nombreCorto}</strong></h1>`;
+  columna2.appendChild(titulo);
+
+  const imagenPost = document.createElement("img");
+  imagenPost.src = post.imagen || "https://www.cronobierzo.es/wp-content/uploads/2020/01/no-image.jpg";
+  imagenPost.alt = "Foto del post";
+  imagenPost.style.width = "100%";
+  imagenPost.style.height = "200px";
+  imagenPost.style.objectFit = "cover";
+  imagenPost.style.borderRadius = "4px";
+  columna2.appendChild(imagenPost);
+
+  const contenidopost = document.createElement("p");
+contenidopost.innerHTML = post.contenido.length > 300
+  ? post.contenido.slice(0, 300) + '<strong> Ver más...</strong>'
+  : post.contenido;
+
+  columna2.appendChild(contenidopost);
+
+  // Interacciones con botón de like
+  const interacciones = document.createElement("div");
+  interacciones.style.display = "flex";
+  interacciones.style.gap = "20px";
+
+  const comentariosElem = document.createElement("p");
+  comentariosElem.innerHTML = `<strong><i style="color: #3498db" class="fas fa-comment"></i></strong> ${post.comentarios?.length || 0}`;
+
+  const likeElem = document.createElement("p");
+  likeElem.style.cursor = "pointer";
+  likeElem.style.userSelect = "none";
+
+  const idUsuario = parseInt(localStorage.getItem("userId"));
+  const yaDioLike = post.likes?.includes(idUsuario);
+  let likeCount = post.likes?.length || 0;
+
+  likeElem.innerHTML = `<strong><i class="${yaDioLike ? 'fas' : 'far'} fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
+
+  likeElem.addEventListener("click", (event) => {
+    event.stopPropagation(); // Evita redirigir al ver post
+    const icon = likeElem.querySelector("i");
+    const countSpan = likeElem.querySelector(".like-count");
+
+    if (icon.classList.contains("far")) {
+      icon.classList.remove("far");
+      icon.classList.add("fas");
+      likeCount++;
+      countSpan.textContent = likeCount;
+    } else {
+      icon.classList.remove("fas");
+      icon.classList.add("far");
+      likeCount--;
+      countSpan.textContent = likeCount;
+    }
+
+    like(post.id);
+  });
+
+  interacciones.appendChild(comentariosElem);
+  interacciones.appendChild(likeElem);
+  columna2.appendChild(interacciones);
+
+  // Categorías
+  let categoriasHTML = "";
+  if (Array.isArray(post.categorias)) {
+    categoriasHTML = post.categorias
+      .map(
+        (categoria) => `
+        <span class="column is-narrow">
+          <p class="categoria is-clickable" data-categoria="${encodeURIComponent(
+            categoria
+          )}">${categoria}</p>
+        </span>`
+      )
+      .join("");
+  }
+
+  const categoriasContainer = document.createElement("div");
+categoriasContainer.innerHTML = `
+  <div class="columns is-mobile is-multiline" style=" align-items: center; text-align: center;">
+    <p><strong></strong></p>
+    ${categoriasHTML}
+  </div>`;
+  columna2.appendChild(categoriasContainer);
+
+  filaInferior.appendChild(columna2);
+  filaCentro.appendChild(filaInferior);
+  postDiv.appendChild(filaCentro);
+
+  // Evitar que click en categorías dispare verPost
+  postDiv.querySelectorAll(".categoria").forEach((el) => {
+    el.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const categoria = el.dataset.categoria;
+      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+    });
+  });
+
+  div.appendChild(postDiv);
+});
+
+renderPagination();
 }
 
 // Evento like: cuando se da like a un post
