@@ -275,6 +275,7 @@ export async function like(idPost, contenedor) {
     }
 
     // Recargar todo
+    location.reload();
   } else {
     console.log("L: no esta logueado ");
   }

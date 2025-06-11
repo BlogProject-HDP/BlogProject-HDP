@@ -128,7 +128,7 @@ export async function hashPassword(password) {
 }
 
 // ----------------------------------------------------------------
-// Agregar usuario (usuario es un objeto javascript)
+// Agregar usuario
 export function addUser(usuario) {
   const request = indexedDB.open("dbBlog-Tech", 1);
 
@@ -145,8 +145,7 @@ export function addUser(usuario) {
   };
 }
 
-// ----------------------------------------------------------------
-// Put usuario: actualiza el usuario (usuario es un objeto javascript)
+//Editar usuario
 export function putUser(usuario) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
@@ -215,7 +214,42 @@ export function buscarUser(user) {
   });
 }
 
-// ----------------------------------------------------------------
+export function deleteUser(idUser) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("dbBlog-Tech", 1);
+
+    request.onsuccess = (e) => {
+      const db = e.target.result;
+
+      const transaccion = db.transaction("users", "readwrite");
+      const store = transaccion.objectStore("users");
+      const deleteRequest = store.delete(idUser);
+
+      deleteRequest.onsuccess = (e) =>{
+        console.log("Usuario eliminar con éxito", idUser);
+        resolve();
+      }
+
+      deleteRequest.onerror = (event) => {
+        console.error("Error al eliminar el usuario: ", event.target.error);
+        reject(event.target.error);
+      };
+
+      transaccion.onerror = (event) => {
+        console.error(
+          "Error en la transacción al eliminar el usuario",
+          event.target.error
+        );
+        reject(event.target.error);
+      };
+    };
+
+    request.onerror = (e) => {
+      console.error("Error al abrir la base de datos:", e.target.error);
+      reject(e.target.error);
+    };
+  });
+}
 // Bucar usuario por email: Devuelve el usuario si existe o null
 export function buscarEmail(email) {
   return new Promise((resolve, reject) => {

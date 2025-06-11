@@ -1,113 +1,311 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Panel de Administración</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
-    <link rel="stylesheet" href="../shared/style.css">
-    
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="../shared/style.css" />
+  </head>
+  <body>
     <section class="section">
-        <div class="container">
-            <h1 class="title has-text-primary">Panel de Administración</h1>
+      <div class="container">
+        <h1 class="title has-text-primary">Panel de Administración</h1>
 
-            <!-- Tabs principales -->
-            <div class="tabs is-boxed is-fullwidth is-mobile">
-                <ul>
-                    <li class="is-active" data-tab="usuarios"><a>Administración de Usuarios</a></li>
-                    <li data-tab="admin-posts"><a>Mis Posts</a></li>
-                    <li id = "ban" data-tab="shadowban"><a>ShadowBan</a></li>
-                    <li data-tab="comentarios"><a>Administrador de Comentarios</a></li>
-                </ul>
-            </div>
-
-            <!-- Administración de Usuarios -->
-            <div class="tab-content" id="usuarios">
-                <h2 class="subtitle">CRUD de Usuarios</h2>
-                <div id="usuarios-lista"></div>
-            </div>
-            <!-- BAN de usuarios -->
-            <!-- Admin Posts -->
-            <div class="tab-content is-hidden" id="admin-posts">
-                <h2 class="subtitle">CRUD de Mis Posts</h2>
-
-                <!-- FORMULARIO PARA CREAR POST -->
-                <form id="form-crear-post" class="box">
-                    <div class="field">
-                        <label class="label">Nombre del Post</label>
-                        <div class="control">
-                            <input class="input" type="text" id="post-nombre" placeholder="Ingrese el nombre..." required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Categorías (separadas por coma)</label>
-                        <div class="control">
-                            <input class="input" type="text" id="post-categorias" placeholder="Ej: Tecnología, Noticias" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Contenido</label>
-                        <div class="control">
-                            <textarea class="textarea" id="post-contenido" placeholder="Escriba el contenido..." required></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Imagen (opcional)</label>
-                        <div class="control">
-                            <input class="input" type="file" id="post-imagen" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="control">
-                            <button class="button is-primary" type="submit">Crear Post</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- LISTADO DE POSTS -->
-                <div id="admin-posts-lista"></div>
-            </div>
-
-            <!-- ShadowBan -->
-            <div class="tab-content is-hidden" id="shadowban">
-                <h2 class="subtitle">Silenciar Usuarios (ShadowBan)</h2>
-                <div id="shadowban-lista"></div>
-            </div>
-
-            <!-- Administrador de Comentarios -->
-            <div class="tab-content is-hidden" id="comentarios">
-                <h2 class="subtitle">Administrador de Comentarios</h2>
-                <div class="tabs is-toggle is-small is-fullwidth is-mobile">
-                    <ul>
-                        <li class="is-active" data-subtab="pendientes"><a>Pendientes</a></li>
-                        <li data-subtab="eliminar"><a>Eliminar Comentarios</a></li>
-                    </ul>
-                </div>
-                <!-- Pendientes -->
-                <div class="subtab-content" id="pendientes">
-                    <div class="field">
-                        <label class="label">Buscar por Post</label>
-                        <div class="control">
-                            <input class="input" type="text" id="busqueda-post-pendientes" placeholder="Buscar por título o ID de post">
-                        </div>
-                    </div>
-                    <div id="comentarios-pendientes-lista"></div>
-                </div>
-                <!-- Eliminar -->
-                <div class="subtab-content is-hidden" id="eliminar">
-                    <div class="field">
-                        <label class="label">Buscar Comentario</label>
-                        <div class="control">
-                            <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario...">
-                        </div>
-                    </div>
-                    <div id="comentarios-eliminar-lista"></div>
-                </div>
-            </div>
+        <!-- Tabs principales -->
+        <div class="tabs is-boxed is-fullwidth is-mobile">
+          <ul>
+            <li class="is-active" data-tab="usuarios">
+              <a>Administración de Usuarios</a>
+            </li>
+            <li data-tab="admin-posts"><a>Mis Posts</a></li>
+            <li id="ban" data-tab="shadowban"><a>ShadowBan</a></li>
+            <li data-tab="comentarios"><a>Administrador de Comentarios</a></li>
+          </ul>
         </div>
+
+        <!-- Administración de Usuarios -->
+        <div class="tab-content" id="usuarios">
+          <h2 class="subtitle">CRUD de Usuarios</h2>
+          <div id="usuarios-lista">
+            <!-- FORMULARIO PARA CREAR user -->
+            <form id="form-crear-user" class="box">
+              <!--Zona del nombre del usuario-->
+              <div class="field">
+                <label class="label">Nombre del Usuario</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="user-nombre"
+                    placeholder="Ingrese el nombre..."
+                    required
+                  />
+                </div>
+              </div>
+              <!--Zona del usernickname del usuario-->
+              <div class="field">
+                <label class="label">User (Nickname)</label>
+                <div class="control">
+                  <input
+                    class="input is-small"
+                    type="text"
+                    id="user-user"
+                    placeholder="Ingrese el user..."
+                    required
+                  />
+                </div>
+              </div>
+              <!--Zona del rol del usuario-->
+              <div class="field">
+                <label class="label">Rol de usuario</label>
+                <div class="control">
+                  <div class="select is-small is-fullwidth">
+                    <select id="user-tipo" required>
+                      <option value="" disabled selected>Seleccione un rol</option>
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!--ZONA PARA EL EMAIL-->
+              <div class="field mb-3">
+                <label for="user-email" class="label">
+                  Correo Electrónico
+                </label>
+                <div class="control has-icons-left has-icons-right">
+                  <input type="email" class="input is-primary" id="user-email" placeholder="tu@email.com" required>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <p id="emailError" class="help is-danger is-hidden">Email inválido o ya en uso.</p>
+              </div>
+              <!--Zona de la contraseña-->
+              <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="password"
+                    id="user-password"
+                    placeholder="Ingrese la contraseña..."
+                    required
+                  />
+                </div>
+              </div>
+              <!--Zona de la Ciudad-->
+              <div class="field">
+                <label class="label">Ciudad</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="user-ciudad"
+                    placeholder="Ingrese la ciudad (opcional)"
+                  />
+                </div>
+              </div>
+              <!--Zona del Teléfono-->
+              <div class="field">
+                <label class="label">Teléfono</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="tel"
+                    id="user-telefono"
+                    placeholder="Ingrese el teléfono (opcional)"
+                  />
+                </div>
+              </div>
+              <!--Zona de la Edad-->
+              <div class="field">
+                <label class="label">Edad</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    id="user-edad"
+                    placeholder="Ingrese la edad (opcional)"
+                    min="0"
+                  />
+                </div>
+              </div>
+              <!--Zona de la Descripción-->
+              <div class="field">
+                <label class="label">Descripción</label>
+                <div class="control">
+                  <textarea
+                    class="textarea"
+                    id="user-descripcion"
+                    placeholder="Escriba una breve descripción (opcional)"
+                  ></textarea>
+                </div>
+              </div>
+              <!--Zona de la Foto de Perfil-->
+              <div class="field">
+                <label class="label">Foto de Perfil (opcional)</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="file"
+                    id="user-fotoPerfil"
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+              <!--Zona del estado Banned-->
+              <div class="field">
+                <label class="label">Estado Baneado</label>
+                <div class="control">
+                  <div class="select is-small is-fullwidth">
+                    <select id="user-banned">
+                      <option value="false" selected>No Baneado</option>
+                      <option value="true">Baneado</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- Botón de envío -->
+              <div class="field">
+                <div class="control">
+                  <button class="button is-primary" type="submit">
+                    Crear Usuario
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="
+          " id = "mostrar-users"></div>
+        </div>
+
+        </div>
+        <!-- BAN de usuarios -->
+        <!-- Admin Posts -->
+        <div class="tab-content is-hidden" id="admin-posts">
+          <h2 class="subtitle">CRUD de Mis Posts</h2>
+
+          <!-- FORMULARIO PARA CREAR POST -->
+          <form id="form-crear-post" class="box">
+            <div class="field">
+              <label class="label">Nombre del Post</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  id="post-nombre"
+                  placeholder="Ingrese el nombre..."
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Categorías (separadas por coma)</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  id="post-categorias"
+                  placeholder="Ej: Tecnología, Noticias"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Contenido</label>
+              <div class="control">
+                <textarea
+                  class="textarea"
+                  id="post-contenido"
+                  placeholder="Escriba el contenido..."
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Imagen (opcional)</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="file"
+                  id="post-imagen"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary" type="submit">
+                  Crear Post
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- LISTADO DE POSTS -->
+          <div id="admin-posts-lista"></div>
+        </div>
+
+        <!-- ShadowBan -->
+        <div class="tab-content is-hidden" id="shadowban">
+          <h2 class="subtitle">Silenciar Usuarios (ShadowBan)</h2>
+          <div id="shadowban-lista"></div>
+        </div>
+
+        <!-- Administrador de Comentarios -->
+        <div class="tab-content is-hidden" id="comentarios">
+          <h2 class="subtitle">Administrador de Comentarios</h2>
+          <div class="tabs is-toggle is-small is-fullwidth is-mobile">
+            <ul>
+              <li class="is-active" data-subtab="pendientes">
+                <a>Pendientes</a>
+              </li>
+              <li data-subtab="eliminar"><a>Eliminar Comentarios</a></li>
+            </ul>
+          </div>
+          <!-- Pendientes -->
+          <div class="subtab-content" id="pendientes">
+            <div class="field">
+              <label class="label">Buscar por Post</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  id="busqueda-post-pendientes"
+                  placeholder="Buscar por título o ID de post"
+                />
+              </div>
+            </div>
+            <div id="comentarios-pendientes-lista"></div>
+          </div>
+          <!-- Eliminar -->
+          <div class="subtab-content is-hidden" id="eliminar">
+            <div class="field">
+              <label class="label">Buscar Comentario</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  id="busqueda-comentario-eliminar"
+                  placeholder="Buscar comentario..."
+                />
+              </div>
+            </div>
+            <div id="comentarios-eliminar-lista"></div>
+          </div>
+        </div>
+      </div>
     </section>
-</body>
-<script src = "admin_ban.js" type = "module"></script> <!--oJO aquí con el elemento que va primero para la validación-->
-<script src="dashboard_admin.js" type="module"></script>
+  </body>
+  <script src="admin_ban.js" type="module"></script>
+  <script src = "admin_CRUD-users.js" type = "module"></script>
+  <!--oJO aquí con el elemento que va primero para la validación-->
+  <script src="dashboard_admin.js" type="module"></script>
 </html>

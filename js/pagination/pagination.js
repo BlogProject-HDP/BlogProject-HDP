@@ -12,14 +12,8 @@ let bd,
 const LIMITE = 10;
 
 // --------------------------------------------------------------
-// Cargar vista
-document.addEventListener("DOMContentLoaded", () => {
-  iniciar();
-});
-
-// --------------------------------------------------------------
 // iniciar
-async function iniciar() {
+export async function iniciar() {
   await crearIndexedDB();
 
   const solicitud = indexedDB.open("dbBlog-Tech", 1);
@@ -81,7 +75,7 @@ function mostrarPosts(posts) {
   div.appendChild(titulo);
 
   if (posts.length === 0) {
-    div.textContent = "No hay posts creados.";
+    titulo.textContent = "No hay posts creados ...";
     return;
   }
 
@@ -256,7 +250,7 @@ categoriasContainer.innerHTML = `
 renderPagination();
 }
 
-// Evento like
+// Evento like: cuando se da like a un post
 async function like(idPost, contenedor) {
   const prueba = localStorage.getItem("userId");
 
