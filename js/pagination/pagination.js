@@ -201,7 +201,7 @@ contenidopost.innerHTML = post.contenido.length > 300
       countSpan.textContent = likeCount;
     }
 
-    like(post.id); // 👉 Tu función que guarda el like
+    like(post.id);
   });
 
   interacciones.appendChild(comentariosElem);

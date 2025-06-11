@@ -4,7 +4,7 @@ import {
   putUser,
   buscarPostPoId,
   editPost,
-} from "/js/indexedDB/IndexDB.js";
+} from "../../js/IndexedDB/indexDB.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("window.location.search:", window.location.search);
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const query = inputBusqueda.value.trim();
       if (query !== "") {
         const encodedQuery = encodeURIComponent(query);
-        window.location.href = `/views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`;
+        window.location.href = `busquedas.html?q=${encodedQuery}&filtro=posts`;;
         inputBusqueda.value = "";
       }
     }
