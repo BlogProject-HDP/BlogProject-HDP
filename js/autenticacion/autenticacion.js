@@ -31,7 +31,7 @@ async function crearCuenta(e) {
   const user = document.getElementById("registerName").value.trim();
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
-  const nombre = document.getElementById("registerFullName").value.trim()
+  const nombre = document.getElementById("registerFullName").value.trim();
 
   try {
     const userExiste = await buscarUser(user);
@@ -51,6 +51,8 @@ async function crearCuenta(e) {
       const hash = await hashPassword(password);
 
       const usuario = {
+        fotoPerfil:
+          "https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png",
         usuario: user,
         nombre: nombre,
         tipo: "user",
