@@ -1,3 +1,4 @@
+
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -214,33 +215,34 @@ html{
   }
 }
 
+
+
+
+
+.post-card {
+  font-size: 16px !important; /* tamaño base para pantallas grandes */
+}
+
 @media (max-width: 1200px) {
-  html {
-    font-size: 15px;
+  .post-card {
+    font-size: 14px !important;
   }
 }
 
 @media (max-width: 992px) {
-  html {
-    font-size: 14px;
+  .post-card {
+    font-size: 12px !important;
   }
 }
 
 @media (max-width: 768px) {
-  html {
-    font-size: 13px;
+  .post-card {
+    font-size: 11px !important;
   }
 }
 
 @media (max-width: 576px) {
-  html {
-    font-size: 12px;
+  .post-card {
+    font-size: 8px !important;
   }
 }
-
-@media (max-width: 400px) {
-  html {
-    font-size: 11px;
-  }
-}
-
