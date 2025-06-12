@@ -1,0 +1,14 @@
+  .custom-glow {
+      box-shadow: 0 0 10px #3273dc80;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .custom-glow:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #3273dccc;
+  }
+
+  .custom-glow:active {
+      transform: scale(0.8);
+      box-shadow: 0 0 8px #3273dc99;
+  }
