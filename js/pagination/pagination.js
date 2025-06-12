@@ -319,7 +319,7 @@ async function like(idPost, contenedor) {
 // Funcion para abrir un post
 function abrirPost(id) {
   localStorage.setItem("IdPostUser", id.toString());
-  window.location.href = "../../views/post/post.html";
+  window.location.href = `../../views/post/post.html?id=${id}`;
 }
 
 // --------------------------------------------------------------
