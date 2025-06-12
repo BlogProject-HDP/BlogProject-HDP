@@ -1,6 +1,12 @@
+
+import { addPost, buscarId } from "../../js/IndexedDB/indexDB.js";
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const html = document.documentElement;
   let editor = null;
+  let portadaBase64 = "";
+
 
   // ===================
   // PORTADA DINÁMICA
@@ -16,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function mostrarImagenPreview(file) {
     const reader = new FileReader();
     reader.onload = () => {
+      portadaBase64 = reader.result;
       imgPreview.src = reader.result;
       previewImagen.classList.remove('is-hidden');
     };
@@ -140,4 +147,78 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentContent = editor.getMarkdown();
     createEditor(newTheme, currentContent);
   });
+
+   // ===================
+  // PUBLICAR POST
+  // ===================
+  const btnPublicar = document.getElementById("btnPublicarPost");
+
+  btnPublicar.addEventListener("click", async () => {
+    const tituloInput = document.querySelector(".postTitleContainer input");
+    const titulo = tituloInput.value.trim();
+
+    if (titulo === "") {
+      alert("Debes ingresar un título.");
+      return;
+    }
+
+    if (categorias.length === 0) {
+      alert("Debes agregar al menos una categoría.");
+      return;
+    }
+
+    if (!editor) {
+      alert("Editor no inicializado.");
+      return;
+    }
+
+    const contenidoHTML = editor.getHTML();
+
+    // Obtener adminId desde localStorage
+    const adminId = parseInt(localStorage.getItem("adminId"));
+
+    if (!adminId) {
+      alert("No se encontró adminId en LocalStorage.");
+      return;
+    }
+
+    let adminUser;
+    try {
+      adminUser = await buscarId(adminId);
+      if (!adminUser) {
+        alert("No se pudo obtener el usuario admin.");
+        return;
+      }
+    } catch (error) {
+      console.error("Error al buscar el usuario admin:", error);
+      alert("Error al obtener el usuario admin.");
+      return;
+    }
+
+    // Construir post
+    const post = {
+      autor: adminUser.usuario,
+      fotoPerfilAutor: adminUser.fotoPerfil || "../../resources/test_avatar.png",
+      nombre: titulo,
+      imagen: portadaBase64,
+      contenido: contenidoHTML,
+      fechaDePublicacion: new Date().toISOString(),
+      categorias: categorias,
+      comentarios: [],
+      likes: [],
+    };
+
+    try {
+      await addPost(post);
+      alert("Post publicado con éxito!");
+      window.location.href = "../../index.html"; // o redirige donde quieras
+    } catch (error) {
+      console.error("Error al guardar el post:", error);
+      alert("Ocurrió un error al guardar el post.");
+    }
+  });
 });
+
+
+
+
