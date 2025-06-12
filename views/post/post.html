@@ -44,8 +44,7 @@
               <div class="columns is-mobile">
                 <div class="column is-narrow">
                   <figure class="image is-64x64 is-flex">
-                    <img id="avatarImg" src="../../resources/theBlog.svg" alt="Avatar" class="is-rounded"
-                      style="object-fit: cover;" />
+                    <img id="avatarImg" src="../../resources/theBlog.svg" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
                   </figure>
                 </div>
                 <div class="column">
@@ -60,8 +59,7 @@
 
               <!-- Portada -->
               <figure class="image is-2by1" style="margin-bottom: 1.5rem;">
-                <img id="portadaImg" src="" alt="Portada"
-                  style="object-fit: cover; border-radius: 0.15rem;" />
+                <img id="portadaImg" src="" alt="Portada" style="object-fit: cover; border-radius: 0.15rem;" />
               </figure>
 
               <!-- Categorías -->
@@ -92,9 +90,46 @@
       </article>
 
       <!-- Comentarios -->
-      <h2 class="title is-4">Top comments (<span id="numeroComments">0</span>)</h2>
-      <div id="container-comments" class="mt-4">
-        <!-- Aquí tu JS puede inyectar los comentarios dinámicamente -->
+      <!-- Numero de comentarios  -->
+      <h2 class="title is-4">Comentarios: <span id="numeroComments"></span></h2>
+      <div id="container-comments" class=" mt-4">
+
+        <!-- formulario con informacion del usuario actual para escribir un cometario -->
+        <article id="formulario" class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img id="fotoFerfil" src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" />
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="field">
+              <p class="control">
+                <textarea id="textarea" class="textarea" placeholder="Agregar un comentario..."></textarea>
+              </p>
+            </div>
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <a id="enviarComentario" class="button is-link is-light">Enviar</a>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </article>
+
+        <!-- alerta de comentario agregado o no puede comentar ("L") -->
+        <div id="alertaComentario" class=""></div>
+
+        <!-- Comentarios del usuario en el post -->
+        <hr style="border: none; background-color: rgba(180, 100, 255, 0.3);">
+        <div id="comentariosUser">
+        </div>
+
+        <!-- Comentarios de otros usuarios en el post -->
+        <hr style="border: none; background-color: rgba(180, 100, 255, 0.3);">
+        <div id="comentariosAll">
+        </div>
+
       </div>
     </div>
   </main>
