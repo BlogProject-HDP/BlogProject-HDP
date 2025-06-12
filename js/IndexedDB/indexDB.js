@@ -26,6 +26,7 @@ export async function crearIndexedDB() {
     userStore.createIndex("telefono", "telefono", { unique: true });
     userStore.createIndex("edad", "edad", { unique: false });
     userStore.createIndex("descripcion", "descripcion", { unique: false });
+    // [idPost, contenido, pendiente, fecha]
     userStore.createIndex("comentarios", "comentarios", { multiEntry: true });
     // Un array con los id de los post [1, 3, 5] a los que dio like
     userStore.createIndex("likes", "likes", { multiEntry: true });
@@ -47,6 +48,7 @@ export async function crearIndexedDB() {
       unique: false,
     });
     postStore.createIndex("categorias", "categorias", { multiEntry: true });
+    // [usuario, contenido, pendiente, fecha]
     postStore.createIndex("comentarios", "comentarios", { multiEntry: true });
     // Un array con los id de los usuarios [1, 3, 5] que dieron likes
     postStore.createIndex("likes", "likes", { multiEntry: true });
@@ -225,10 +227,10 @@ export function deleteUser(idUser) {
       const store = transaccion.objectStore("users");
       const deleteRequest = store.delete(idUser);
 
-      deleteRequest.onsuccess = (e) =>{
+      deleteRequest.onsuccess = (e) => {
         console.log("Usuario eliminar con éxito", idUser);
         resolve();
-      }
+      };
 
       deleteRequest.onerror = (event) => {
         console.error("Error al eliminar el usuario: ", event.target.error);
