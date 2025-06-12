@@ -31,6 +31,7 @@ async function crearCuenta(e) {
   const user = document.getElementById("registerName").value.trim();
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
+  const nombre = document.getElementById("registerFullName").value.trim()
 
   try {
     const userExiste = await buscarUser(user);
@@ -51,6 +52,7 @@ async function crearCuenta(e) {
 
       const usuario = {
         usuario: user,
+        nombre: nombre,
         tipo: "user",
         email: email,
         password: hash,

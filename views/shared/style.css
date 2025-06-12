@@ -1,3 +1,4 @@
+
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -18,7 +19,12 @@
 .vs-y{
     border: 3px solid yellow ;
 }
+html{
 
+  html {
+  font-size: 16px; /* tamaño base para escritorio */
+}
+}
 :root{
    
     /* --bulma-primary-h: 278deg;
@@ -136,9 +142,33 @@
 } */
 
 
+#contenedor-alertas {
+  /* Puedes complementar aquí si quieres */
+}
 
+/* Estilo base de la alerta flotante */
+.alerta-flotante {
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(100%); /* fuera de la pantalla a la derecha */
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  will-change: opacity, transform;
+}
 
+/* Estado visible: entra deslizándose desde la derecha */
+.alerta-flotante.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
 
+/* Estado hidden: sale deslizándose hacia la derecha */
+.alerta-flotante.salida {
+  opacity: 0;
+  transform: translateX(100%);
+}
 
 
 
@@ -187,3 +217,32 @@
 
 
 
+
+
+.post-card {
+  font-size: 16px !important; /* tamaño base para pantallas grandes */
+}
+
+@media (max-width: 1200px) {
+  .post-card {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .post-card {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .post-card {
+    font-size: 8px !important;
+  }
+}

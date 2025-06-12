@@ -81,7 +81,8 @@ function mostrarPosts(posts) {
 
 posts.forEach((post) => {
   const postDiv = document.createElement("div");
-  postDiv.className = "box";
+  postDiv.classList.add('post-card')//le agrego esta clase donde asigno un font size al post-card container lo cual ayuda a que los tamanos de fuente y espacioado dismuyan segun el tamano de la pantalla
+  postDiv.classList.add("box") //cambie esto tya que classname sobreescribe todas las clases
   postDiv.style.display = "flex";
   postDiv.style.alignItems = "flex-start";
   postDiv.style.gap = "10px";
@@ -147,7 +148,7 @@ posts.forEach((post) => {
 
   const titulo = document.createElement("h3");
   const nombreCorto = post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre;
-  titulo.innerHTML = `<h1 style="font-size: 25px;"><strong>${nombreCorto}</strong></h1>`;
+  titulo.innerHTML = `<h1 style="font-size: 2em;"><strong>${nombreCorto}</strong></h1>`;//cambio el font size del titulo de 25px a 2em de esta forma cambia su tamanio
   columna2.appendChild(titulo);
 
   const imagenPost = document.createElement("img");
