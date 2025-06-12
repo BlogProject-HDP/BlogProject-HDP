@@ -148,10 +148,25 @@
 
         </div>
         <!-- AQUI PARA OBTENER EL TITULO DEL POST -->
-        <div class="mb-3 postTitleContainer">
-            <input type="text" name="" id="" class="input" placeholder="Ingrese el titulo aqui"
-                style="border: none; height: 7rem;">
+        <div class="columns is-align-items-center">
+            <div class="column mb-3 postTitleContainer">
+                <input type="text" name="" id="" class="input" placeholder="Ingrese el titulo aqui"
+                    style="border: none; height: 7rem;">
+            </div>
+            <div class="column is-narrow">
+                <button id="ayudaButton" class="button is-link is-dark" href="../crear_post/crear_post.html">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <!-- <i class="fa-solid fa-upload"></i> -->
+                            <i class="fa-regular fa-lightbulb"></i>
+                            <!-- <i class="fas fa-user-plus"></i> -->
+                        </span>
+                        <!-- <span></span> -->
+                    </span>
+                </button>
+            </div>
         </div>
+
 
         <!-- Sección para almacenar categorías -->
         <div class="box" id="seccionCategorias">
@@ -187,10 +202,22 @@
 
     </main>
 
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <!-- hAny other Bulma elements you want -->
+
+            
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.js"></script>
     <script src="./crear_post.js" type="module"></script>
     <script src="../shared/global.js"></script>
     <script src="../shared/navbar.js"></script>
+    <script src="./ayuda.js"></script>
     <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
 
