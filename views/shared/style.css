@@ -18,7 +18,12 @@
 .vs-y{
     border: 3px solid yellow ;
 }
+html{
 
+  html {
+  font-size: 16px; /* tamaño base para escritorio */
+}
+}
 :root{
    
     /* --bulma-primary-h: 278deg;
@@ -136,9 +141,33 @@
 } */
 
 
+#contenedor-alertas {
+  /* Puedes complementar aquí si quieres */
+}
 
+/* Estilo base de la alerta flotante */
+.alerta-flotante {
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(100%); /* fuera de la pantalla a la derecha */
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  will-change: opacity, transform;
+}
 
+/* Estado visible: entra deslizándose desde la derecha */
+.alerta-flotante.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
 
+/* Estado hidden: sale deslizándose hacia la derecha */
+.alerta-flotante.salida {
+  opacity: 0;
+  transform: translateX(100%);
+}
 
 
 
@@ -185,5 +214,33 @@
   }
 }
 
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
 
+@media (max-width: 992px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 11px;
+  }
+}
 
