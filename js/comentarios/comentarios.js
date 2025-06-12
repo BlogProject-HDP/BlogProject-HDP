@@ -86,7 +86,7 @@ export async function mostrarComentariosUser(
 <div class="media-content">
     <div class="content">
         <p>
-            <strong>${usuario.email}</strong>
+            <strong>${usuario.usuario}</strong>
             <br />
             ${comentario[1]}
             <br />

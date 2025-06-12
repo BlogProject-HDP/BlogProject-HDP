@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Rellenar imagen del usuario
     const usuario = await buscarId(userId);
-    const imagen = document.getElementById("fotoFerfil");
+    const imagen = document.getElementById("fotoPerfil");
+    imagen.src = usuario.fotoPerfil;
 
     //
     // Numero de comentarios
