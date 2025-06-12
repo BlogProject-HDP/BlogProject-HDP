@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Construir post
     const post = {
       autor: adminUser.usuario,
-      fotoPerfilAutor: adminUser.fotoPerfil || "../../resources/test_avatar.png",
+      fotoPerfilAutor: adminUser.fotoPerfil || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
       nombre: titulo,
       imagen: portadaBase64,
       contenido: contenidoHTML,
