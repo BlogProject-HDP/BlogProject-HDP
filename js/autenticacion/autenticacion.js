@@ -52,7 +52,7 @@ async function crearCuenta(e) {
 
       const usuario = {
         fotoPerfil:
-          "https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
         usuario: user,
         nombre: nombre,
         tipo: "user",
