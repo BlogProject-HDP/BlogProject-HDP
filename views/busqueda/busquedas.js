@@ -186,9 +186,14 @@ function crearPostHTML(post) {
   const yaDioLike = post.likes?.includes(idUsuario);
   const likeCount = post.likes?.length || 0;
 
-  likeElem.innerHTML = `<strong><i class="${
-    yaDioLike ? "fas" : "far"
-  } fa-heart" style="color: #e74c3c;"></i></strong> ${likeCount}`;
+  const userId = parseInt(localStorage.getItem("userId")) || "L";
+  if (userId !== "L") {
+    likeElem.innerHTML = `<strong><i class="${
+      yaDioLike ? "fas" : "far"
+    } fa-heart" style="color: #e74c3c;"></i></strong> ${likeCount}`;
+  } else {
+    likeElem.innerHTML = "";
+  }
 
   likeElem.style.cursor = "pointer";
   likeElem.addEventListener("click", (e) => {

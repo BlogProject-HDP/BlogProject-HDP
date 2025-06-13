@@ -71,6 +71,14 @@ function mostrarPosts(posts) {
   const div = document.getElementById("post-container");
   div.innerHTML = "";
 
+  //
+  //
+  // Mostrar mensaje de que inicie sesion
+  const userL = localStorage.getItem("userId");
+  if (userL === "L") {
+    div.innerHTML = `<div class="notification is-warning">Acceda para sincronizar y activar caracteristicas</div>`;
+  }
+
   // Titulo
   const titulo = document.createElement("h1");
   titulo.className = "subtitle has-text-info";
@@ -206,9 +214,13 @@ function mostrarPosts(posts) {
     const yaDioLike = post.likes?.includes(idUsuario);
     let likeCount = post.likes?.length || 0;
 
-    likeElem.innerHTML = `<strong><i class="${
-      yaDioLike ? "fas" : "far"
-    } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
+    if (userL !== "L") {
+      likeElem.innerHTML = `<strong><i class="${
+        yaDioLike ? "fas" : "far"
+      } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
+    } else {
+      likeElem.innerHTML = "";
+    }
 
     likeElem.addEventListener("click", (event) => {
       event.stopPropagation(); // Evita redirigir al ver post
@@ -234,7 +246,10 @@ function mostrarPosts(posts) {
     interacciones.appendChild(likeElem);
     columna2.appendChild(interacciones);
 
-    // Categorías
+    //
+    //
+    // Categorias
+    // Filtrar categorias del post
     let categoriasHTML = "";
     if (Array.isArray(post.categorias)) {
       categoriasHTML = post.categorias
@@ -249,7 +264,10 @@ function mostrarPosts(posts) {
         .join("");
     }
 
+    //
+    // Elementos contenedor de las categorias
     const categoriasContainer = document.createElement("div");
+    // Mostar
     categoriasContainer.innerHTML = `
   <div class="columns is-mobile is-multiline" style=" align-items: center; text-align: center;">
     <p><strong></strong></p>
@@ -277,7 +295,7 @@ function mostrarPosts(posts) {
 }
 
 // Evento like: cuando se da like a un post
-export async function like(idPost) {
+async function like(idPost) {
   const prueba = localStorage.getItem("userId");
 
   // USUARIO TIENE QUE ESTAR LOGUEADO
