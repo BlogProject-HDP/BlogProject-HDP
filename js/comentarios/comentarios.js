@@ -12,11 +12,14 @@ export async function comentarUser(post, contenido, userID, pendiente) {
   //
   // Actualizar comentarios de post
   //
+  const ahora = new Date();
+  const fechaHoraActual = ahora.toLocaleString();
   const comentario = [
     userID,
     contenido,
     pendiente,
-    new Date(post.fechaDePublicacion).toLocaleString(),
+    // new Date.toLocaleString(),
+    fechaHoraActual,
   ];
   post.comentarios = post.comentarios || [];
   post.comentarios.push(comentario);
@@ -86,7 +89,7 @@ export async function mostrarComentariosUser(
 <div class="media-content">
     <div class="content">
         <p>
-            <strong>${usuario.email}</strong>
+            <strong>${usuario.usuario}</strong>
             <br />
             ${comentario[1]}
             <br />

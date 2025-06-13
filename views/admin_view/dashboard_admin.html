@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>Panel de Administración</title>
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css" /> -->
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../shared/style.css" />
 </head>
 
@@ -94,8 +94,7 @@
             <div class="field">
               <label class="label">Contraseña</label>
               <div class="control">
-                <input class="input" type="password" id="user-password" placeholder="Ingrese la contraseña..."
-                  required />
+                <input class="input" type="password" id="user-password" placeholder="Ingrese la contraseña..." required />
               </div>
             </div>
             <!--Zona de la Ciudad-->
@@ -123,8 +122,7 @@
             <div class="field">
               <label class="label">Descripción</label>
               <div class="control">
-                <textarea class="textarea" id="user-descripcion"
-                  placeholder="Escriba una breve descripción (opcional)"></textarea>
+                <textarea class="textarea" id="user-descripcion" placeholder="Escriba una breve descripción (opcional)"></textarea>
               </div>
             </div>
             <!--Zona de la Foto de Perfil-->
@@ -212,45 +210,21 @@
     </div>
 
     <!-- Administrador de Comentarios -->
+    <!-- aqui se muestran los comentarios por post aprobados y pendientes -->
     <div class="tab-content is-hidden" id="comentarios">
-      <h2 class="subtitle">Administrador de Comentarios</h2>
-      <div class="tabs is-toggle is-small is-fullwidth is-mobile">
-        <ul>
-          <li class="is-active" data-subtab="pendientes">
-            <a>Pendientes</a>
-          </li>
-          <li data-subtab="eliminar"><a>Eliminar Comentarios</a></li>
-        </ul>
-      </div>
-      <!-- Pendientes -->
-      <div class="subtab-content" id="pendientes">
-        <div class="field">
-          <label class="label">Buscar por Post</label>
-          <div class="control">
-            <input class="input" type="text" id="busqueda-post-pendientes"
-              placeholder="Buscar por título o ID de post" />
-          </div>
-        </div>
-        <div id="comentarios-pendientes-lista"></div>
-      </div>
-      <!-- Eliminar -->
-      <div class="subtab-content is-hidden" id="eliminar">
-        <div class="field">
-          <label class="label">Buscar Comentario</label>
-          <div class="control">
-            <input class="input" type="text" id="busqueda-comentario-eliminar" placeholder="Buscar comentario..." />
-          </div>
-        </div>
-        <div id="comentarios-eliminar-lista"></div>
-      </div>
     </div>
-    </div>
+
   </section>
+
 </body>
-<script src="admin_ban.js" type="module"></script>
-<script src="admin_CRUD-users.js" type="module"></script>
+
+<script src="admin_ban.js" type="module" defer></script>
+<script src="admin_CRUD-users.js" type="module" defer></script>
 <!--oJO aquí con el elemento que va primero para la validación-->
-<script src="dashboard_admin.js" type="module"></script>
+<script src="dashboard_admin.js" type="module" defer></script>
+<!-- para la Administración de comentarios  -->
+<script src="../../js/comentarios/comentarios_admi.js" type="module" defer></script>
+<script src="../../js/comentarios/admin_aprobar_reprobar.js" type="module" defer></script>
 <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 <script src="../shared/global.js"></script>
 
