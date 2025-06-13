@@ -4,7 +4,7 @@ import {
   deletePost,
   editPost,
   obtenerTodosLosUsers,
-  buscarId
+  buscarId,
 } from "../../js/IndexedDB/indexDB.js";
 
 import {
@@ -13,6 +13,7 @@ import {
   desbloquear,
   bannear,
 } from "../../js/baneados/baneador.js";
+import { tablasComentarios } from "../../js/comentarios/comentarios_admi.js";
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -135,7 +136,7 @@ function agregarEventosCrearPost() {
 
       let nombreDelAutor = "Autor Desconocido"; // Valor por defecto
       const adminIdString = localStorage.getItem("adminId");
-      let fotoPerfilDelAutor = null; 
+      let fotoPerfilDelAutor = null;
       if (adminIdString) {
         try {
           const adminUser = await buscarId(parseInt(adminIdString, 10));
@@ -143,16 +144,24 @@ function agregarEventosCrearPost() {
             if (adminUser.usuario) {
               nombreDelAutor = adminUser.usuario;
             }
-            if (adminUser.fotoPerfil) { 
+            if (adminUser.fotoPerfil) {
               fotoPerfilDelAutor = adminUser.fotoPerfil;
             } else {
-              console.warn("El usuario administrador no tiene foto de perfil configurada.");
+              console.warn(
+                "El usuario administrador no tiene foto de perfil configurada."
+              );
             }
           } else {
-            console.warn("No se encontró el usuario administrador con ID:", adminIdString);
+            console.warn(
+              "No se encontró el usuario administrador con ID:",
+              adminIdString
+            );
           }
         } catch (error) {
-          console.error("Error al buscar los detalles del administrador:", error);
+          console.error(
+            "Error al buscar los detalles del administrador:",
+            error
+          );
         }
       } else {
         console.warn("No se encontró 'adminId' en localStorage.");
@@ -565,3 +574,13 @@ async function unBan(nombre) {
   await crearTablaDoble();
 }
 // FIN PARTE DE DAVID BAN Y UNBAN
+
+//
+//
+// Parte para administrar comentarios en post
+//
+//
+//
+
+const contenedorComentarios = document.getElementById("comentarios");
+tablasComentarios(contenedorComentarios);

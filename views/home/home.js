@@ -5,15 +5,28 @@ import { cargarPosts, crearIndexedDB } from "../../js/IndexedDB/indexDB.js";
 const btnAcceder = document.getElementById("btnAcceder");
 const perfilBtn = document.getElementById("perfilBtn");
 
+mostrarAlerta("Bienvenido", "is-info")
 // Obtenemos el modo en el que se encuentra el usuario
 // L : Invitado
-const user = localStorage.getItem("userId") || "L";
+// const user = localStorage.getItem("userId") || "L"; esto funciona pero esta es mejor:
+
+if (localStorage.getItem('userId') === null) {
+  localStorage.setItem('userId', 'L');
+}
+
+if (localStorage.getItem('adminId') === null) {
+  localStorage.setItem('adminId', 'L');
+}//con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de admin
+
+const user = localStorage.getItem("userId");
+const admin = localStorage.getItem("adminId");
+
 
 // No esta logueado es invitado
 // Opcion: Ver perfil no disponible
 perfilBtn.addEventListener("click", () => {
   if (user === "L") {
-    alert("Mira loco tenes que estar logeado para acceder aqui");
+    mostrarAlerta('Debes iniciar sesion para continuar', 'is-warning')
     return;
   }
 });
@@ -23,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Si esta logueado ocultar el boton acceder
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
-    perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
+    perfilBtn.setAttribute("href", "/views/perfil_usuario/perfil_usuario.html");
   }
 
   // Logica para el evento de la barra de busqueda

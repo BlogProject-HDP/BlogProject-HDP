@@ -2,346 +2,143 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../shared/style.css">
-    <link rel="stylesheet" href="./post.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/style.css" />
+  <link rel="stylesheet" href="./post.css" />
 </head>
 
 <body>
+  <!-- Navbar -->
+  <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../index.html">
+        <figure class="image is-64x64-desktop is-flex is-align-items-center">
+          <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;" />
+        </figure>
+      </a>
+      <div class="navbar-item is-flex-shrink-1">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="barra-busqueda" type="text" class="input" placeholder="Buscar..." />
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
-
-        <div class="navbar-brand">
-            
-
-            
-            
-            <a class="navbar-item" href="../../index.html">
-
-                <figure class="image is-64x64-desktop is-flex is-align-items-center">
-                    <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
-                </figure>
-            </a>
-
-            <div class="navbar-item is-flex-shrink-1">
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
-                        <span class="icon is-small is-left">
-                                <!-- <i class="fas fa-user"></i> -->
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                    </div>
+  <!-- Contenido principal -->
+  <main class="container is-max-desktop mt-6">
+    <div class="box post-box">
+      <div id="postCardContainer">
+        <!-- Aquí tu post.js inyecta: avatar, autor, titulo, portada, categorias, contenido -->
+        <article class="media custom-box-top" style="height: fit-content; margin-bottom: 0px;">
+          <div class="media-content">
+            <div class="content is-clipped">
+              <!-- Autor -->
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <figure class="image is-64x64 is-flex">
+                    <img id="avatarImg" src="../../resources/theBlog.svg" alt="Avatar" class="is-rounded" style="object-fit: cover;" />
+                  </figure>
                 </div>
-            </div>
+                <div class="column">
+                  <p>
+                    <strong></strong> <small></small> <small></small>
+                  </p>
+                </div>
+              </div>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+              <!-- Titulo -->
+              <p class="is-size-5"></p>
+
+              <!-- Portada -->
+              <figure class="image is-2by1" style="margin-bottom: 1.5rem;">
+                <img id="portadaImg" src="" alt="Portada" style="object-fit: cover; border-radius: 0.15rem;" />
+              </figure>
+
+              <!-- Categorías -->
+              <div class="columns is-mobile is-multiline"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Botones de interacción -->
+      <article>
+        <nav class="media-content mt-4 custom-level">
+          <div class="is-flex is-align-items-center is-justify-content-center" style="gap: 2rem; position: sticky; top: 0px; ">
+            <a class="level-item" aria-label="reply">
+              <span class="icon is-small"><i class="fas fa-reply"></i></span>
             </a>
+            <a class="level-item" aria-label="bookmark">
+              <span class="icon is-small"><i class="fa-regular fa-bookmark"></i></span>
+            </a>
+            <a class="level-item" aria-label="like">
+              <span class="icon is-small"><i class="fa-regular fa-heart" style="color: red;"></i></span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Contenido del post -->
+        <div id="Contenido" class="content caja custom-box-bottom" style="margin-bottom: 4rem;"></div>
+      </article>
+
+      <!-- Comentarios -->
+      <!-- Numero de comentarios  -->
+      <h2 class="title is-4">Comentarios: <span id="numeroComments"></span></h2>
+      <div id="container-comments" class=" mt-4">
+
+        <!-- formulario con informacion del usuario actual para escribir un cometario -->
+        <article id="formulario" class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img id="fotoPerfil" src="" />
+              <!-- <img id="fotoFerfil" src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" /> -->
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="field">
+              <p class="control">
+                <textarea id="textarea" class="textarea" placeholder="Agregar un comentario..."></textarea>
+              </p>
+            </div>
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <a id="enviarComentario" class="button is-link is-light">Enviar</a>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </article>
+
+        <!-- alerta de comentario agregado o no puede comentar ("L") -->
+        <div id="alertaComentario" class=""></div>
+
+        <!-- Comentarios del usuario en el post -->
+        <hr style="border: none; background-color: rgba(180, 100, 255, 0.3);">
+        <div id="comentariosUser">
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-
-            <div class="navbar-start">
-
-
-                <div class="navbar-item has-dropdown" id="dropDownItem">
-                    <a class="navbar-link">
-                        Mas
-                    </a>
-
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Algo mas 1
-                        </a>
-                        <a class="navbar-item ">
-                            Algo mas 2
-                        </a>
-                        <!-- <a class="navbar-item">
-                            Contact
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
-                        </a> -->
-                    </div>
-                </div>
-
-                
-
-
-            </div>
-
-            <div class="navbar-end">
-
-                <a id="perfilBtn" href="" class="navbar-item is-flex is-align-items-center">
-                    <span class="icon-text">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span>Perfil</span>
-                </a>
-                
-
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a id="btnAcceder" class="button is-primary is-light" href="../autenticacion/auth.html">
-                            <strong>Acceder</strong>
-                        </a>
-
-                    </div>
-                </div>
-
-                
-
-               
-            </div>
+        <!-- Comentarios de otros usuarios en el post -->
+        <hr style="border: none; background-color: rgba(180, 100, 255, 0.3);">
+        <div id="comentariosAll">
         </div>
-    </nav>
 
-    <main class="container is-max-desktop mt-6">
-        <!-- Autor -->
-        <div class="box post-box">
+      </div>
+    </div>
+  </main>
 
-            <div id="postCardContainer">
-                <article class="media custom-box-top" style="height: fit-content; margin-bottom: 0px;">
-                    <div class="media-content">
-                        <div class="content is-clipped">
-                            <div class="columns is-mobile">
-                                <div class="column is-narrow">
-                                    <figure class="image is-64x64 is-flex">
-                                        <img id="avatarImg" src="../../resources/theBlog.svg" alt="Avatar" class="is-rounded"
-                                        style="object-fit: cover;" />
-                                    </figure>
-                                </div>
-                                <div class="column">
-                                    <p>
-                                        <strong>${post.autor}</strong> <small>${post.usuario}</small>
-                                        <small>${post.tiempo}</small>
-                                    </p>
-                                </div>
-                            </div>
-                            <p class="is-size-5">Madre mia</p>
-                            <figure class="image is-2by1" style="margin-bottom: 1.5rem;">
-                                <img src="../../resources/test_portada.webp" alt=""
-                                    style="object-fit: cover; border-radius: 0.15rem;">
-                            </figure>
-                            <div class="columns is-mobile is-multiline">
-                                <span class="column is-narrow">
-                                    <p class="categoria">Categoria 1</p>
-                                </span>
-                                <span class="column is-narrow">
-                                    <p class="categoria">Categoria 2</p>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-
-
-            <!-- este bloque contiene los botones de iteraccionde post like me gusta coment(el de coment debe autoscrollear hacia la seccion de comentar) -->
-            <article>
-                <nav class="media-content mt-4 custom-level">
-                    <div class="is-flex is-align-items-center is-justify-content-center" style="gap: 2rem;">
-                        <a class="level-item" aria-label="reply">
-                            <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                        </a>
-                        <a class="level-item" aria-label="bookmark">
-                            <span class="icon is-small"><i class="fa-regular fa-bookmark"></i></span>
-                        </a>
-                        <a class="level-item" aria-label="like">
-                            <span class="icon is-small"><i class="fa-regular fa-heart" style="color: red;"></i></span>
-                        </a>
-                    </div>
-                </nav>
-
-                <div id="Contenido" class="content caja custom-box-bottom" style="margin-bottom: 4rem;">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia, ullam aliquid! Consequuntur
-                    perferendis mollitia magnam labore aspernatur! Aliquam culpa, aperiam ratione nemo corporis dolores
-                    itaque fugiat, nihil ipsa quod neque, quibusdam incidunt! Fugit vero magni ut nihil nostrum! Autem
-                    officia est eius dignissimos eum ab cum facilis modi deserunt molestias possimus, magnam explicabo
-                    dolorum maxime, animi consectetur velit similique laudantium quo harum natus obcaecati delectus
-                    maiores iste? Porro, quia molestiae eos maxime reiciendis adipisci soluta labore fugit saepe dolorum
-                    hic blanditiis laudantium provident aut. Doloremque recusandae rem maxime doloribus rerum fuga
-                    voluptatem beatae illo. Tempora rem totam dicta consequuntur id. Lorem, ipsum dolor sit amet
-                    consectetur adipisicing elit. Non ipsa expedita fugit ullam, repudiandae odit dicta quae laborum
-                    ducimus. Cumque, blanditiis architecto ullam praesentium quo provident harum, similique, rerum
-                    repellat non veniam vel? Recusandae id, amet magnam ipsam ducimus consectetur. Voluptates nam
-                    nesciunt porro, inventore obcaecati nemo id odio officiis temporibus assumenda commodi eaque est
-                    possimus autem ut repellendus! Pariatur quasi quod laborum dolor illum repudiandae velit unde,
-                    aspernatur blanditiis id asperiores doloribus veritatis delectus ducimus magnam corrupti vel sit
-                    deleniti eius? Quia odit tempore ullam in commodi, neque fugit, modi delectus iure sed voluptas
-                    similique nemo molestiae! Eius facilis laborum nisi quos at sunt accusantium. Optio, maxime ducimus.
-                    Provident, iste reprehenderit! Odio voluptate et itaque autem quaerat rerum sunt enim voluptatum,
-                    sint ipsam corporis aspernatur, laborum nisi delectus expedita dicta harum vero accusantium dolor
-                    facere aut doloribus. Quisquam aperiam ad animi? Ipsa nulla similique eum pariatur quos ullam
-                    nostrum iure, et eveniet aperiam nobis incidunt culpa. Quidem maiores, reiciendis soluta quia
-                    asperiores harum deserunt corporis quos hic eos provident perspiciatis laudantium nostrum omnis ut
-                    magnam quod? Vero adipisci earum, ipsam rem nobis quam animi libero, ut perferendis blanditiis in,
-                    incidunt similique nesciunt aperiam distinctio a laboriosam quia. Cupiditate temporibus saepe
-                    molestiae blanditiis sint excepturi, aperiam aut beatae ratione itaque assumenda ducimus pariatur
-                    odit laudantium! Architecto alias ratione praesentium eos soluta animi nostrum maxime, debitis,
-                    delectus repudiandae corporis rem asperiores sed illum minus ullam. Odit quo sequi sed et facere
-                    officiis, modi aliquam quasi, non saepe ratione minus assumenda deleniti, in eos iure deserunt
-                    tempore reiciendis beatae vero libero nisi? Fuga rem saepe iure illo quas sed earum! Sed perferendis
-                    labore veritatis minus culpa deleniti dolor eligendi animi error dicta quaerat aliquid voluptates
-                    aut maxime quae itaque cupiditate sint, facere quas. Quaerat, recusandae nam? Eum neque modi nihil
-                    perferendis repellendus, ut, exercitationem qui quasi id obcaecati suscipit quisquam aut laudantium
-                    autem maiores et aperiam deserunt eaque tempore temporibus iure. Perferendis quia, nulla neque illum
-                    totam atque enim dolorem debitis, repellat commodi cum optio sapiente vel iste laudantium, tempore
-                    officia eos necessitatibus! Odit praesentium accusamus modi, laborum nulla corrupti nobis voluptate
-                    unde mollitia illum repellendus sequi itaque minus alias eum animi sed nostrum voluptatibus! Dolor,
-                    unde. Doloribus incidunt velit maiores, architecto impedit provident dolores placeat ducimus ratione
-                    veritatis itaque culpa. Maiores dicta deleniti sit ut nisi harum unde. A voluptatum accusantium,
-                    fuga vitae error eveniet eaque sed earum facilis dolores veniam iure at eos accusamus numquam
-                    distinctio. Dolor reprehenderit, eveniet expedita eos corrupti distinctio similique sed vitae
-                    mollitia harum obcaecati, soluta fugit laudantium quas earum qui dignissimos. Quisquam quaerat nemo
-                    similique illum libero reprehenderit dicta dignissimos officiis iusto unde magni alias, veniam
-                    voluptas pariatur incidunt delectus! Natus exercitationem mollitia eius consequuntur amet,
-                    doloremque deleniti eaque et illum aspernatur nesciunt vitae inventore possimus molestiae tenetur.
-                    At quae ratione, reiciendis explicabo impedit magni. Consequuntur, architecto culpa. Asperiores
-                    consequuntur quam autem dolorem exercitationem fugit incidunt, maxime suscipit, dignissimos
-                    consequatur, dicta quo a explicabo modi consectetur est dolores voluptates veritatis doloremque
-                    inventore. In, ipsa architecto.
-                </div>
-            </article>
-
-
-
-            <!-- Comentarios -->
-            <h2 class="title is-4">Top comments (<span id="numeroComments">35</span>)</h2>
-            <div id="container-comments" class=" mt-4">
-
-                <!-- pequeeno formulario con informacion del usuario actual para escribir un cometario -->
-                <article class="media">
-                    <figure class="media-left">
-                        <p class="image is-64x64">
-                            <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
-                        </p>
-                    </figure>
-                    <div class="media-content">
-                        <div class="field">
-                            <p class="control">
-                                <textarea class="textarea" placeholder="Add a comment..."></textarea>
-                            </p>
-                        </div>
-                        <nav class="level">
-                            <div class="level-left">
-                                <div class="level-item">
-                                    <a class="button is-link is-light">Submit</a>
-                                </div>
-                            </div>
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" /> Press enter to submit
-                                    </label>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </article>
-
-                <hr style="border: none; background-color: rgba(180, 100, 255, 0.3);">
-                <!-- label para hacer el recuento de comentarios en este post -->
-                <div id="comments">
-                    <article class="media">
-                        <figure class="media-left">
-                            <p class="image is-64x64">
-                                <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
-                            </p>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Barbara Middleton</strong>
-                                    <br />
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros
-                                    lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris
-                                    sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                                    <br />
-                                    <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
-                                </p>
-                            </div>
-
-                            <article class="media">
-                                <figure class="media-left">
-                                    <p class="image is-48x48">
-                                        <img src="https://bulma.io/assets/images/placeholders/96x96.png" />
-                                    </p>
-                                </figure>
-                                <div class="media-content">
-                                    <div class="content">
-                                        <p>
-                                            <strong>Sean Brown</strong>
-                                            <br />
-                                            Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque
-                                            habitant morbi tristique senectus et netus et malesuada fames ac
-                                            turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis
-                                            leo feugiat.
-                                            <br />
-                                            <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                                        </p>
-                                    </div>
-
-                                    <article class="media">
-                                        Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem
-                                        cursus ullamcorper sit amet nec massa.
-                                    </article>
-
-                                    <article class="media">
-                                        Morbi vitae diam et purus tincidunt porttitor vel vitae augue.
-                                        Praesent malesuada metus sed pharetra euismod. Cras tellus odio,
-                                        tincidunt iaculis diam non, porta aliquet tortor.
-                                    </article>
-                                </div>
-                            </article>
-
-                            <article class="media">
-                                <figure class="media-left">
-                                    <p class="image is-48x48">
-                                        <img src="https://bulma.io/assets/images/placeholders/96x96.png" />
-                                    </p>
-                                </figure>
-                                <div class="media-content">
-                                    <div class="content">
-                                        <p>
-                                            <strong>Kayli Eunice </strong>
-                                            <br />
-                                            Sed convallis scelerisque mauris, non pulvinar nunc mattis vel.
-                                            Maecenas varius felis sit amet magna vestibulum euismod malesuada
-                                            cursus libero. Vestibulum ante ipsum primis in faucibus orci luctus
-                                            et ultrices posuere cubilia Curae; Phasellus lacinia non nisl id
-                                            feugiat.
-                                            <br />
-                                            <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
-
-
-    </main>
-
-
-
-
-    <script src="../shared/global.js"></script>
-    <script src="./post.js"></script>
-    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+  <!-- Scripts -->
+  <script src="../shared/global.js"></script>
+  <script src="./post.js" type="module"></script>
+  <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
