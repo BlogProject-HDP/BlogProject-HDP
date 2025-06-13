@@ -8,8 +8,9 @@ import {
 
 //Administrar la accesibilidad a los métodos de admin/user
 localStorage.setItem("adminId", "L");
-
 localStorage.setItem("userId", "L");
+localStorage.setItem("userRol", "LL");
+localStorage.setItem("adminRol", "LL");
 async function main() {
   // Crear IndexedDB y usuario admin por defecto
   crearIndexedDB();
@@ -52,7 +53,7 @@ async function crearCuenta(e) {
 
       const usuario = {
         fotoPerfil:
-          "https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
         usuario: user,
         nombre: nombre,
         tipo: "user",
@@ -61,6 +62,8 @@ async function crearCuenta(e) {
         banned: false, // NO BANEADO
       };
       addUser(usuario); // Agregar
+      alert("Usuario creado con éxito"); //alerta
+      window.location.href = "../autenticacion/auth.html"; //Mandar para el login
     } else if (userExiste && emailExiste) {
       console.log("Error --> El usuario y el email ya existen");
       document.getElementById("usuarioExiste").classList.remove("is-hidden");
@@ -138,10 +141,12 @@ async function iniciarSesion(e) {
         console.log("Redirigir a dashboar de usuario");
         // Guarda el ID en localStorage
         localStorage.setItem("userId", usuario.id);
+        localStorage.setItem("userRol", usuario.tipo); // Para validar la permanencia luego de actualizar el usuario en panel de usuarios
         // Redirigir al admin para el html
         window.location.href = "../../index.html";
         // window.location.href = "";
       } else if (usuario.tipo === "admin") {
+        localStorage.setItem("adminRol", usuario.tipo); // Para validar la permanencia luego de actualizar el usuario en panel de usuarios
         // Guarda el ID en localStorage
         localStorage.setItem("adminId", usuario.id);
         // Redirigir al admin para el html

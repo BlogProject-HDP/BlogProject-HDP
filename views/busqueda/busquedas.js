@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const query = inputBusqueda.value.trim();
       if (query !== "") {
         const encodedQuery = encodeURIComponent(query);
-        window.location.href = `busquedas.html?q=${encodedQuery}&filtro=posts`;;
+        window.location.href = `busquedas.html?q=${encodedQuery}&filtro=posts`;
         inputBusqueda.value = "";
       }
     }
@@ -94,10 +94,12 @@ function crearPostHTML(post) {
   postDiv.style.alignItems = "flex-start";
   postDiv.style.gap = "10px";
   postDiv.style.cursor = "pointer";
-
+  //
+  //
+  // ABRIR PAGINA
   postDiv.addEventListener("click", () => {
     localStorage.setItem("IdPostUser", post.id.toString());
-    window.location.href = "../../views/post/post.html";
+    window.location.href = `../../views/post/post.html?id=${post.id}`;
   });
 
   // Columna 1: Foto de perfil del autor
@@ -107,7 +109,9 @@ function crearPostHTML(post) {
   columna1.style.justifyContent = "center";
 
   const mainImg = document.createElement("img");
-  mainImg.src = post.fotoPerfilAutor || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
+  mainImg.src =
+    post.fotoPerfilAutor ||
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
   mainImg.alt = post.autor || "Autor";
   mainImg.style.width = "50px";
   mainImg.style.height = "50px";
@@ -130,14 +134,18 @@ function crearPostHTML(post) {
 
   cabecera.innerHTML = `
     <strong>${post.autor || "Desconocido"}</strong>
-    <p><strong>Publicado:</strong> ${new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"}</p>
+    <p><strong>Publicado:</strong> ${
+      new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"
+    }</p>
   `;
 
   contenido.appendChild(cabecera);
 
   // Título
   const titulo = document.createElement("h1");
-  titulo.innerHTML = `<strong>${post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre}</strong>`;
+  titulo.innerHTML = `<strong>${
+    post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre
+  }</strong>`;
   titulo.style.fontSize = "22px";
   contenido.appendChild(titulo);
 
@@ -152,9 +160,10 @@ function crearPostHTML(post) {
   contenido.appendChild(imagen);
 
   const contenidopost = document.createElement("p");
-  contenidopost.innerHTML = post.contenido.length > 300
-  ? post.contenido.slice(0, 300) + '<strong> Ver más...</strong>'
-  : post.contenido;
+  contenidopost.innerHTML =
+    post.contenido.length > 300
+      ? post.contenido.slice(0, 300) + "<strong> Ver más...</strong>"
+      : post.contenido;
 
   contenido.appendChild(contenidopost);
   // Likes y comentarios
@@ -162,15 +171,25 @@ function crearPostHTML(post) {
   interacciones.style.display = "flex";
   interacciones.style.gap = "20px";
 
+  //
+  //
+  // contar solo los comentarios aprobados
   const comentariosElem = document.createElement("p");
-  comentariosElem.innerHTML = `<strong><i class="fas fa-comment" style="color: #3498db;"></i></strong> ${post.comentarios?.length || 0}`;
+  const aprobadosCount = post.comentarios.filter(
+    (comentario) => comentario[2] === false
+  ).length;
+  comentariosElem.innerHTML = `<strong><i class="fas fa-comment" style="color: #3498db;"></i></strong> ${
+    aprobadosCount || 0
+  }`;
 
   const likeElem = document.createElement("p");
   const idUsuario = parseInt(localStorage.getItem("userId"));
   const yaDioLike = post.likes?.includes(idUsuario);
   const likeCount = post.likes?.length || 0;
 
-  likeElem.innerHTML = `<strong><i class="${yaDioLike ? 'fas' : 'far'} fa-heart" style="color: #e74c3c;"></i></strong> ${likeCount}`;
+  likeElem.innerHTML = `<strong><i class="${
+    yaDioLike ? "fas" : "far"
+  } fa-heart" style="color: #e74c3c;"></i></strong> ${likeCount}`;
 
   likeElem.style.cursor = "pointer";
   likeElem.addEventListener("click", (e) => {
@@ -192,7 +211,9 @@ function crearPostHTML(post) {
           .map(
             (cat) => `
             <span class="column is-narrow">
-              <p class="categoria is-clickable" data-categoria="${encodeURIComponent(cat)}">${cat}</p>
+              <p class="categoria is-clickable" data-categoria="${encodeURIComponent(
+                cat
+              )}">${cat}</p>
             </span>`
           )
           .join("")}
@@ -217,7 +238,7 @@ function crearPostHTML(post) {
 
 // Evento like
 // esta es diferente que la de pagination.js
-export async function like(idPost, contenedor) {
+export async function like(idPost) {
   const prueba = localStorage.getItem("userId");
 
   // USUARIO TIENE QUE ESTAR LOGUEADO
@@ -239,7 +260,6 @@ export async function like(idPost, contenedor) {
       //
       // Agregar al post el like del usuario guardamos su id
       const post = await buscarPostPoId(idPost); // obtener post
-      contenedor.classList.add("has-background-primary");
       if (!post.likes) {
         post.likes = []; // inicializar si no existe
       }
@@ -256,7 +276,6 @@ export async function like(idPost, contenedor) {
     } else {
       // Ya esta --> eliminar
       usuario.likes = usuario.likes.filter((id) => id !== idPost);
-      contenedor.classList.remove("has-background-primary");
       await putUser(usuario);
       //
       //
@@ -310,15 +329,17 @@ async function renderizarResultados(query, filtro) {
       );
     }
 
-  if (resultados.length > 0) {
-    resultados
-      .sort((a, b) => new Date(b.fechaDePublicacion) - new Date(a.fechaDePublicacion)) // <-- Orden descendente
-      .forEach((post) => {
-        const postHTML = crearPostHTML(post);
-        container.appendChild(postHTML);
-      });
-  }
-  else {
+    if (resultados.length > 0) {
+      resultados
+        .sort(
+          (a, b) =>
+            new Date(b.fechaDePublicacion) - new Date(a.fechaDePublicacion)
+        ) // <-- Orden descendente
+        .forEach((post) => {
+          const postHTML = crearPostHTML(post);
+          container.appendChild(postHTML);
+        });
+    } else {
       const mensaje = document.createElement("div");
       mensaje.className = "notification is-warning";
       mensaje.textContent = `No se encontraron resultados para "${query}" en ${filtro}`;
