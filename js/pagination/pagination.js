@@ -161,9 +161,7 @@ function mostrarPosts(posts) {
     columna2.appendChild(titulo);
 
     const imagenPost = document.createElement("img");
-    imagenPost.src =
-      post.imagen ||
-      "https://www.cronobierzo.es/wp-content/uploads/2020/01/no-image.jpg";
+    imagenPost.src = post.imagen || "resources/No_imagen_disponible.png";
     imagenPost.alt = "Foto del post";
     imagenPost.style.width = "100%";
     imagenPost.style.height = "200px";
@@ -335,8 +333,14 @@ export async function like(idPost) {
 
 // Funcion para abrir un post
 function abrirPost(id) {
-  localStorage.setItem("IdPostUser", id.toString());
-  window.location.href = `views/post/post.html?id=${id}`;
+  const userId = localStorage.getItem("userId");
+
+  if (userId && userId !== "L") {
+    localStorage.setItem("IdPostUser", id.toString());
+    window.location.href = `views/post/post.html?id=${id}`;
+  } else {
+    mostrarAlerta(`Para poder ver el contenido debes estar logeado.`, "is-danger");
+  }
 }
 
 // --------------------------------------------------------------
