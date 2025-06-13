@@ -13,7 +13,10 @@ import {
   desbloquear,
   bannear,
 } from "../../js/baneados/baneador.js";
-import { tablasComentarios } from "../../js/comentarios/comentarios_admi.js";
+import {
+  buscarPostComentario,
+  tablasComentarios,
+} from "../../js/comentarios/comentarios_admi.js";
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -581,6 +584,5 @@ async function unBan(nombre) {
 //
 //
 //
-
 const contenedorComentarios = document.getElementById("comentarios");
-tablasComentarios(contenedorComentarios);
+await tablasComentarios(contenedorComentarios);

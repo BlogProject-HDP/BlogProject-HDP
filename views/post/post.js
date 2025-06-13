@@ -8,10 +8,13 @@ import {
   buscarId,
   buscarPostPoId,
 } from "../../js/IndexedDB/indexDB.js";
+import { like } from "../busqueda/busquedas.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const postId = parseInt(params.get("id")); // IndexedDB guarda el id como number
+
+  // const postId = parseInt(localStorage.getItem("IdPostUser"));
 
   try {
     const post = await buscarPostPoId(postId);
@@ -24,6 +27,36 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       return;
     }
+
+    // Rellenar el numero de likes
+    const idUsuario = parseInt(localStorage.getItem("userId"));
+    const yaDioLike = post.likes?.includes(idUsuario);
+    let likeCount = post.likes?.length || 0;
+
+    const likeElem = document.getElementById("heart");
+    likeElem.innerHTML = `<strong><i class="${
+      yaDioLike ? "fas" : "far"
+    } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count m-1">${likeCount}</span>`;
+
+    likeElem.addEventListener("click", (event) => {
+      event.stopPropagation(); // Evita redirigir al ver post
+      const icon = likeElem.querySelector("i");
+      const countSpan = likeElem.querySelector(".like-count");
+
+      if (icon.classList.contains("far")) {
+        icon.classList.remove("far");
+        icon.classList.add("fas");
+        likeCount++;
+        countSpan.textContent = likeCount;
+      } else {
+        icon.classList.remove("fas");
+        icon.classList.add("far");
+        likeCount--;
+        countSpan.textContent = likeCount;
+      }
+
+      like(post.id);
+    });
 
     // Rellenar avatar del autor
     const avatarImg = document.getElementById("avatarImg");
