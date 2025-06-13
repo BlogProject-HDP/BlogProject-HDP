@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Si esta logueado ocultar el boton acceder
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
-    perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
+    perfilBtn.setAttribute("href", "/views/perfil_usuario/perfil_usuario.html");
+  } else {
+    document.getElementById("dropDownItem").innerHTML = "";
   }
 
   // Logica para el evento de la barra de busqueda
