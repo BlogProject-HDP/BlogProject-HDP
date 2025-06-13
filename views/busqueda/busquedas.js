@@ -231,7 +231,7 @@ function crearPostHTML(post) {
     el.addEventListener("click", (event) => {
       event.stopPropagation();
       const categoria = el.dataset.categoria;
-      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+      window.location.href = `busquedas.html?q=${categoria}&filtro=categorias`;
     });
   });
 
