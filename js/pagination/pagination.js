@@ -63,7 +63,7 @@ function cargarPosts() {
 }
 
 // --------------------------------------------------------------
-// Muestra los post creado
+// Muestra los post creados
 function mostrarPosts(posts) {
   const div = document.getElementById("post-container");
   div.innerHTML = "";
@@ -89,7 +89,7 @@ posts.forEach((post) => {
   postDiv.style.cursor = "pointer";
 
   postDiv.addEventListener("click", () => {
-    abrirPost(post.id); // 👉 Función que muestra detalle del post
+    abrirPost(post.id); 
   });
 
   // Columna 1: Imagen de perfil
@@ -101,10 +101,10 @@ posts.forEach((post) => {
   columna1.style.width = "90px";
 
   const mainImg = document.createElement("img");
-  mainImg.src = post.fotoPerfilAutor || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
+  mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
   mainImg.alt = post.autor;
-  mainImg.style.width = "80px";
-  mainImg.style.height = "80px";
+  mainImg.style.width = "50px";
+  mainImg.style.height = "50px";
   mainImg.style.objectFit = "cover";
   mainImg.style.borderRadius = "50%";
   mainImg.style.padding = "2px";

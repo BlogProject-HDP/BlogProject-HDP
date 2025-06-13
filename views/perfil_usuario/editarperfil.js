@@ -169,8 +169,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
 
       // Lógica para la imagen de perfil (solo en modal-info)
+
+      // Tamaño maximo 10mbs
       if (modalInfoImagenInput && modalInfoImagenInput.files && modalInfoImagenInput.files[0]) {
         const file = modalInfoImagenInput.files[0];
+
+        const Tamaño_Maximo_img = 5;
+        const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
+
+        if (file.size > Tamaño_Maximo_img_bytes) {
+        mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: 5 MB.`, "is-danger");
+        return;
+      }
+
         try {
           const fotoPerfilBase64 = await convertirImagenABase64(file);
           usuarioParaActualizar.fotoPerfil = fotoPerfilBase64;

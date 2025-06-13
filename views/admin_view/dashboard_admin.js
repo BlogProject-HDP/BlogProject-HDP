@@ -108,6 +108,9 @@ async function cargarPostsAdmin() {
 window.eliminarPost = eliminarPost;
 window.editarPost = editarPost;
 
+  const Tamaño_Maximo_img = 5;
+  const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
+
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -124,6 +127,13 @@ function agregarEventosCrearPost() {
 
       if (imagenInput.files.length > 0) {
         const file = imagenInput.files[0];
+
+      if (file.size > Tamaño_Maximo_img_bytes) {
+        mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
+        resetearEstado();
+        return;
+      }
+      
         imagenBase64 = await convertirImagenABase64(file);
       } else if (currentEditingPost && currentEditingPost.imagen) {
         imagenBase64 = currentEditingPost.imagen;
