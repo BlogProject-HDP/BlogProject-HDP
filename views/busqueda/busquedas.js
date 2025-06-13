@@ -99,7 +99,7 @@ function crearPostHTML(post) {
   // ABRIR PAGINA
   postDiv.addEventListener("click", () => {
     localStorage.setItem("IdPostUser", post.id.toString());
-    window.location.href = `../../views/post/post.html?id=${post.id}`;
+    window.location.href = `../post/post.html?id=${post.id}`;
   });
 
   // Columna 1: Foto de perfil del autor
@@ -229,7 +229,7 @@ function crearPostHTML(post) {
     el.addEventListener("click", (event) => {
       event.stopPropagation();
       const categoria = el.dataset.categoria;
-      window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+      window.location.href = `busquedas.html?q=${categoria}&filtro=categorias`;
     });
   });
 

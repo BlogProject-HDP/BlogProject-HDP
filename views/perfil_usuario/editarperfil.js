@@ -1,5 +1,7 @@
 import { buscarId, hashPassword, putUser } from "../../js/IndexedDB/indexDB.js";
+import { logout, startAutoLogout} from "../../js/autenticacion/logout.js";
 
+document.getElementById("logoutBtn").addEventListener("click", logout); //Función de logout
 // Funcón para imagen a Base64 reciclado del CRUD de los post
 function convertirImagenABase64(file) {
   return new Promise((resolve, reject) => {

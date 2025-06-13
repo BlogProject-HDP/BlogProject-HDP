@@ -1,10 +1,11 @@
 import { iniciar } from "../../js/pagination/pagination.js";
 import { cargarPosts, crearIndexedDB } from "../../js/IndexedDB/indexDB.js";
+import { logout, startAutoLogout} from "../../js/autenticacion/logout.js";
 
 // Botones acceder y perfil
 const btnAcceder = document.getElementById("btnAcceder");
 const perfilBtn = document.getElementById("perfilBtn");
-
+startAutoLogout(); //Comienza y finaliza después de 1 hora
 mostrarAlerta("Bienvenido", "is-info");
 // Obtenemos el modo en el que se encuentra el usuario
 // L : Invitado
@@ -71,4 +72,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // OPCION ACTUAL
   // Paginacion + mostrar post con opciones de like y ver
   await iniciar();
+
+  document.getElementById("logoutBtn").addEventListener("click", logout); //Función de logout
 });

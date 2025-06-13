@@ -17,6 +17,10 @@ import {
   buscarPostComentario,
   tablasComentarios,
 } from "../../js/comentarios/comentarios_admi.js";
+import{
+  logout,
+  startAutoLogout
+} from "../../js/autenticacion/logout.js"
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -110,10 +114,7 @@ async function cargarPostsAdmin() {
 }
 window.eliminarPost = eliminarPost;
 window.editarPost = editarPost;
-
-  const Tamaño_Maximo_img = 5;
-  const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
-
+document.getElementById("logoutBtn").addEventListener("click", logout);
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -335,6 +336,7 @@ async function buscar() {
   container.appendChild(divPadre);
   inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
 }
+startAutoLogout(); //Comienza y finaliza después de 1 hora
 // Busqueda
 async function busqueda(inputTexto, divPadre) {
   const input = inputTexto.value.trim().toLowerCase();
