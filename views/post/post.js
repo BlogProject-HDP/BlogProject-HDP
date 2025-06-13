@@ -105,6 +105,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const enviarComentario = document.getElementById("enviarComentario");
 
     if (userId !== "L") {
+      if (usuario.banned) {
+        const form = document.getElementById("formulario");
+        form.innerHTML = "";
+        console.log("L: no puede comentar ha sido baneado");
+        document.getElementById("formulario").innerHTML = "";
+        document.getElementById(
+          "alertaComentario"
+        ).innerHTML = `<div class="notification is-warning">No puede comentar ha sido baneado</div>`;
+      }
+
       //
       // Mostrar los comentarios del usuario arriba
       //

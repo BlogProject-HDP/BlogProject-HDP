@@ -67,11 +67,15 @@ export async function crearIndexedDB() {
     const admin = {
       usuario: "admin",
       tipo: "admin",
+      fotoPerfil:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
       email: "admin@gmail.com",
       password: hash,
       banned: false, // NO BANEADO
     };
     const admin2 = {
+      fotoPerfil:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
       usuario: "admin2",
       tipo: "admin",
       email: "admin2@gmail.com",
@@ -81,6 +85,8 @@ export async function crearIndexedDB() {
 
     const admin3 = {
       usuario: "admin3",
+      fotoPerfil:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
       tipo: "admin",
       email: "admin3@gmail.com",
       password: hash,
@@ -136,7 +142,6 @@ export function addUser(usuario) {
 
   request.onsuccess = (e) => {
     const db = e.target.result;
-
     // Agregar usuario
     const transaccion = db.transaction("users", "readwrite");
     const objeto = transaccion.objectStore("users");
