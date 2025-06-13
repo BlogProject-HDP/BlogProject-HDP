@@ -17,6 +17,10 @@ import {
   buscarPostComentario,
   tablasComentarios,
 } from "../../js/comentarios/comentarios_admi.js";
+import{
+  logout,
+  startAutoLogout
+} from "../../js/autenticacion/logout.js"
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -110,7 +114,7 @@ async function cargarPostsAdmin() {
 }
 window.eliminarPost = eliminarPost;
 window.editarPost = editarPost;
-
+document.getElementById("logoutBtn").addEventListener("click", logout);
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -325,6 +329,7 @@ async function buscar() {
   container.appendChild(divPadre);
   inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
 }
+startAutoLogout(); //Comienza y finaliza después de 1 hora
 // Busqueda
 async function busqueda(inputTexto, divPadre) {
   const input = inputTexto.value.trim().toLowerCase();
