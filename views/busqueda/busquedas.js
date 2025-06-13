@@ -110,11 +110,10 @@ function crearPostHTML(post) {
 
   const mainImg = document.createElement("img");
   mainImg.src =
-    post.fotoPerfilAutor ||
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
+    post.fotoPerfilAutor || "resources/no_picture.jpg";
   mainImg.alt = post.autor || "Autor";
-  mainImg.style.width = "80px";
-  mainImg.style.height = "80px";
+  mainImg.style.width = "50px";
+  mainImg.style.height = "50px";
   mainImg.style.objectFit = "cover";
   mainImg.style.borderRadius = "50%";
   columna1.appendChild(mainImg);
@@ -151,9 +150,7 @@ function crearPostHTML(post) {
 
   // Imagen del post
   const imagen = document.createElement("img");
-  imagen.src =
-    post.imagen ||
-    "https://www.cronobierzo.es/wp-content/uploads/2020/01/no-image.jpg";
+  imagen.src = post.imagen || "resources/No_imagen_disponible.png";
   imagen.alt = "Imagen del post";
   imagen.style.width = "100%";
   imagen.style.height = "200px";

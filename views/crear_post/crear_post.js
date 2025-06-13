@@ -18,8 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnEliminarImagen = document.getElementById('btnEliminarImagen');
   const previewImagen = document.getElementById('previewImagen');
   const imgPreview = document.getElementById('imgPreview');
+  const Tamaño_Maximo_img = 5;
+  const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
 
   function mostrarImagenPreview(file) {
+
+    if (file.size > Tamaño_Maximo_img_bytes) {
+    mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
+    resetearEstado();
+    return;
+  }
+
     const reader = new FileReader();
     reader.onload = () => {
       portadaBase64 = reader.result;
@@ -40,8 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const file = inputAgregarPortada.files[0];
     if (file) {
       mostrarImagenPreview(file);
+      if (file.size < Tamaño_Maximo_img_bytes) {
       botonAgregarPortada.classList.add('is-hidden');
       controlesImagen.classList.remove('is-hidden');
+      }
     }
   });
 

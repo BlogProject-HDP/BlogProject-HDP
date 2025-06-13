@@ -63,7 +63,7 @@ function cargarPosts() {
 }
 
 // --------------------------------------------------------------
-// Muestra los post creado
+// Muestra los post creados
 function mostrarPosts(posts) {
   //
   //
@@ -94,13 +94,9 @@ function mostrarPosts(posts) {
     postDiv.style.gap = "10px";
     postDiv.style.cursor = "pointer";
 
-    //
-    //
-    // Evento click al div
-    //
-    postDiv.addEventListener("click", () => {
-      abrirPost(post.id); // Función que muestra detalle del post
-    });
+  postDiv.addEventListener("click", () => {
+    abrirPost(post.id); 
+  });
 
     // Columna 1: Imagen de perfil
     const columna1 = document.createElement("div");
@@ -110,18 +106,16 @@ function mostrarPosts(posts) {
     columna1.style.alignItems = "center";
     columna1.style.width = "90px";
 
-    const mainImg = document.createElement("img");
-    mainImg.src =
-      post.fotoPerfilAutor ||
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s";
-    mainImg.alt = post.autor;
-    mainImg.style.width = "80px";
-    mainImg.style.height = "80px";
-    mainImg.style.objectFit = "cover";
-    mainImg.style.borderRadius = "50%";
-    mainImg.style.padding = "2px";
-    columna1.appendChild(mainImg);
-    postDiv.appendChild(columna1);
+  const mainImg = document.createElement("img");
+  mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
+  mainImg.alt = post.autor;
+  mainImg.style.width = "50px";
+  mainImg.style.height = "50px";
+  mainImg.style.objectFit = "cover";
+  mainImg.style.borderRadius = "50%";
+  mainImg.style.padding = "2px";
+  columna1.appendChild(mainImg);
+  postDiv.appendChild(columna1);
 
     const filaCentro = document.createElement("div");
     filaCentro.style.display = "flex";
@@ -167,9 +161,7 @@ function mostrarPosts(posts) {
     columna2.appendChild(titulo);
 
     const imagenPost = document.createElement("img");
-    imagenPost.src =
-      post.imagen ||
-      "https://www.cronobierzo.es/wp-content/uploads/2020/01/no-image.jpg";
+    imagenPost.src = post.imagen || "resources/No_imagen_disponible.png";
     imagenPost.alt = "Foto del post";
     imagenPost.style.width = "100%";
     imagenPost.style.height = "200px";
@@ -341,8 +333,14 @@ export async function like(idPost) {
 
 // Funcion para abrir un post
 function abrirPost(id) {
-  localStorage.setItem("IdPostUser", id.toString());
-  window.location.href = `views/post/post.html?id=${id}`;
+  const userId = localStorage.getItem("userId");
+
+  if (userId && userId !== "L") {
+    localStorage.setItem("IdPostUser", id.toString());
+    window.location.href = `views/post/post.html?id=${id}`;
+  } else {
+    mostrarAlerta(`Para poder ver el contenido debes estar logeado.`, "is-danger");
+  }
 }
 
 // --------------------------------------------------------------
