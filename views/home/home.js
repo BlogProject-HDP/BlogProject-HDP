@@ -36,8 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
     perfilBtn.setAttribute("href", "/views/perfil_usuario/perfil_usuario.html");
-  } else {
-    document.getElementById("dropDownItem").innerHTML = "";
   }
 
   // Logica para el evento de la barra de busqueda
