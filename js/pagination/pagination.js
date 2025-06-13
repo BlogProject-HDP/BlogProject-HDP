@@ -285,7 +285,7 @@ function mostrarPosts(posts) {
 }
 
 // Evento like: cuando se da like a un post
-async function like(idPost) {
+export async function like(idPost) {
   const prueba = localStorage.getItem("userId");
 
   // USUARIO TIENE QUE ESTAR LOGUEADO

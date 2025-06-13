@@ -4,7 +4,7 @@ import {
   putUser,
   editPost,
 } from "../IndexedDB/indexDB.js";
-import { tablasComentarios } from "./comentarios_admi.js";
+import { mostrarPosts, tablasComentarios } from "./comentarios_admi.js";
 
 //
 //
@@ -156,4 +156,34 @@ window.eliminarComentario = async function (
 
   // Recargar tabla
   await tablasComentarios(document.getElementById("comentarios")); // Poné tu contenedor
+};
+
+//
+//
+//
+// Gestionar comentarios por medio de busqueda
+window.busquedaPost = async function (inputTextarea) {
+  // Input busqueda
+  const input = inputTextarea.value.trim().toLowerCase();
+
+  // Obtener todos los posts
+  const posts = await cargarPosts();
+
+  // Contenedor de los posts
+  const divContenedor = document.getElementById("resultadosBusqueda");
+  divContenedor.classList.toggle("is-hidden");
+
+  if (input !== "") {
+    Array.from(posts).forEach(async (post) => {
+      if (post.nombre.toLowerCase().includes(input)) {
+        divContenedor.innerHTML = "";
+        await mostrarPosts(post, divContenedor); // Mostrar post
+      } else if (post.id.toString().includes(input)) {
+        divContenedor.innerHTML = "";
+        await mostrarPosts(post, divContenedor); // Mostrar post
+      }
+    });
+  } else {
+    divContenedor.innerHTML = "";
+  }
 };
