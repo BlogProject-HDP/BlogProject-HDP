@@ -17,6 +17,10 @@ import {
   buscarPostComentario,
   tablasComentarios,
 } from "../../js/comentarios/comentarios_admi.js";
+import{
+  logout,
+  startAutoLogout
+} from "../../js/autenticacion/logout.js"
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -110,7 +114,7 @@ async function cargarPostsAdmin() {
 }
 window.eliminarPost = eliminarPost;
 window.editarPost = editarPost;
-
+document.getElementById("logoutBtn").addEventListener("click", logout);
 function agregarEventosCrearPost() {
   const formCrear = document.getElementById("form-crear-post");
   if (formCrear) {
@@ -127,6 +131,13 @@ function agregarEventosCrearPost() {
 
       if (imagenInput.files.length > 0) {
         const file = imagenInput.files[0];
+
+      if (file.size > Tamaño_Maximo_img_bytes) {
+        mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
+        resetearEstado();
+        return;
+      }
+      
         imagenBase64 = await convertirImagenABase64(file);
       } else if (currentEditingPost && currentEditingPost.imagen) {
         imagenBase64 = currentEditingPost.imagen;
@@ -325,6 +336,7 @@ async function buscar() {
   container.appendChild(divPadre);
   inputTexto.addEventListener("input", () => busqueda(inputTexto, divPadre));
 }
+startAutoLogout(); //Comienza y finaliza después de 1 hora
 // Busqueda
 async function busqueda(inputTexto, divPadre) {
   const input = inputTexto.value.trim().toLowerCase();

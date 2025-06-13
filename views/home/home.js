@@ -1,10 +1,11 @@
 import { iniciar } from "../../js/pagination/pagination.js";
 import { cargarPosts, crearIndexedDB } from "../../js/IndexedDB/indexDB.js";
+import { logout, startAutoLogout} from "../../js/autenticacion/logout.js";
 
 // Botones acceder y perfil
 const btnAcceder = document.getElementById("btnAcceder");
 const perfilBtn = document.getElementById("perfilBtn");
-
+startAutoLogout(); //Comienza y finaliza después de 1 hora
 mostrarAlerta("Bienvenido", "is-info");
 // Obtenemos el modo en el que se encuentra el usuario
 // L : Invitado
@@ -19,7 +20,9 @@ if (localStorage.getItem("adminId") === null) {
 } //con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de admin
 
 const user = localStorage.getItem("userId");
-const admin = localStorage.getItem("adminId");
+const admin = localStorage.getItem("adminId"); //Ojo que aquí no se utiliza el admin, es probable que ocupemos otra validación para
+//saber si 
+//o si no pues, para que se loguee
 
 // No esta logueado es invitado
 // Opcion: Ver perfil no disponible
@@ -71,4 +74,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // OPCION ACTUAL
   // Paginacion + mostrar post con opciones de like y ver
   await iniciar();
+
+  document.getElementById("logoutBtn").addEventListener("click", logout); //Función de logout
 });
