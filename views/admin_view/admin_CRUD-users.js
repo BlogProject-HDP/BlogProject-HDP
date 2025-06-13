@@ -1,4 +1,3 @@
-
 import {
   obtenerTodosLosUsers,
   addUser,
@@ -7,7 +6,7 @@ import {
   buscarId,
   buscarUser,
   putUser,
-  deleteUser
+  deleteUser,
 } from "../../js/IndexedDB/indexDB.js";
 
 const almacenadorDeUsuarios = document.createElement("div");
@@ -43,6 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //A ESTA FUNCIÓN LE PODES AGREGAR YA SEA DESDE LAS CLASE DE BULMA
 //O TAMBIÉN COMO QUERRAS PERO AQUÍ EDITADLO SI TE SALE MEJOR
+const adminId = localStorage.getItem("adminId");
+const adminRol = localStorage.getItem("adminRol");
+if (adminId === "L" || adminRol != "admin") {
+  // Si no hay adminId en localStorage, redirige o muestra error
+  console.error("No estás logueado como admin, por favor iniciar sesión.");
+  window.location.href = "../autenticacion/auth.html";
+} else {
+  console.log("Admin logueado con ID:", adminId);
+}
+
 async function cargarAllUsers() {
   const listaUsuarios = document.getElementById("mostrar-users");
 
@@ -139,19 +148,23 @@ async function agregarUser() {
       // Obtener valores de los campos
       const nombre = document.getElementById("user-nombre").value.trim();
       const usuario = document.getElementById("user-user").value.trim();
-      const tipoUsuario = document.getElementById("user-tipo").value; 
+      const tipoUsuario = document.getElementById("user-tipo").value;
       const email = document.getElementById("user-email").value.trim();
-      const passwordValue = document.getElementById("user-password").value; 
+      const passwordValue = document.getElementById("user-password").value;
       const ciudad = document.getElementById("user-ciudad").value.trim();
       const telefono = document.getElementById("user-telefono").value.trim();
-      const edadInput = document.getElementById("user-edad").value; 
-      const descripcion = document.getElementById("user-descripcion").value.trim();
-      const fotoPerfilInputFile = document.getElementById("user-fotoPerfil"); 
-      const banned = document.getElementById("user-banned").value === "true"; 
+      const edadInput = document.getElementById("user-edad").value;
+      const descripcion = document
+        .getElementById("user-descripcion")
+        .value.trim();
+      const fotoPerfilInputFile = document.getElementById("user-fotoPerfil");
+      const banned = document.getElementById("user-banned").value === "true";
 
-      //  VALIDACIONES 
+      //  VALIDACIONES
       if (!nombre || !usuario || !tipoUsuario || !email) {
-        alert("Los campos Nombre, User (Nickname), Rol y Email son obligatorios.");
+        alert(
+          "Los campos Nombre, User (Nickname), Rol y Email son obligatorios."
+        );
         return;
       }
       if (!curreneditUser && !passwordValue) {
@@ -167,17 +180,23 @@ async function agregarUser() {
         try {
           const existeUsuario = await buscarUser(usuario);
           if (existeUsuario) {
-            alert("El nombre de usuario (User/Nickname) ya está en uso. Por favor, elige otro.");
+            alert(
+              "El nombre de usuario (User/Nickname) ya está en uso. Por favor, elige otro."
+            );
             return;
           }
           const existeEmail = await buscarEmail(email);
           if (existeEmail) {
-            alert("El correo electrónico ya está registrado. Por favor, usa otro.");
+            alert(
+              "El correo electrónico ya está registrado. Por favor, usa otro."
+            );
             return;
           }
         } catch (error) {
           console.error("Error al verificar duplicados:", error);
-          alert("Error al verificar si el usuario o email ya existen. Inténtalo de nuevo.");
+          alert(
+            "Error al verificar si el usuario o email ya existen. Inténtalo de nuevo."
+          );
           return;
         }
       }
@@ -186,20 +205,22 @@ async function agregarUser() {
       let fotoPerfilBase64 = null;
       if (fotoPerfilInputFile.files && fotoPerfilInputFile.files.length > 0) {
         try {
-            fotoPerfilBase64 = await convertirImagenABase64(fotoPerfilInputFile.files[0]);
+          fotoPerfilBase64 = await convertirImagenABase64(
+            fotoPerfilInputFile.files[0]
+          );
         } catch (error) {
-            console.error("Error al convertir imagen:", error);
-            alert("Hubo un error al procesar la imagen de perfil.");
-            return;
+          console.error("Error al convertir imagen:", error);
+          alert("Hubo un error al procesar la imagen de perfil.");
+          return;
         }
-      } else if (curreneditUser) { // Si estamos editando y no se subió nueva foto
-          const usuarioExistente = await buscarId(curreneditUser);
-          if (usuarioExistente) fotoPerfilBase64 = usuarioExistente.fotoPerfil;
+      } else if (curreneditUser) {
+        // Si estamos editando y no se subió nueva foto
+        const usuarioExistente = await buscarId(curreneditUser);
+        if (usuarioExistente) fotoPerfilBase64 = usuarioExistente.fotoPerfil;
       }
 
-
       let hashedPassword = null;
-      if (passwordValue) { 
+      if (passwordValue) {
         hashedPassword = await hashPassword(passwordValue);
       }
 
@@ -212,7 +233,7 @@ async function agregarUser() {
         ciudad: ciudad || null,
         telefono: telefono || null,
         edad: edadInput ? parseInt(edadInput, 10) : null,
-        descripcion: descripcion || null, 
+        descripcion: descripcion || null,
         fotoPerfil: fotoPerfilBase64,
         banned,
         // Inicializar solo si es nuevo usuario, en caso de que no, lo dejamos como está
@@ -221,7 +242,7 @@ async function agregarUser() {
       };
 
       if (hashedPassword) {
-        userData.password = hashedPassword; 
+        userData.password = hashedPassword;
       }
 
       // INDEXDB
@@ -232,16 +253,34 @@ async function agregarUser() {
           if (!hashedPassword) {
             delete userData.password; // No actualizar contraseña si no se proveyó una nueva
           }
-          await putUser(userData);
+          await putUser(userData); //Acá lo modificamos completamente
+          //EN caso de que por ejemplo el admin se actualice a usuario (ERROR DE CAPA 6), se le sale de la vista del panel de admin
+          if (
+            userData.id == localStorage.getItem("adminId") &&
+            userData.tipo !== "admin"
+          ) {
+            // Limpiar datos de admin y redirigir
+            localStorage.setItem("adminId", "L");
+            localStorage.setItem("adminRol", "LL");
+            alert("Tu rol ha cambiado. Saliendo del panel de administración.");
+            window.location.href = "../autenticacion/auth.html";
+            return; // Detener ejecución
+          }
           alert(`Usuario "${userData.nombre}" actualizado con éxito.`);
           curreneditUser = null;
-          document.querySelector("#form-crear-user button[type='submit']").textContent = "Crear Usuario";
-          document.getElementById("user-password").placeholder = "Ingrese la contraseña...";
+          document.querySelector(
+            "#form-crear-user button[type='submit']"
+          ).textContent = "Crear Usuario";
+          document.getElementById("user-password").placeholder =
+            "Ingrese la contraseña...";
         } else {
           // --- LÓGICA DE CREACIÓN ---
-          if (!userData.password) { // Contraseña es obligatoria al crear
-             alert("Error interno: La contraseña no fue hasheada para el nuevo usuario.");
-             return;
+          if (!userData.password) {
+            // Contraseña es obligatoria al crear
+            alert(
+              "Error interno: La contraseña no fue hasheada para el nuevo usuario."
+            );
+            return;
           }
           await addUser(userData);
           alert(`Usuario "${userData.nombre}" creado con éxito.`);
@@ -249,90 +288,101 @@ async function agregarUser() {
 
         formCrear.reset();
         cargarAllUsers();
-
       } catch (error) {
         console.error("Error al guardar el usuario:", error);
-        alert(`Error al guardar el usuario: ${error.message || "Error desconocido."}`);
+        alert(
+          `Error al guardar el usuario: ${
+            error.message || "Error desconocido."
+          }`
+        );
       }
     });
   }
 }
 
 async function eliminarUser(idUser) {
-    if(confirm("¿Estás seguro de que deseas eliminar este usuario?")){
-        try{
-            await deleteUser(idUser);
-            alert("Usuario eliminado");
-            cargarAllUsers();
-        }
-        catch(error){
-            alert("Error al eliminar el post");
-            console.error(error);
-        }
+  if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    try {
+      await deleteUser(idUser);
+      alert("Usuario eliminado");
+      cargarAllUsers();
+    } catch (error) {
+      alert("Error al eliminar el post");
+      console.error(error);
     }
+  }
 }
 async function editarUsuario(idUser) {
-    console.log(`Intentando editar usuario con ID: ${idUser}`);
-    curreneditUser = idUser; // Establecer el ID del usuario que se está editando
+  console.log(`Intentando editar usuario con ID: ${idUser}`);
+  curreneditUser = idUser; // Establecer el ID del usuario que se está editando
 
-    try {
-        const user = await buscarId(idUser); 
+  try {
+    const user = await buscarId(idUser);
 
-        if (user) {
-            // Rellenar el formulario con los datos del usuario
-            document.getElementById("user-nombre").value = user.nombre || '';
-            document.getElementById("user-user").value = user.usuario || '';
-            document.getElementById("user-tipo").value = user.tipo || 'user'; // 'user' como valor por defecto
-            document.getElementById("user-email").value = user.email || '';
-            
-            // No rellenar la contraseña por seguridad, solo permitir cambiarla
-            const passwordInput = document.getElementById("user-password");
-            passwordInput.value = ''; 
-            passwordInput.placeholder = 'Dejar en blanco para no cambiar';
-            
-            document.getElementById("user-ciudad").value = user.ciudad || '';
-            document.getElementById("user-telefono").value = user.telefono || '';
-            document.getElementById("user-edad").value = user.edad || '';
-            document.getElementById("user-descripcion").value = user.descripcion || '';
-            document.getElementById("user-banned").value = user.banned ? "true" : "false";
+    if (user) {
+      // Rellenar el formulario con los datos del usuario
+      document.getElementById("user-nombre").value = user.nombre || "";
+      document.getElementById("user-user").value = user.usuario || "";
+      document.getElementById("user-tipo").value = user.tipo || "user"; // 'user' como valor por defecto
+      document.getElementById("user-email").value = user.email || "";
 
-            document.getElementById("user-fotoPerfil").value = ''; // Limpiar el input de archivo
+      // No rellenar la contraseña por seguridad, solo permitir cambiarla
+      const passwordInput = document.getElementById("user-password");
+      passwordInput.value = "";
+      passwordInput.placeholder = "Dejar en blanco para no cambiar";
 
-            // Cambiar el texto del botón del formulario
-            const submitButton = document.querySelector("#form-crear-user button[type='submit']");
-            if (submitButton) {
-                submitButton.textContent = "Actualizar Usuario";
-            }
+      document.getElementById("user-ciudad").value = user.ciudad || "";
+      document.getElementById("user-telefono").value = user.telefono || "";
+      document.getElementById("user-edad").value = user.edad || "";
+      document.getElementById("user-descripcion").value =
+        user.descripcion || "";
+      document.getElementById("user-banned").value = user.banned
+        ? "true"
+        : "false";
 
-            const formElement = document.getElementById("form-crear-user");
-            if (formElement) {
-                formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+      document.getElementById("user-fotoPerfil").value = ""; // Limpiar el input de archivo
 
-        } else {
-            alert("Usuario no encontrado para editar.");
-            curreneditUser = null; // Resetear si no se encuentra el usuario
-            const submitButton = document.querySelector("#form-crear-user button[type='submit']");
-            if (submitButton) {
-                submitButton.textContent = "Crear Usuario";
-            }
-        }
-    } catch (error) {
-        console.error("Error al cargar datos del usuario para editar:", error);
-        alert("Error al cargar datos del usuario para editar. Por favor, intente de nuevo.");
-        curreneditUser = null; // Resetear en caso de error
-        const submitButton = document.querySelector("#form-crear-user button[type='submit']");
-        if (submitButton) {
-            submitButton.textContent = "Crear Usuario";
-        }
+      // Cambiar el texto del botón del formulario
+      const submitButton = document.querySelector(
+        "#form-crear-user button[type='submit']"
+      );
+      if (submitButton) {
+        submitButton.textContent = "Actualizar Usuario";
+      }
+
+      const formElement = document.getElementById("form-crear-user");
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      alert("Usuario no encontrado para editar.");
+      curreneditUser = null; // Resetear si no se encuentra el usuario
+      const submitButton = document.querySelector(
+        "#form-crear-user button[type='submit']"
+      );
+      if (submitButton) {
+        submitButton.textContent = "Crear Usuario";
+      }
     }
+  } catch (error) {
+    console.error("Error al cargar datos del usuario para editar:", error);
+    alert(
+      "Error al cargar datos del usuario para editar. Por favor, intente de nuevo."
+    );
+    curreneditUser = null; // Resetear en caso de error
+    const submitButton = document.querySelector(
+      "#form-crear-user button[type='submit']"
+    );
+    if (submitButton) {
+      submitButton.textContent = "Crear Usuario";
+    }
+  }
 }
 function convertirImagenABase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = (e) => reject( "ERROR: " ,e);
+    reader.onerror = (e) => reject("ERROR: ", e);
   });
 }
-
