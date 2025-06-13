@@ -135,11 +135,16 @@ export async function mostrarComentariosUser(
 // Mostrar comentarios de otros usuarios (sin boton eliminar)
 export async function mostrarComentarios(contenedorComentarios, post, userID) {
   contenedorComentarios.innerHTML = "";
-
-  // Filtrar comentarios de otros usuarios que NO son pendientes
-  const comentariosOtrosUsuarios = post.comentarios.filter(
-    (p) => p[0] != userID && p[2] === false
-  );
+  let comentariosOtrosUsuarios;
+  if (userID !== "L") {
+    // Filtrar comentarios de otros usuarios que NO son pendientes
+    comentariosOtrosUsuarios = post.comentarios.filter(
+      (p) => p[0] != userID && p[2] === false
+    );
+  } else {
+    // Filtrar todos los que NO estan pendientes
+    comentariosOtrosUsuarios = post.comentarios.filter((p) => p[2] === false);
+  }
 
   console.log("Comentarios de otros usuarios en este post: ");
   console.log(comentariosOtrosUsuarios);
