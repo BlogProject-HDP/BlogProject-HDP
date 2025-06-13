@@ -274,7 +274,7 @@ function mostrarPosts(posts) {
       el.addEventListener("click", (event) => {
         event.stopPropagation();
         const categoria = el.dataset.categoria;
-        window.location.href = `/views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
+        window.location.href = `views/busqueda/busquedas.html?q=${categoria}&filtro=categorias`;
       });
     });
 
@@ -342,7 +342,7 @@ export async function like(idPost) {
 // Funcion para abrir un post
 function abrirPost(id) {
   localStorage.setItem("IdPostUser", id.toString());
-  window.location.href = `../../views/post/post.html?id=${id}`;
+  window.location.href = `views/post/post.html?id=${id}`;
 }
 
 // --------------------------------------------------------------

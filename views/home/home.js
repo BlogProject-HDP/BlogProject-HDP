@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Si esta logueado ocultar el boton acceder
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
-    perfilBtn.setAttribute("href", "../../views/perfil_usuario/perfil_usuario.html");
+    perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
   }
 
   // Logica para el evento de la barra de busqueda
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const query = inputBusqueda.value.trim();
       if (query !== "") {
         const encodedQuery = encodeURIComponent(query);
-        window.location.href = `../../views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`;
+        window.location.href = `views/busqueda/busquedas.html?q=${encodedQuery}&filtro=posts`;
         inputBusqueda.value = "";
       }
     }

@@ -102,9 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         categoriesContainer.appendChild(span);
 
         span.querySelector(".categoria").addEventListener("click", () => {
-          window.location.href = `views/busqueda/busquedas.html?q=${encodeURIComponent(
-            cat
-          )}&filtro=categorias`;
+          window.location.href = `../busqueda/busquedas.html?q=${encodeURIComponent(cat)}&filtro=categorias`;
         });
       });
     }
