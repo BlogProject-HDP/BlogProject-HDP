@@ -19,7 +19,9 @@ if (localStorage.getItem('adminId') === null) {
 }//con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de admin
 
 const user = localStorage.getItem("userId");
-const admin = localStorage.getItem("adminId");
+const admin = localStorage.getItem("adminId"); //Ojo que aquí no se utiliza el admin, es probable que ocupemos otra validación para
+//saber si 
+//o si no pues, para que se loguee
 
 
 // No esta logueado es invitado
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Si esta logueado ocultar el boton acceder
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
-    perfilBtn.setAttribute("href", "/views/perfil_usuario/perfil_usuario.html");
+    perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
   }
 
   // Logica para el evento de la barra de busqueda
