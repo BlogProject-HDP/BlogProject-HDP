@@ -26,7 +26,7 @@
     };
 
     const alerta = document.createElement('article');
-    alerta.className = `message ${tipo} is-small alerta-flotante`;
+    alerta.className = `message ${tipo} alerta-flotante`;
 
     const header = document.createElement('div');
     header.className = 'message-header';
@@ -60,7 +60,7 @@
 
     setTimeout(() => {
       ocultarAlerta(alerta);
-    }, 3000);
+    }, 2000);
   }
 
   function ocultarAlerta(alerta) {
