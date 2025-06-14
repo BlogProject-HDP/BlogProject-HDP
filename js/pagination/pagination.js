@@ -102,9 +102,9 @@ function mostrarPosts(posts) {
     postDiv.style.gap = "10px";
     postDiv.style.cursor = "pointer";
 
-  postDiv.addEventListener("click", () => {
-    abrirPost(post.id); 
-  });
+    postDiv.addEventListener("click", () => {
+      abrirPost(post.id);
+    });
 
     // Columna 1: Imagen de perfil
     const columna1 = document.createElement("div");
@@ -114,16 +114,16 @@ function mostrarPosts(posts) {
     columna1.style.alignItems = "center";
     columna1.style.width = "90px";
 
-  const mainImg = document.createElement("img");
-  mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
-  mainImg.alt = post.autor;
-  mainImg.style.width = "50px";
-  mainImg.style.height = "50px";
-  mainImg.style.objectFit = "cover";
-  mainImg.style.borderRadius = "50%";
-  mainImg.style.padding = "2px";
-  columna1.appendChild(mainImg);
-  postDiv.appendChild(columna1);
+    const mainImg = document.createElement("img");
+    mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
+    mainImg.alt = post.autor;
+    mainImg.style.width = "50px";
+    mainImg.style.height = "50px";
+    mainImg.style.objectFit = "cover";
+    mainImg.style.borderRadius = "50%";
+    mainImg.style.padding = "2px";
+    columna1.appendChild(mainImg);
+    postDiv.appendChild(columna1);
 
     const filaCentro = document.createElement("div");
     filaCentro.style.display = "flex";
@@ -351,14 +351,16 @@ async function like(idPost) {
 
 // Funcion para abrir un post
 function abrirPost(id) {
-  const userId = localStorage.getItem("userId");
+  localStorage.setItem("IdPostUser", id.toString());
+  window.location.href = `../../views/post/post.html?id=${id}`;
 
-  if (userId && userId !== "L") {
-    localStorage.setItem("IdPostUser", id.toString());
-    window.location.href = `views/post/post.html?id=${id}`;
-  } else {
-    mostrarAlerta(`Para poder ver el contenido debes estar logeado.`, "is-danger");
-  }
+  // SI PUEDE VERLO COMO INVITADO NO PUEDE COMENTAR
+  // if (userId && userId !== "L") {
+  //   localStorage.setItem("IdPostUser", id.toString());
+  //   window.location.href = `views/post/post.html?id=${id}`;
+  // } else {
+  //   mostrarAlerta(`Para poder ver el contenido debes estar logeado.`, "is-danger");
+  // }
 }
 
 // --------------------------------------------------------------
