@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Rellenar imagen de portada
     const portadaImg = document.getElementById("portadaImg");
     if (portadaImg) {
-      portadaImg.src = post.imagen;
+      portadaImg.src = post.imagen || "../../resources/No_imagen_disponible.png";
     }
 
     //
