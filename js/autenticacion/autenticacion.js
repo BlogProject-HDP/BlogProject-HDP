@@ -145,6 +145,8 @@ async function iniciarSesion(e) {
         // Guarda el ID en localStorage
         localStorage.setItem("userId", usuario.id);
         localStorage.setItem("userRol", usuario.tipo); // Para validar la permanencia luego de actualizar el usuario en panel de usuarios
+        localStorage.setItem("tipoUser", usuario.tipo);//XDXD PARA DETERMINAR RAPIDO QUE TIPO DE USER ESTA ACTIVO creo que lo de arriba sirve para lo mismo pero necesito que sea una sola propiedad que almacene el tipo activo
+
         // Redirigir al admin para el html
         window.location.href = "../../index.html";
         // window.location.href = "";
@@ -152,6 +154,7 @@ async function iniciarSesion(e) {
         localStorage.setItem("adminRol", usuario.tipo); // Para validar la permanencia luego de actualizar el usuario en panel de usuarios
         // Guarda el ID en localStorage
         localStorage.setItem("adminId", usuario.id);
+        localStorage.setItem("tipoUser", usuario.tipo);
         // Redirigir al admin para el html
         window.location.href = "../../views/admin_view/dashboard_admin.html";
       }
