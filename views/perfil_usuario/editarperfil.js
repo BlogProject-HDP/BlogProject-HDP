@@ -42,8 +42,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     "modal-user-password-confirm"
   );
 
-  const userIdFromStorage = localStorage.getItem("userId");
+  const tipoUsuarioActivo = localStorage.getItem("tipoUser"); //esto va servir para saber si sacar el id de adminId o userId
+  let userIdFromStorage;
+  // const adminIdFromStorage = localStorage.getItem("adminId");
 
+  if (tipoUsuarioActivo === "user") {
+    // userIdFromStorage = parseInt(localStorage.getItem("userId"), 10) ya me fije que mas adelante lo parsea
+    userIdFromStorage = localStorage.getItem("userId")
+  }else if(tipoUsuarioActivo === "admin"){
+    // userIdFromStorage = parseInt(localStorage.getItem("adminId"), 10)
+    userIdFromStorage = localStorage.getItem("adminId")
+  }
+  
   if (!userIdFromStorage || userIdFromStorage === "L") {
     console.error("Redireccionando: No estás logueado como usuario válido.");
     window.location.href = "../autenticacion/auth.html";
@@ -51,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let currentUserData = null;
-
+  console.log("verificando el id almacenado antes de parsear", userIdFromStorage);
   try {
     const numericUserId = parseInt(userIdFromStorage, 10);
     if (isNaN(numericUserId)) {
@@ -152,7 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? modalInfoCiudadInput.value.trim()
         : currentUserData.ciudad;
       const telefonoActualizado = modalInfoTelefonoInput
-        ? modalInfoTelefonoInput.value.trim()
+        ? modalInfoTelefonoInput.value.trim() || null
         : currentUserData.telefono;
 
       if (!nombreActualizado) {
@@ -198,6 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       try {
+        console.log("informacion nueva que se esta enviando a indexdb: ", usuarioParaActualizar)
         await putUser(usuarioParaActualizar);
         alert("Información personal actualizada con éxito.");
 
