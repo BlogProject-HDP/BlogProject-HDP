@@ -16,8 +16,21 @@ import {
 // Evento like
 // esta es diferente que la de pagination.js y no se utiliza el de busqueda
 // porque da error al intentar cargar las categorias
+
+function obtenerUserId() {
+  const tipoUser = localStorage.getItem("tipoUser");
+  if (tipoUser === "admin") {
+    return parseInt(localStorage.getItem("adminId")) || "L";
+  } else if (tipoUser === "user") {
+    return parseInt(localStorage.getItem("userId")) || "L";
+  }
+  return "L";
+}
+
 async function like(idPost) {
-  const prueba = localStorage.getItem("userId");
+
+  // const prueba = localStorage.getItem("userId");
+  const prueba = obtenerUserId();
 
   // USUARIO TIENE QUE ESTAR LOGUEADO
   if (prueba !== "L" && prueba !== null) {
@@ -99,7 +112,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     //
     //
     // Rellenar el numero de likes verificar que el usuario no sea "L"
-    const idUsuario = parseInt(localStorage.getItem("userId")) || "L";
+    // const idUsuario = parseInt(localStorage.getItem("userId")) || "L";
+    const idUsuario = obtenerUserId();
 
     const likeElem = document.getElementById("heart");
     // const likeElContainer = document.getElementById("heart-container")
@@ -204,7 +218,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     //
     // Comentar
     //
-    const userId = parseInt(localStorage.getItem("userId")) || "L";
+    
+    // const userId = parseInt(localStorage.getItem("userId")) || "L"; esto es lo que ya esytaba y funcionaba
+    let userId = obtenerUserId();
+
+    // if (localStorage.getItem("tipoUser") === "admin") {
+    //   userId = parseInt(localStorage.getItem("adminId"))
+    // }else if(localStorage.getItem("tipoUser") === "user"){
+    //   userId = parseInt(localStorage.getItem("userId"));
+    // }
+    
 
     let usuario;
     if (userId !== "L") {
@@ -259,8 +282,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         //
         // Los comentarios estan pendientes por defecto
         //
-        await comentarUser(post, textarea.value, userId, true);
-
+        //ok entonces aqui es donde se pasa el objeto comentario entonces solo valido el tipo de user activo
+        //si es admin entonces el parametro que corresponde a pendiente sera false ya que como es admin no necesita ser moderado
+        // if (localStorage.getItem("tipoUser" === "admin" )) {
+        //   await comentarUser(post, textarea.value, userId, false);
+        // }else if(localStorage.getItem("tipoUser" === "user" )){
+        //   await comentarUser(post, textarea.value, userId, true);// si es tipo es user sera true en pendiente, asi es como estaba
+        // }
+        const tipo = localStorage.getItem("tipoUser");
+        const pendiente = tipo === 'admin' ? false : true;
+        await comentarUser(post, textarea.value, userId, pendiente)
         //
         // Actualizar Numero de comentarios
         //
