@@ -62,8 +62,11 @@ async function crearCuenta(e) {
         banned: false, // NO BANEADO
       };
       addUser(usuario); // Agregar
-      alert("Usuario creado con éxito"); //alerta
-      window.location.href = "../autenticacion/auth.html"; //Mandar para el login
+      //alert("Usuario creado con éxito"); //alerta
+      mostrarAlerta("Usuario creado con exito", "is-success")
+      setTimeout( () => {
+        window.location.href = "../autenticacion/auth.html"; //Mandar para el login
+      }, 1000)
     } else if (userExiste && emailExiste) {
       console.log("Error --> El usuario y el email ya existen");
       document.getElementById("usuarioExiste").classList.remove("is-hidden");

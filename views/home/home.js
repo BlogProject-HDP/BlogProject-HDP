@@ -6,7 +6,7 @@ import { logout, startAutoLogout} from "../../js/autenticacion/logout.js";
 const btnAcceder = document.getElementById("btnAcceder");
 const perfilBtn = document.getElementById("perfilBtn");
 startAutoLogout(); //Comienza y finaliza después de 1 hora
-mostrarAlerta("Bienvenido", "is-info");
+// mostrarAlerta("Bienvenido", "is-info");
 // Obtenemos el modo en el que se encuentra el usuario
 // L : Invitado
 // const user = localStorage.getItem("userId") || "L"; esto funciona pero esta es mejor:
