@@ -15,15 +15,29 @@ if (localStorage.getItem("userId") === null) {
   localStorage.setItem("userId", "L");
 }
 
+if (localStorage.getItem("tipoUser") === null) {
+  localStorage.setItem("tipoUser", "L"); //si no existe aun lo inicializamos con L (valor por defeecto)
+}
+
 if (localStorage.getItem("adminId") === null) {
   localStorage.setItem("adminId", "L");
 } //con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de login
 
-const user = localStorage.getItem("userId");
-const admin = localStorage.getItem("adminId"); //Ojo que aquí no se utiliza el admin, es probable que ocupemos otra validación para
+// let user = localStorage.getItem("userId");
+let user;
+//Ojo que aquí no se utiliza el admin, es probable que ocupemos otra validación para
+// let admin = localStorage.getItem("adminId");
+const tipoUserActivo = localStorage.getItem("tipoUser");
+
+if (tipoUserActivo === "admin") {
+  user = localStorage.getItem("adminId")
+}else if(tipoUserActivo === "user"){
+  
+  user = localStorage.getItem("userId")
+}
 //saber si 
 //o si no pues, para que se loguee
-
+// console.log("")
 // No esta logueado es invitado
 // Opcion: Ver perfil no disponible
 perfilBtn.addEventListener("click", () => {
@@ -39,8 +53,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (user !== "L") {
     btnAcceder.classList.add("is-hidden");
     perfilBtn.setAttribute("href", "views/perfil_usuario/perfil_usuario.html");
+    document.getElementById("logoutBtn").classList.toggle("is-hidden")
   } else {
-    document.getElementById("dropDownItem").innerHTML = "";
+    //si no esta logeado ocultar solo el boton de 'cerrar sesion' del dropdown
+    // document.getElementById("dropDownItem").innerHTML = "";
+  }
+
+  if (tipoUserActivo === "admin") {
+    //si tipo user es admin habilitamos la opcion 'ir a panel admin' del dropdown menu
+    console.log("dentro del tipo user activo")
+    document.getElementById("irAdminBtn").classList.toggle("is-hidden")
   }
 
   // Logica para el evento de la barra de busqueda

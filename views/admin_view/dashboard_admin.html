@@ -24,6 +24,16 @@
             <span>Publicar</span>
           </span>
         </a>
+
+        <a class="button is-primary is-outlined" href="../../index.html">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa-solid fa-upload"></i>
+            </span>
+            <span>Inicio</span>
+          </span>
+        </a>
+
         <a class="button is-primary is-outlined" id="logoutBtn">
           <span class="icon-text">
             <span class="icon">
@@ -52,164 +62,223 @@
 
       <!-- Administración de Usuarios -->
       <div class="tab-content" id="usuarios">
-        <h2 class="subtitle">CRUD de Usuarios</h2>
+        <h2 class="subtitle has-text-centered">CRUD de Usuarios</h2>
         <div id="usuarios-lista">
-          <!-- FORMULARIO PARA CREAR user -->
-          <form id="form-crear-user" class="box">
-            <!--Zona del nombre del usuario-->
-            <div class="field">
-              <label class="label">Nombre del Usuario</label>
-              <div class="control">
-                <input class="input" type="text" id="user-nombre" placeholder="Ingrese el nombre..." required />
-              </div>
-            </div>
-            <!--Zona del usernickname del usuario-->
-            <div class="field">
-              <label class="label">User (Nickname)</label>
-              <div class="control">
-                <input class="input is-small" type="text" id="user-user" placeholder="Ingrese el user..." required />
-              </div>
-            </div>
-            <!--Zona del rol del usuario-->
-            <div class="field">
-              <label class="label">Rol de usuario</label>
-              <div class="control">
-                <div class="select is-small is-fullwidth">
-                  <select id="user-tipo" required>
-                    <option value="" disabled selected>Seleccione un rol</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
+          <div class="columns is-centered">
+            <div class="column is-10-mobile is-10-tablet is-12-desktop is-12-widescreen">
+
+              <!-- FORMULARIO PARA CREAR user -->
+              <form id="form-crear-user" class="box">
+
+                <div class="columns is-multiline">
+                  <!-- Nombre del Usuario -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">Nombre del Usuario</label>
+                      <div class="control">
+                        <input class="input" type="text" id="user-nombre" placeholder="Ingrese el nombre..." required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- User (Nickname) -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">User (Nickname)</label>
+                      <div class="control">
+                        <input class="input is-small" type="text" id="user-user" placeholder="Ingrese el user..."
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Rol de usuario -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">Rol de usuario</label>
+                      <div class="control">
+                        <div class="select is-small is-fullwidth">
+                          <select id="user-tipo" required>
+                            <option value="" disabled selected>Seleccione un rol</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <!--ZONA PARA EL EMAIL-->
-            <div class="field mb-3">
-              <label for="user-email" class="label">
-                Correo Electrónico
-              </label>
-              <div class="control has-icons-left has-icons-right">
-                <input type="email" class="input is-primary" id="user-email" placeholder="tu@email.com" required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                  <i class="fas fa-check"></i>
-                </span>
-              </div>
-              <p id="emailError" class="help is-danger is-hidden">Email inválido o ya en uso.</p>
-            </div>
-            <!--Zona de la contraseña-->
-            <div class="field">
-              <label class="label">Contraseña</label>
-              <div class="control">
-                <input class="input" type="password" id="user-password" placeholder="Ingrese la contraseña..." required />
-              </div>
-            </div>
-            <!--Zona de la Ciudad-->
-            <div class="field">
-              <label class="label">Ciudad</label>
-              <div class="control">
-                <input class="input" type="text" id="user-ciudad" placeholder="Ingrese la ciudad (opcional)" />
-              </div>
-            </div>
-            <!--Zona del Teléfono-->
-            <div class="field">
-              <label class="label">Teléfono</label>
-              <div class="control">
-                <input class="input" type="tel" id="user-telefono" placeholder="Ingrese el teléfono (opcional)" />
-              </div>
-            </div>
-            <!--Zona de la Edad-->
-            <div class="field">
-              <label class="label">Edad</label>
-              <div class="control">
-                <input class="input" type="number" id="user-edad" placeholder="Ingrese la edad (opcional)" min="0" />
-              </div>
-            </div>
-            <!--Zona de la Descripción-->
-            <div class="field">
-              <label class="label">Descripción</label>
-              <div class="control">
-                <textarea class="textarea" id="user-descripcion" placeholder="Escriba una breve descripción (opcional)"></textarea>
-              </div>
-            </div>
-            <!--Zona de la Foto de Perfil-->
-            <div class="field">
-              <label class="label">Foto de Perfil (opcional)</label>
-              <div class="control">
-                <input class="input" type="file" id="user-fotoPerfil" accept="image/*" />
-              </div>
-            </div>
-            <!--Zona del estado Banned-->
-            <div class="field">
-              <label class="label">Estado Baneado</label>
-              <div class="control">
-                <div class="select is-small is-fullwidth">
-                  <select id="user-banned">
-                    <option value="false" selected>No Baneado</option>
-                    <option value="true">Baneado</option>
-                  </select>
+
+                <!--ZONA PARA EL EMAIL-->
+                <div class="field mb-3">
+                  <label for="user-email" class="label">
+                    Correo Electrónico
+                  </label>
+                  <div class="control has-icons-left has-icons-right">
+                    <input type="email" class="input " id="user-email" placeholder="tu@email.com" required>
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </div>
+                  <p id="emailError" class="help is-danger is-hidden">Email inválido o ya en uso.</p>
                 </div>
-              </div>
+
+                <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                  <div class="field">
+                    <label class="label">Contraseña</label>
+                    <div class="control">
+                      <input class="input" type="password" id="user-password" placeholder="Ingrese la contraseña..."
+                        required />
+                    </div>
+                  </div>
+                </div>
+                <div class="columns is-multiline">
+                  <!-- Contraseña -->
+
+
+
+
+                  <!-- Ciudad -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">Ciudad</label>
+                      <div class="control">
+                        <input class="input" type="text" id="user-ciudad" placeholder="Ingrese la ciudad (opcional)" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Teléfono -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">Teléfono</label>
+                      <div class="control">
+                        <input class="input" type="tel" id="user-telefono"
+                          placeholder="Ingrese el teléfono (opcional)" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Edad -->
+                  <div class="column is-full-mobile is-full-tablet is-half-desktop">
+                    <div class="field">
+                      <label class="label">Edad</label>
+                      <div class="control">
+                        <input class="input" type="number" id="user-edad" placeholder="Ingrese la edad (opcional)"
+                          min="0" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Zona de la Descripción-->
+                <div class="field">
+                  <label class="label">Descripción</label>
+                  <div class="control">
+                    <textarea class="textarea" id="user-descripcion"
+                      placeholder="Escriba una breve descripción (opcional)"></textarea>
+                  </div>
+                </div>
+                <!--Zona de la Foto de Perfil-->
+                <div class="field">
+                  <label class="label">Foto de Perfil (opcional)</label>
+                  <div class="control">
+                    <input class="input" type="file" id="user-fotoPerfil" accept="image/*" />
+                  </div>
+                </div>
+                <!--Zona del estado Banned-->
+                <div class="field">
+                  <label class="label">Estado Baneado</label>
+                  <div class="control">
+                    <div class="select is-small is-fullwidth">
+                      <select id="user-banned">
+                        <option value="false" selected>No Baneado</option>
+                        <option value="true">Baneado</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Botón de envío -->
+                <div class="field is-grouped is-justify-content-center mt-5">
+                  <div class="control">
+                    <button class="button is-primary is-rounded is-large has-text-weight-bold custom-glow"
+                      type="submit">
+                      <span class="icon mr-2">
+                        <i class="fas fa-user-plus"></i>
+                      </span>
+                      <span>Crear Usuario</span>
+                    </button>
+                  </div>
+                </div>
+
+
+              </form>
+
+              <div class="" id="mostrar-users"></div>
             </div>
-            <!-- Botón de envío -->
-            <div class="field">
-              <div class="control">
-                <button class="button is-primary" type="submit">
-                  Crear Usuario
-                </button>
-              </div>
-            </div>
-          </form>
+
+          </div>
         </div>
-        <div class="
-          " id="mostrar-users"></div>
       </div>
 
     </div>
     <!-- BAN de usuarios -->
     <!-- Admin Posts -->
     <div class="tab-content is-hidden" id="admin-posts">
-      <h2 class="subtitle">CRUD de Mis Posts</h2>
+      <h2 class="subtitle has-text-centered">CRUD de Mis Posts</h2>
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-10-mobile is-10-tablet is-12-desktop is-12-widescreen">
 
-      <!-- FORMULARIO PARA CREAR POST -->
-      <form id="form-crear-post" class="box">
-        <div class="field">
-          <label class="label">Nombre del Post</label>
-          <div class="control">
-            <input class="input" type="text" id="post-nombre" placeholder="Ingrese el nombre..." required />
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Categorías (separadas por coma)</label>
-          <div class="control">
-            <input class="input" type="text" id="post-categorias" placeholder="Ej: Tecnología, Noticias" required />
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Contenido</label>
-          <div class="control">
-            <textarea class="textarea" id="post-contenido" placeholder="Escriba el contenido..." required></textarea>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Imagen (opcional)</label>
-          <div class="control">
-            <input class="input" type="file" id="post-imagen" accept="image/*" />
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <button class="button is-primary" type="submit">
-              Crear Post
-            </button>
-          </div>
-        </div>
-      </form>
+            <!-- FORMULARIO PARA CREAR POST -->
+            <form id="form-crear-post" class="box">
+              <div class="field">
+                <label class="label">Nombre del Post</label>
+                <div class="control">
+                  <input class="input" type="text" id="post-nombre" placeholder="Ingrese el nombre..." required />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Categorías (separadas por coma)</label>
+                <div class="control">
+                  <input class="input" type="text" id="post-categorias" placeholder="Ej: Tecnología, Noticias"
+                    required />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Contenido</label>
+                <div class="control">
+                  <textarea class="textarea" id="post-contenido" placeholder="Escriba el contenido..."
+                    required></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Imagen (opcional)</label>
+                <div class="control">
+                  <input class="input" type="file" id="post-imagen" accept="image/*" />
+                </div>
+              </div>
+              <div class="field is-grouped is-justify-content-center mt-5">
+                <div class="control">
+                  <button class="button is-primary is-rounded is-large has-text-weight-bold custom-glow" type="submit">
+                    <span class="icon ">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                    <span>Crear Post</span>
+                  </button>
+                </div>
+              </div>
+            </form>
 
-      <!-- LISTADO DE POSTS -->
-      <div id="admin-posts-lista"></div>
+            <!-- LISTADO DE POSTS -->
+            <div id="admin-posts-lista"></div>
+
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ShadowBan -->

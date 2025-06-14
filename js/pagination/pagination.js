@@ -73,6 +73,12 @@ function mostrarPosts(posts) {
 
   //
   //
+
+  const adminL = localStorage.getItem("adminId");
+
+
+
+
   // Mostrar mensaje de que inicie sesion
   const userL = localStorage.getItem("userId");
   if (userL === "L") {
@@ -143,9 +149,8 @@ function mostrarPosts(posts) {
     autorYFecha.style.justifyContent = "space-between";
     autorYFecha.innerHTML = `
     <strong>${post.autor || "Desconocido"}</strong>
-    <p><strong>Publicado:</strong> ${
-      new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"
-    }</p>
+    <p><strong>Publicado:</strong> ${new Date(post.fechaDePublicacion).toLocaleString() || "Sin fecha"
+      }</p>
   `;
 
     headerRow.appendChild(autorYFecha);
@@ -202,9 +207,8 @@ function mostrarPosts(posts) {
     const aprobadosCount = post.comentarios.filter(
       (comentario) => comentario[2] === false
     ).length;
-    comentariosElem.innerHTML = `<strong><i style="color: #3498db" class="fas fa-comment"></i></strong> ${
-      aprobadosCount || 0
-    }`;
+    comentariosElem.innerHTML = `<strong><i style="color: #3498db" class="fas fa-comment"></i></strong> ${aprobadosCount || 0
+      }`;
 
     const likeElem = document.createElement("p");
     likeElem.style.cursor = "pointer";
@@ -215,10 +219,14 @@ function mostrarPosts(posts) {
     let likeCount = post.likes?.length || 0;
 
     if (userL !== "L") {
-      likeElem.innerHTML = `<strong><i class="${
-        yaDioLike ? "fas" : "far"
-      } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
-    } else {
+      likeElem.innerHTML = `<strong><i class="${yaDioLike ? "fas" : "far"
+        } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
+    }
+    else if (adminL !== null) {
+      likeElem.innerHTML = `<strong><i class="${yaDioLike ? "fas" : "far"
+        } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count">${likeCount}</span>`;
+    }
+    else {
       likeElem.innerHTML = "";
     }
 
