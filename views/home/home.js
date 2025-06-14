@@ -17,7 +17,7 @@ if (localStorage.getItem("userId") === null) {
 
 if (localStorage.getItem("adminId") === null) {
   localStorage.setItem("adminId", "L");
-} //con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de admin
+} //con esto estos valores se inincializarian en home pero solo si no existen, de esta forma se evita que se sobreescriban si viene de login
 
 const user = localStorage.getItem("userId");
 const admin = localStorage.getItem("adminId"); //Ojo que aquí no se utiliza el admin, es probable que ocupemos otra validación para

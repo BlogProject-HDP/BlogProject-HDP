@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const idUsuario = parseInt(localStorage.getItem("userId")) || "L";
 
     const likeElem = document.getElementById("heart");
+    // const likeElContainer = document.getElementById("heart-container")
     let likeCount;
     if (idUsuario !== "L") {
       const yaDioLike = post.likes?.includes(idUsuario);
@@ -111,9 +112,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         yaDioLike ? "fas" : "far"
       } fa-heart" style="color: #e74c3c"></i></strong> <span class="like-count m-1">${likeCount}</span>`;
     } else {
-      likeElem.innerHTML = "";
-      const levelitem = document.getElementById("level-item");
-      levelitem.innerHTML = "";
+      //usuario no logeado oculat el boton de like
+      // likeElem.innerHTML = "";
+      // const levelitem = document.getElementById("level-item");
+      // levelitem.innerHTML = "";
+      likeElem.classList.toggle('is-hidden')
     }
 
     likeElem.addEventListener("click", (event) => {
