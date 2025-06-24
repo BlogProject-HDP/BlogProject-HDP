@@ -9,6 +9,7 @@ import {
 //Administrar la accesibilidad a los métodos de admin/user
 localStorage.setItem("adminId", "L");
 localStorage.setItem("userId", "L");
+localStorage.setItem("tipoUser", "L");
 localStorage.setItem("userRol", "LL");
 localStorage.setItem("adminRol", "LL");
 async function main() {
@@ -63,10 +64,10 @@ async function crearCuenta(e) {
       };
       addUser(usuario); // Agregar
       //alert("Usuario creado con éxito"); //alerta
-      mostrarAlerta("Usuario creado con exito", "is-success")
-      setTimeout( () => {
+      mostrarAlerta("Usuario creado con exito", "is-success");
+      setTimeout(() => {
         window.location.href = "../autenticacion/auth.html"; //Mandar para el login
-      }, 1000)
+      }, 1000);
     } else if (userExiste && emailExiste) {
       console.log("Error --> El usuario y el email ya existen");
       document.getElementById("usuarioExiste").classList.remove("is-hidden");
@@ -145,7 +146,7 @@ async function iniciarSesion(e) {
         // Guarda el ID en localStorage
         localStorage.setItem("userId", usuario.id);
         localStorage.setItem("userRol", usuario.tipo); // Para validar la permanencia luego de actualizar el usuario en panel de usuarios
-        localStorage.setItem("tipoUser", usuario.tipo);//XDXD PARA DETERMINAR RAPIDO QUE TIPO DE USER ESTA ACTIVO creo que lo de arriba sirve para lo mismo pero necesito que sea una sola propiedad que almacene el tipo activo
+        localStorage.setItem("tipoUser", usuario.tipo); //XDXD PARA DETERMINAR RAPIDO QUE TIPO DE USER ESTA ACTIVO creo que lo de arriba sirve para lo mismo pero necesito que sea una sola propiedad que almacene el tipo activo
 
         // Redirigir al admin para el html
         window.location.href = "../../index.html";
