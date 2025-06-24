@@ -256,3 +256,9 @@ html{
     font-size: 8px !important;
   }
 }
+
+
+#Contenido img {
+  display: block;
+  margin: 0 auto;
+}

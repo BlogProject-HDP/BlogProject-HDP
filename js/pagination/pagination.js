@@ -190,6 +190,7 @@ function mostrarPosts(posts) {
     //
     // Mostrar una parte del contenido
     const contenidopost = document.createElement("p");
+    contenidopost.setAttribute("id", "Contenido")
     contenidopost.innerHTML =
       post.contenido.length > 300
         ? post.contenido.slice(0, 300) + "<strong> Ver más...</strong>"
