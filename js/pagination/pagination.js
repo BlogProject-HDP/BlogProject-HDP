@@ -108,7 +108,7 @@ function mostrarPosts(posts) {
     postDiv.classList.add("custom-box"); //cambie esto tya que classname sobreescribe todas las clases
     postDiv.style.display = "flex";
     postDiv.style.alignItems = "flex-start";
-    postDiv.style.gap = "10px";
+    postDiv.style.gap = "0.625em";
     postDiv.style.cursor = "pointer";
 
     postDiv.addEventListener("click", () => {
@@ -121,16 +121,16 @@ function mostrarPosts(posts) {
     columna1.style.flexDirection = "column";
     columna1.style.justifyContent = "flex-start";
     columna1.style.alignItems = "center";
-    columna1.style.width = "90px";
+    columna1.style.width = "5.5em";
 
     const mainImg = document.createElement("img");
     mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
     mainImg.alt = post.autor;
-    mainImg.style.width = "50px";
-    mainImg.style.height = "50px";
+    mainImg.style.width = "3.125em";
+    mainImg.style.height = "3.125em";
     mainImg.style.objectFit = "cover";
     mainImg.style.borderRadius = "50%";
-    mainImg.style.padding = "2px";
+    mainImg.style.padding = "0.125em";
     columna1.appendChild(mainImg);
     postDiv.appendChild(columna1);
 
@@ -138,7 +138,7 @@ function mostrarPosts(posts) {
     filaCentro.style.display = "flex";
     filaCentro.style.flex = "1";
     filaCentro.style.flexDirection = "column";
-    filaCentro.style.gap = "10px";
+    filaCentro.style.gap = "0.625em";
 
     const headerRow = document.createElement("div");
     headerRow.style.display = "flex";
@@ -162,14 +162,14 @@ function mostrarPosts(posts) {
 
     const filaInferior = document.createElement("div");
     filaInferior.style.display = "flex";
-    filaInferior.style.gap = "10px";
+    filaInferior.style.gap = "0.625em";
     filaInferior.style.width = "100%";
 
     const columna2 = document.createElement("div");
     columna2.style.flex = "1";
     columna2.style.display = "flex";
     columna2.style.flexDirection = "column";
-    columna2.style.gap = "10px";
+    columna2.style.gap = "0.625em";
 
     const titulo = document.createElement("h3");
     const nombreCorto =
@@ -181,9 +181,9 @@ function mostrarPosts(posts) {
     imagenPost.src = post.imagen || "resources/No_imagen_disponible.png";
     imagenPost.alt = "Foto del post";
     imagenPost.style.width = "100%";
-    imagenPost.style.height = "200px";
+    imagenPost.style.height = "12.5em";
     imagenPost.style.objectFit = "cover";
-    imagenPost.style.borderRadius = "4px";
+    imagenPost.style.borderRadius = "0.25em";
     columna2.appendChild(imagenPost);
 
     //
