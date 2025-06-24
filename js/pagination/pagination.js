@@ -105,7 +105,7 @@ function mostrarPosts(posts) {
   posts.forEach((post) => {
     const postDiv = document.createElement("div");
     postDiv.classList.add("post-card"); //le agrego esta clase donde asigno un font size al post-card container lo cual ayuda a que los tamanos de fuente y espacioado dismuyan segun el tamano de la pantalla
-    postDiv.classList.add("box"); //cambie esto tya que classname sobreescribe todas las clases
+    postDiv.classList.add("custom-box"); //cambie esto tya que classname sobreescribe todas las clases
     postDiv.style.display = "flex";
     postDiv.style.alignItems = "flex-start";
     postDiv.style.gap = "10px";

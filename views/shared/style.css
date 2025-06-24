@@ -45,15 +45,25 @@ html{
     --bulma-link-h: 292deg;
     --bulma-link-s: 71%;
     --bulma-link-l: 43%; */
-
-     --bulma-primary-h: 258deg;
+    /* este es el primary moradito */
+    /* --bulma-primary-h: 258deg;
     --bulma-primary-s: 76%;
-    --bulma-primary-l: 49%;
-    --bulma-link-h: 270deg;
-    --bulma-link-s: 81%;
-    --bulma-link-l: 51%;
+    --bulma-primary-l: 49%; */
 
-  
+    /* para color link moradito */
+    /* --bulma-link-h: 270deg;
+    --bulma-link-s: 81%;
+    --bulma-link-l: 51%; */
+
+    /* para link color rojito oscuro */
+    --bulma-link-h: 360deg;
+    --bulma-link-s: 100%;
+    --bulma-link-l: 14%;
+
+    /* para color rojo */
+    --bulma-primary-h: 360deg;
+    --bulma-primary-s: 66%;
+    --bulma-primary-l: 43%;
 
     --bulma-family-primary: "Outfit", sans-serif;
     --swag-bg: var(--bulma-primary-90);
@@ -66,6 +76,7 @@ html{
     --swag-level-fg: var(--bulma-primary-invert);
 
     --swag-navbar-bg: var(--bulma-primary-base);
+    /* --swag-navbar-bg: var(--bulma-info-base); */
     --swag-navbar-border: 0.12rem solid var(--bulma-primary-30);
 
     --swag-title-input-text-color: rgb(45, 43, 43);
@@ -261,4 +272,24 @@ html{
 #Contenido img {
   display: block;
   margin: 0 auto;
+  object-fit: cover;
+}
+
+
+
+.custom-box {
+  /* opcional, mejora la estética */
+  border-radius: 0.25rem; 
+  background-color: var(--custom-box-bg, #fff); /* fallback para light mode */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.398); /* sombra sutil */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  padding: 1rem;
+  margin-bottom: 0.5rem; /* opcional, para que el contenido respire */
+}
+
+/* DARK MODE - usando data-theme o clase */
+[data-theme=dark] .custom-box,
+.theme-dark .custom-box {
+  background-color: var(--bulma-scheme-main-bis, #161515); /* fallback para dark */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* sombra más marcada para contraste */
 }
