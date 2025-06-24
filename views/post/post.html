@@ -37,10 +37,10 @@
     <span>Regresar</span>
   </a>
 </div>
-    <div class="box post-box">
+    <div class="post-box">
       <div id="postCardContainer">
         <!-- Aquí tu post.js inyecta: avatar, autor, titulo, portada, categorias, contenido -->
-        <article class="media custom-box-top" style="height: fit-content; margin-bottom: 0px;">
+        <article class="media custom-box custom-box-top" style="height: fit-content; margin-bottom: 0px;">
           <div class="media-content">
             <div class="content is-clipped">
               <!-- Autor -->
@@ -73,8 +73,8 @@
       </div>
 
       <!-- Botones de interacción -->
-      <article>
-        <nav class="media-content mt-4 custom-level">
+      <article class="">
+        <nav class="media-content mt-4 custom-level custom-box-shadow custom-box-top">
           <div class="is-flex is-align-items-center is-justify-content-center" style="gap: 2rem; position: sticky; top: 0px; ">
             <a class="level-item" aria-label="reply" href="#container-comments">
               <span class="icon is-small"><i class="fas fa-comment"></i></span>
@@ -89,13 +89,13 @@
         </nav>
 
         <!-- Contenido del post -->
-        <div id="Contenido" class="content caja custom-box-bottom" style="margin-bottom: 4rem;"></div>
+        <div id="Contenido" class="content caja custom-box custom-box-bottom" style="margin-bottom: 4rem;"></div>
       </article>
 
       <!-- Comentarios -->
       <!-- Numero de comentarios  -->
       <h2 class="title is-4">Comentarios: <span id="numeroComments"></span></h2>
-      <div id="container-comments" class=" mt-4">
+      <div id="container-comments" class="mt-4">
 
         <!-- formulario con informacion del usuario actual para escribir un cometario -->
         <article id="formulario" class="media">
