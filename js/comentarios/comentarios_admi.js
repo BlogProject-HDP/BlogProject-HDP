@@ -144,6 +144,7 @@ export async function mostrarPosts(post, contenedor) {
       const bodyTable = document.getElementById(`pendientesBody-${post.id}`);
       const row = document.createElement("tr");
       bodyTable.appendChild(row);
+
       row.innerHTML = `
         <td style="white-space: normal; word-break: break-word;">
           Usuario ID: ${comentarioEnPost[0]} <br> Comentario: <br>

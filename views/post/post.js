@@ -28,14 +28,13 @@ function obtenerUserId() {
 }
 
 async function like(idPost) {
-
   // const prueba = localStorage.getItem("userId");
   const prueba = obtenerUserId();
 
   // USUARIO TIENE QUE ESTAR LOGUEADO
   if (prueba !== "L" && prueba !== null) {
     console.log(prueba);
-    const idUsuario = parseInt(localStorage.getItem("userId"));
+    const idUsuario = prueba;
     const usuario = await buscarId(idUsuario);
     // Agregar su like al usuario guardamos el id del post, quiere decir que ahi
     // hizo like, si ya lo contenia lo eliminamos
@@ -130,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // likeElem.innerHTML = "";
       // const levelitem = document.getElementById("level-item");
       // levelitem.innerHTML = "";
-      likeElem.classList.toggle('is-hidden')
+      likeElem.classList.toggle("is-hidden");
     }
 
     likeElem.addEventListener("click", (event) => {
@@ -176,7 +175,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Rellenar imagen de portada
     const portadaImg = document.getElementById("portadaImg");
     if (portadaImg) {
-      portadaImg.src = post.imagen || "../../resources/No_imagen_disponible.png";
+      portadaImg.src =
+        post.imagen || "../../resources/No_imagen_disponible.png";
     }
 
     //
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     //
     // Comentar
     //
-    
+
     // const userId = parseInt(localStorage.getItem("userId")) || "L"; esto es lo que ya esytaba y funcionaba
     let userId = obtenerUserId();
 
@@ -227,7 +227,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // }else if(localStorage.getItem("tipoUser") === "user"){
     //   userId = parseInt(localStorage.getItem("userId"));
     // }
-    
 
     let usuario;
     if (userId !== "L") {
@@ -277,6 +276,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Evento para agregar comentario
       //
       enviarComentario.addEventListener("click", async () => {
+        if (document.getElementById("textarea").value.trim() === "") {
+          return;
+        }
         // textarea
         const textarea = document.getElementById("textarea");
         //
@@ -290,8 +292,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         //   await comentarUser(post, textarea.value, userId, true);// si es tipo es user sera true en pendiente, asi es como estaba
         // }
         const tipo = localStorage.getItem("tipoUser");
-        const pendiente = tipo === 'admin' ? false : true;
-        await comentarUser(post, textarea.value, userId, pendiente)
+        const pendiente = tipo === "admin" ? false : true;
+        await comentarUser(post, textarea.value, userId, pendiente);
         //
         // Actualizar Numero de comentarios
         //

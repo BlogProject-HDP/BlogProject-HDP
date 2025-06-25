@@ -190,7 +190,7 @@ function mostrarPosts(posts) {
     //
     // Mostrar una parte del contenido
     const contenidopost = document.createElement("p");
-    contenidopost.setAttribute("id", "Contenido")
+    contenidopost.setAttribute("id", "Contenido");
     contenidopost.innerHTML =
       post.contenido.length > 300
         ? post.contenido.slice(0, 300) + "<strong> Ver más...</strong>"
@@ -220,10 +220,14 @@ function mostrarPosts(posts) {
     likeElem.style.cursor = "pointer";
     likeElem.style.userSelect = "none";
 
-    const idUsuario = parseInt(localStorage.getItem("userId"));
-    const yaDioLike = post.likes?.includes(idUsuario);
+    const idUsuario = userActivo;
+    const yaDioLike = post.likes?.includes(parseInt(idUsuario));
+    console.log("Array de like: ", post.likes);
+    console.log("Like dado: ", yaDioLike);
+    console.log("Id: ", typeof idUsuario);
     let likeCount = post.likes?.length || 0;
 
+    console.log("User activo: ", userActivo);
     if (userActivo !== "L") {
       likeElem.innerHTML = `<strong><i class="${
         yaDioLike ? "fas" : "far"
@@ -311,11 +315,20 @@ function mostrarPosts(posts) {
 // Evento like: cuando se da like a un post
 async function like(idPost) {
   const prueba = localStorage.getItem("userId");
-
+  const admin = localStorage.getItem("tipoUser");
+  console.log("userId: ", prueba);
+  console.log("admin: ", admin);
   // USUARIO TIENE QUE ESTAR LOGUEADO
-  if (prueba !== "L" && prueba !== null) {
-    console.log(prueba);
-    const idUsuario = parseInt(localStorage.getItem("userId"));
+  if (
+    (prueba !== "L" && prueba !== null) ||
+    (admin === "admin" && admin !== null)
+  ) {
+    let idUsuario;
+    if (prueba !== "L") {
+      idUsuario = parseInt(localStorage.getItem("userId"));
+    } else {
+      idUsuario = parseInt(localStorage.getItem("adminId"));
+    }
     const usuario = await buscarId(idUsuario);
 
     // Agregar su like al usuario (guardamos el id del post)
