@@ -2,281 +2,271 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../shared/style.css">
-    <link rel="stylesheet" href="./perfil_usuario.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/style.css">
+  <link rel="stylesheet" href="./perfil_usuario.css">
 </head>
 
 <body>
-    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
 
-        <div class="navbar-brand">
-
-
+    <div class="navbar-brand">
 
 
-            <a class="navbar-item" href="../../index.html">
-                <figure class="image is-64x64-desktop is-flex is-align-items-center">
-                    <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
-                </figure>
-            </a>
 
-            <div class="navbar-item is-flex-shrink-1">
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
-                        <span class="icon is-small is-left">
-                            <!-- <i class="fas fa-user"></i> -->
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+      <a class="navbar-item" href="../../index.html">
+        <figure class="image is-64x64-desktop is-flex is-align-items-center">
+          <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
+        </figure>
+      </a>
+
+      <div class="navbar-item is-flex-shrink-1">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
+            <span class="icon is-small is-left">
+              <!-- <i class="fas fa-user"></i> -->
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+          </div>
         </div>
+      </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-            <div class="navbar-start">
+    <div id="navbarBasicExample" class="navbar-menu">
+
+      <div class="navbar-start">
 
 
-                <div class="navbar-item has-dropdown" id="dropDownItem">
-                    <a class="navbar-link">
-                        Mas
-                    </a>
+        <div class="navbar-item has-dropdown" id="dropDownItem">
+          <a class="navbar-link">
+            Mas
+          </a>
 
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item" href="../../index.html">
-                            Volver a vista de posts
-                        </a>
-                        <!-- <a class="navbar-item">
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="../../index.html">
+              Volver a vista de posts
+            </a>
+            <!-- <a class="navbar-item">
                             Contact
                         </a>
                         <hr class="navbar-divider">
                         <a class="navbar-item">
                             Report an issue
                         </a> -->
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-            <div class="navbar-end">
-
-                <a id="perfilBtn" href="" class="navbar-item is-flex is-align-items-center">
-                    <span class="icon-text">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span>Perfil</span>
-                </a>
-
-
-                <a id="logoutBtn" class="navbar-item is-flex is-align-items-center">
-                    <span class="icon-text">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </span>
-                    <span>Logout</span>
-                </a>
-
-
-
-
-            </div>
-        </div>
-    </nav>
-    <main class="main-container">
-
-        <div id="modal-user" class="modal">
-            <div class="modal-background">
-
-            </div>
-            <div class="modal-content-user">
-                <form class="container box" id="form-editar-user-perfil">
-                    <!--Nombre de usuario-->
-                    <div class="field">
-                        <label class="label">Nombre de Usuario</label>
-                        <div class="control">
-                            <input class="input" type="text" name="usuario" placeholder="ej. usuario123"
-                                id="modal-user-usuario" />
-                        </div>
-                    </div>
-                    <!--Email-->
-                    <div class="field">
-                        <label class="label">Email</label>
-                        <div class="control">
-                            <input class="input" type="email" name="email" placeholder="ej. correo@example.com"
-                                id="modal-user-email" />
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
-                        <div class="control">
-                            <input class="input" type="password" name="password" placeholder="********"
-                                id="modal-user-password" />
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Confirmar Nueva Contraseña</label>
-                        <div class="control">
-                            <input class="input" type="password" name="password_confirm" placeholder="********"
-                                id="modal-user-password-confirm" />
-                        </div>
-                    </div>
-
-                    <div class="buttons">
-                        <button class="button is-success">Guardar cambios</button>
-                        <button type="button" class="button">Cancelar</button>
-
-                    </div>
-                </form>
-            </div>
-            <!-- Botón para cerrar -->
-            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
         </div>
 
-        <div id="modal-info" class="modal">
 
-            <div class="modal-background">
+
+
+      </div>
+
+      <div class="navbar-end">
+
+        <a id="perfilBtn" href="" class="navbar-item is-flex is-align-items-center">
+          <span class="icon-text">
+            <i class="fa-solid fa-user"></i>
+          </span>
+          <span>Perfil</span>
+        </a>
+
+
+        <a id="logoutBtn" class="navbar-item is-flex is-align-items-center">
+          <span class="icon-text">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </span>
+          <span>Logout</span>
+        </a>
+
+
+
+
+      </div>
+    </div>
+  </nav>
+  <main class="main-container">
+
+    <div id="modal-user" class="modal">
+      <div class="modal-background">
+
+      </div>
+      <div class="modal-content-user">
+        <form class="container box" id="form-editar-user-perfil">
+          <!--Nombre de usuario-->
+          <div class="field">
+            <label class="label">Nombre de Usuario</label>
+            <div class="control">
+              <input class="input" type="text" name="usuario" placeholder="ej. usuario123" id="modal-user-usuario" />
+            </div>
+          </div>
+          <!--Email-->
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" name="email" placeholder="ej. correo@example.com" id="modal-user-email" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
+            <div class="control">
+              <input class="input" type="password" name="password" placeholder="********" id="modal-user-password" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Confirmar Nueva Contraseña</label>
+            <div class="control">
+              <input class="input" type="password" name="password_confirm" placeholder="********" id="modal-user-password-confirm" />
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button class="button is-success">Guardar cambios</button>
+            <button type="button" class="button">Cancelar</button>
+
+          </div>
+        </form>
+      </div>
+      <!-- Botón para cerrar -->
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div id="modal-info" class="modal">
+
+      <div class="modal-background">
+
+      </div>
+      <div class="modal-content-user">
+        <form class="container box" id="form-editar-info-perfil">
+
+          <!-- Nombre -->
+          <div class="field">
+            <label class="label">Nombre</label>
+            <div class="control">
+              <input class="input" type="text" name="nombre" placeholder="ej. Dembele" required id="modal-info-nombre" />
+            </div>
+          </div>
+
+          <!-- Ciudad -->
+          <div class="field">
+            <label class="label">Ciudad</label>
+            <div class="control">
+              <input class="input" type="text" name="ciudad" placeholder="ej. Morazan" id="modal-info-ciudad" />
+            </div>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="field">
+            <label class="label">Teléfono</label>
+            <div class="control">
+              <input class="input" type="tel" name="telefono" id="modal-info-telefono" placeholder="ej. +503 7123 4567" />
+            </div>
+          </div>
+
+          <!-- Edad -->
+          <div class="field">
+            <label class="label">Edad</label>
+            <div class="control">
+              <input class="input" type="number" name="edad" min="14" placeholder="ej. 21" id="modal-info-birthday-input" />
+            </div>
+          </div>
+
+          <!-- Imagen -->
+          <div class="field">
+            <label class="label">Imagen</label>
+            <div class="control">
+              <input class="input" type="file" name="imagen" accept="image/*" id="modal-info-imagen" />
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="field">
+            <label class="label">Bio</label>
+            <div class="control">
+              <textarea class="textarea" name="bio" placeholder="Hola, soy..." id="modal-info-bio"></textarea>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button class="button is-success">Guardar cambios</button>
+            <button type="button" class="button">Cancel</button>
+
+          </div>
+        </form>
+      </div>
+
+      <!-- Botón para cerrar -->
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div class="container is-max-desktop box">
+
+
+      <div class="container is-max-desktop profile-box">
+
+        <div class="columns is-vcentered is-variable is-6 is-multiline is-shadowless">
+          <!-- Avatar -->
+          <div class="column is-12-mobile is-narrow-tablet">
+            <figure class="image is-128x128 mx-auto is-flex is-justify-content-center">
+              <img class="is-rounded" src="" alt="Avatar" style="object-fit: cover;">
+            </figure>
+          </div>
+
+          <!-- Info -->
+          <div class="column is-12-mobile is-flex-grow-1">
+            <h1 id="name" class="title is-3 mb-1 has-text-centered-touch">Nombre</h1>
+            <h2 id="user" class="subtitle is-5 has-text-grey-light mb-3 has-text-centered-touch">@usuario
+            </h2>
+
+            <p id="bio" class="content mb-3 has-text-centered-touch">
+              <i class="fa-solid fa-quote-left mr-1"></i>
+              <span>Bio</span>
+            </p>
+
+            <p id="birthday" class="has-text-grey has-text-centered-touch">
+              <i class="fa-regular fa-calendar-days mr-1"></i>
+              Fecha de nacimiento: <span>01 de enero de 2000</span>
+            </p>
+          </div>
+
+          <!-- Botón -->
+          <div class="column is-full-mobile is-narrow-tablet">
+            <div class="buttons is-centered">
+              <button id="abrir-modal-user" class="button is-link is-light">Edit user</button>
+              <button id="abrir-modal-info" class="button is-link is-light">Edit info</button>
 
             </div>
-            <div class="modal-content-user">
-                <form class="container box" id="form-editar-info-perfil">
-
-                    <!-- Nombre -->
-                    <div class="field">
-                        <label class="label">Nombre</label>
-                        <div class="control">
-                            <input class="input" type="text" name="nombre" placeholder="ej. Dembele" required
-                                id="modal-info-nombre" />
-                        </div>
-                    </div>
-
-                    <!-- Ciudad -->
-                    <div class="field">
-                        <label class="label">Ciudad</label>
-                        <div class="control">
-                            <input class="input" type="text" name="ciudad" placeholder="ej. Morazan"
-                                id="modal-info-ciudad" />
-                        </div>
-                    </div>
-
-                    <!-- Teléfono -->
-                    <div class="field">
-                        <label class="label">Teléfono</label>
-                        <div class="control">
-                            <input class="input" type="tel" name="telefono" id="modal-info-telefono"
-                                placeholder="ej. +503 7123 4567" />
-                        </div>
-                    </div>
-
-                    <!-- Edad -->
-                    <div class="field">
-                        <label class="label">Edad</label>
-                        <div class="control">
-                            <input class="input" type="number" name="edad" min="14" placeholder="ej. 21"
-                                id="modal-info-birthday-input" />
-                        </div>
-                    </div>
-
-                    <!-- Imagen -->
-                    <div class="field">
-                        <label class="label">Imagen</label>
-                        <div class="control">
-                            <input class="input" type="file" name="imagen" accept="image/*" id="modal-info-imagen" />
-                        </div>
-                    </div>
-
-                    <!-- Bio -->
-                    <div class="field">
-                        <label class="label">Bio</label>
-                        <div class="control">
-                            <textarea class="textarea" name="bio" placeholder="Hola, soy..."
-                                id="modal-info-bio"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="buttons">
-                        <button class="button is-success">Guardar cambios</button>
-                        <button type="button" class="button">Cancel</button>
-
-                    </div>
-                </form>
-            </div>
-
-            <!-- Botón para cerrar -->
-            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
         </div>
 
-        <div class="container is-max-desktop box">
-
-
-            <div class="container is-max-desktop profile-box">
-
-                <div class="columns is-vcentered is-variable is-6 is-multiline is-shadowless">
-                    <!-- Avatar -->
-                    <div class="column is-12-mobile is-narrow-tablet">
-                        <figure class="image is-128x128 mx-auto is-flex is-justify-content-center">
-                            <img class="is-rounded" src="" alt="Avatar" style="object-fit: cover;">
-                        </figure>
-                    </div>
-
-                    <!-- Info -->
-                    <div class="column is-12-mobile is-flex-grow-1">
-                        <h1 id="name" class="title is-3 mb-1 has-text-centered-touch">Nombre</h1>
-                        <h2 id="user" class="subtitle is-5 has-text-grey-light mb-3 has-text-centered-touch">@usuario
-                        </h2>
-
-                        <p id="bio" class="content mb-3 has-text-centered-touch">
-                            <i class="fa-solid fa-quote-left mr-1"></i>
-                            <span>Bio</span>
-                        </p>
-
-                        <p id="birthday" class="has-text-grey has-text-centered-touch">
-                            <i class="fa-regular fa-calendar-days mr-1"></i>
-                            Fecha de nacimiento: <span>01 de enero de 2000</span>
-                        </p>
-                    </div>
-
-                    <!-- Botón -->
-                    <div class="column is-full-mobile is-narrow-tablet">
-                        <div class="buttons is-centered">
-                            <button id="abrir-modal-user" class="button is-link is-light">Edit user</button>
-                            <button id="abrir-modal-info" class="button is-link is-light">Edit info</button>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Estadisticas -->
-                <div id="statistics" class="columns is-mobile has-text-centered mt-5">
-                    <div class="column">
-                        <p class="heading">Posts</p>
-                        <p class="title is-5">0</p>
-                    </div>
-                    <div class="column">
-                        <p class="heading">Comments</p>
-                        <p class="title is-5">0</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Estadisticas -->
+        <div id="statistics" class="columns is-mobile has-text-centered mt-5">
+          <div class="column">
+            <p class="heading">Posts</p>
+            <p class="title is-5">0</p>
+          </div>
+          <div class="column">
+            <p class="heading">Comments</p>
+            <p class="title is-5">0</p>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div id="post" class="container is-max-desktop box">
+    <!-- <div id="post" class="container is-max-desktop box">
             <h1>Post</h1>
 
 
@@ -284,16 +274,16 @@
 
         <div id="comments" class="container is-max-desktop box">
             <h1>Comments</h1>
-        </div>
-    </main>
+        </div> -->
+  </main>
 
 
-    <script src="../shared/alertas.js"></script>
-    <script src="./perfil_usuario.js"></script>
-    <script src="../shared/global.js"></script>
-    <script src="editarperfil.js" type="module"></script>
-    <script src="../shared/navbar.js"></script>
-    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+  <script src="../shared/alertas.js"></script>
+  <script src="./perfil_usuario.js"></script>
+  <script src="../shared/global.js"></script>
+  <script src="editarperfil.js" type="module"></script>
+  <script src="../shared/navbar.js"></script>
+  <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -1,136 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busqueda</title>
-    <link rel="stylesheet" href="../shared/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./busquedas.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Busqueda</title>
+  <link rel="stylesheet" href="../shared/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="./busquedas.css" />
 </head>
+
 <body>
-    
-    <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../index.html">
+        <figure class="image is-64x64-desktop is-flex is-align-items-center">
+          <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover" />
+        </figure>
+      </a>
 
-        <div class="navbar-brand">
-            
-
-            
-            <a class="navbar-item" href="../../index.html">
-                <figure class="image is-64x64-desktop is-flex is-align-items-center">
-                    <img src="../../resources/theBlog.svg" alt="" style="object-fit: cover;">
-                </figure>
-            </a>
-
-            <div class="navbar-item is-flex-shrink-1">
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <input id="barra-busqueda" type="text" class="input" placeholder="Buscar...">
-                        <span class="icon is-small is-left">
-                                <!-- <i class="fas fa-user"></i> -->
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+      <div class="navbar-item is-flex-shrink-1">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="barra-busqueda" type="text" class="input" placeholder="Buscar..." />
+            <span class="icon is-small is-left">
+              <!-- <i class="fas fa-user"></i> -->
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+          </div>
         </div>
+      </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+      <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a> -->
+    </div>
 
-            <div class="navbar-start">
-
-
-                <div class="navbar-item has-dropdown" id="dropDownItem">
-                    <a class="navbar-link">
-                        Mas
-                    </a>
-
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Algo mas 1
-                        </a>
-                        <a class="navbar-item ">
-                            Algo mas 2
-                        </a>
-                        <!-- <a class="navbar-item">
-                            Contact
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
-                        </a> -->
-                    </div>
-                </div>
-
-                
+    <!-- <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start"></div>
 
 
-            </div>
+    </div> -->
+  </nav>
 
-            <div class="navbar-end">
+  <main class="main-container">
+    <div class="is-flex container is-max-desktop mb-3">
+      <article class="panel is-radiusless is-shadowless" style="flex: 1">
+        <p id="paramLabel" class="panel-heading is-radiusless" style="
+              background-color: var(--swag-panel-bg);
+              color: var(--swag-panel-fg);
+            "></p>
+        <p class="panel-tabs">
+          <a href="#">Posts</a>
+          <a href="#">Categorias</a>
+        </p>
+      </article>
+    </div>
 
-                <a href="../perfil_usuario/perfil_usuario.html" class="navbar-item is-flex is-align-items-center">
-                    <span class="icon-text">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span>Perfil</span>
-                </a>
-                
+    <div id="post-container" class="container is-max-desktop">
+      <!-- <h1 id="paramLabel" class="is-size-3">Avla que jpa</h1> -->
 
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary is-light" href="../autenticacion/auth.html">
-                            <strong>Acceder</strong>
-                        </a>
+      <!-- //AQUI SE RENDIRIZARAN LOS POST ENCONTRADOS -->
+    </div>
+  </main>
 
-                    </div>
-                </div>
-
-                
-
-               
-            </div>
-        </div>
-    </nav>
-
-    <main class="main-container">
-
-        
-       <div class="is-flex container is-max-desktop mb-3">
-                <article class="panel is-radiusless is-shadowless" style="flex: 1;">
-                    <p id="paramLabel" class="panel-heading is-radiusless" style="background-color: var(--swag-panel-bg); color: var(--swag-panel-fg);"></p>
-                    <p class="panel-tabs">  
-                        <a href="#">Posts</a>
-                        <a href="#">Categorias</a>
-                    </p>
-                </article>
-        </div>
-
-        <div id="post-container" class="container is-max-desktop">
-            <!-- <h1 id="paramLabel" class="is-size-3">Avla que jpa</h1> -->
-            
-
-            <!-- //AQUI SE RENDIRIZARAN LOS POST ENCONTRADOS -->
-
-
-        </div>
-    </main>
-
-
-
-    
-
-    <script type="module" src="./busquedas.js"></script>
-    <script src="../shared/global.js"></script>
-    <script src="../shared/navbar.js"></script>
-    <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
+  <script type="module" src="./busquedas.js"></script>
+  <script src="../shared/global.js"></script>
+  <script src="../shared/navbar.js"></script>
+  <script src="https://kit.fontawesome.com/1de6e85594.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -4,7 +4,33 @@ import {
   putUser,
   buscarPostPoId,
   editPost,
+  crearIndexedDB,
 } from "../../js/IndexedDB/indexDB.js";
+
+let bd,
+  pagina = 1,
+  total = 0;
+const LIMITE = 10;
+
+export async function iniciar() {
+  await crearIndexedDB();
+
+  const solicitud = indexedDB.open("dbBlog-Tech", 1);
+
+  solicitud.onsuccess = (e) => {
+    bd = e.target.result;
+    const transaction = bd.transaction("posts", "readonly");
+    const store = transaction.objectStore("posts");
+    store.count().onsuccess = (countEvent) => {
+      total = countEvent.target.result;
+      cargarPosts();
+    };
+  };
+
+  solicitud.onerror = (e) => {
+    console.error("Error al abrir la base de datos:", e.target.error);
+  };
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("window.location.search:", window.location.search);
@@ -89,10 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function crearPostHTML(post) {
   const postDiv = document.createElement("div");
-  postDiv.className = "box";
+  postDiv.classList.add("custom-box");
+  postDiv.classList.add("post-card");
   postDiv.style.display = "flex";
   postDiv.style.alignItems = "flex-start";
-  postDiv.style.gap = "10px";
+  postDiv.style.gap = "0.625em";
   postDiv.style.cursor = "pointer";
   //
   //
@@ -104,16 +131,15 @@ function crearPostHTML(post) {
 
   // Columna 1: Foto de perfil del autor
   const columna1 = document.createElement("div");
-  columna1.style.width = "90px";
+  columna1.style.width = "5.5em";
   columna1.style.display = "flex";
   columna1.style.justifyContent = "center";
 
   const mainImg = document.createElement("img");
-  mainImg.src =
-    post.fotoPerfilAutor || "resources/no_picture.jpg";
+  mainImg.src = post.fotoPerfilAutor || "resources/no_picture.jpg";
   mainImg.alt = post.autor || "Autor";
-  mainImg.style.width = "50px";
-  mainImg.style.height = "50px";
+  mainImg.style.width = "3.125em";
+  mainImg.style.height = "3.125em";
   mainImg.style.objectFit = "cover";
   mainImg.style.borderRadius = "50%";
   columna1.appendChild(mainImg);
@@ -124,7 +150,7 @@ function crearPostHTML(post) {
   contenido.style.flex = "1";
   contenido.style.display = "flex";
   contenido.style.flexDirection = "column";
-  contenido.style.gap = "10px";
+  contenido.style.gap = "0.625em";
 
   // Cabecera con autor y fecha
   const cabecera = document.createElement("div");
@@ -145,17 +171,17 @@ function crearPostHTML(post) {
   titulo.innerHTML = `<strong>${
     post.nombre.length > 50 ? post.nombre.slice(0, 50) + "…" : post.nombre
   }</strong>`;
-  titulo.style.fontSize = "22px";
+  titulo.style.fontSize = "1.5em";
   contenido.appendChild(titulo);
 
   // Imagen del post
   const imagen = document.createElement("img");
-  imagen.src = post.imagen || "resources/No_imagen_disponible.png";
+  imagen.src = post.imagen || "../../resources/No_imagen_disponible.png";
   imagen.alt = "Imagen del post";
   imagen.style.width = "100%";
-  imagen.style.height = "200px";
+  imagen.style.height = "12.5em";
   imagen.style.objectFit = "cover";
-  imagen.style.borderRadius = "4px";
+  imagen.style.borderRadius = "0.25em";
   contenido.appendChild(imagen);
 
   const contenidopost = document.createElement("p");
@@ -181,12 +207,21 @@ function crearPostHTML(post) {
     aprobadosCount || 0
   }`;
 
+  const userActivo = localStorage.getItem("tipoUser");
   const likeElem = document.createElement("p");
-  const idUsuario = parseInt(localStorage.getItem("userId"));
+  let idUsuario;
+  let userId;
+
+  if (userActivo === "admin") {
+    idUsuario = parseInt(localStorage.getItem("adminId"));
+    userId = parseInt(localStorage.getItem("adminId")) || "L";
+  } else if (userActivo === "user") {
+    idUsuario = parseInt(localStorage.getItem("userId"));
+    userId = parseInt(localStorage.getItem("userId")) || "L";
+  }
   const yaDioLike = post.likes?.includes(idUsuario);
   const likeCount = post.likes?.length || 0;
 
-  const userId = parseInt(localStorage.getItem("userId")) || "L";
   if (userId !== "L") {
     likeElem.innerHTML = `<strong><i class="${
       yaDioLike ? "fas" : "far"
@@ -242,65 +277,71 @@ function crearPostHTML(post) {
 
 // Evento like
 // esta es diferente que la de pagination.js
+
 export async function like(idPost) {
   const prueba = localStorage.getItem("userId");
-
+  const admin = localStorage.getItem("tipoUser");
+  console.log("userId: ", prueba);
+  console.log("admin: ", admin);
   // USUARIO TIENE QUE ESTAR LOGUEADO
-  if (prueba !== "L" && prueba !== null) {
-    console.log(prueba);
-    const idUsuario = parseInt(localStorage.getItem("userId"));
+  if (
+    (prueba !== "L" && prueba !== null) ||
+    (admin === "admin" && admin !== null)
+  ) {
+    let idUsuario;
+    if (prueba !== "L") {
+      idUsuario = parseInt(localStorage.getItem("userId"));
+    } else {
+      idUsuario = parseInt(localStorage.getItem("adminId"));
+    }
     const usuario = await buscarId(idUsuario);
-    // Agregar su like al usuario guardamos el id del post, quiere decir que ahi
-    // hizo like, si ya lo contenia lo eliminamos
+
+    // Agregar su like al usuario (guardamos el id del post)
     if (!usuario.likes) {
       usuario.likes = []; // inicializar si no existe
     }
 
     if (!usuario.likes.includes(idPost)) {
-      // No estas --> agregar
+      // No estaba → agregar
       usuario.likes.push(idPost);
       await putUser(usuario);
-      //
-      //
-      // Agregar al post el like del usuario guardamos su id
-      const post = await buscarPostPoId(idPost); // obtener post
+
+      // Agregar al post el like del usuario
+      const post = await buscarPostPoId(idPost);
+
       if (!post.likes) {
         post.likes = []; // inicializar si no existe
       }
 
       if (!post.likes.includes(idUsuario)) {
-        // No estas --> agregar
         post.likes.push(idUsuario);
         await editPost(post);
       }
-      //
-      //
 
       console.log(`Like agregado al post ${idPost} y al usuario ${idUsuario}`);
+      // location.reload(true);
+      window.location.reload();
     } else {
-      // Ya esta --> eliminar
+      // Ya estaba → eliminar
       usuario.likes = usuario.likes.filter((id) => id !== idPost);
       await putUser(usuario);
-      //
-      //
-      //
-      // Eliminar si ya estaba el link en la tabla post
-      const post = await buscarPostPoId(idPost); // obtener post
+
+      // Eliminar el like en el post
+      const post = await buscarPostPoId(idPost);
       post.likes = post.likes.filter((id) => id !== idUsuario);
       await editPost(post);
-      //
-      //
-      //
 
       console.log(
         `Like eliminado del post ${idPost} y del usuario ${idUsuario}`
       );
+
+      window.location.reload();
     }
 
     // Recargar todo
-    location.reload();
+    await iniciar();
   } else {
-    console.log("L: no esta logueado ");
+    console.log("L: no está logueado");
   }
 }
 
