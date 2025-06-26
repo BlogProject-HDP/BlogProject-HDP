@@ -8,8 +8,6 @@
 
 #auth-card {
 
-    /* background: hsl(var(--bulma-primary-h), var(--bulma-primary-s), var(--bulma-primary-l)); */
-    /* background: darkblue; */
     backdrop-filter: blur(20px);
     border-radius: 1.5rem;
     border: 1px solid rgba(139, 92, 246, 0.1);
@@ -20,9 +18,7 @@
 }
 
 #auth-header {
-    /* background-color: rgb(107, 34, 175); */
     background: linear-gradient(135deg, var(--bulma-primary-base) 0%, var(--bulma-primary-dark) 100%);
-    /* color: rgb(0, 0, 0); */
     padding: 2rem;
 }
 
@@ -44,11 +40,7 @@
 
 }
 
-
-
-
 .custom-btn {
-    /* background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-dark) 100%); */
     border: none;
     border-radius: 0.75rem;
     padding: 0.875rem 1.5rem;
@@ -110,21 +102,9 @@
     width: 100%;
 }
 
-
-
 .is-fluid {
     padding: 0px !important;
 }
-
-
-
-
-
-
-
-
-
-
 
 @keyframes slideUp {
     from {
@@ -184,24 +164,44 @@
 
 
 @media (max-width: 768px) {
-    .auth-card {
-        margin: 1rem;
-        border-radius: 1rem;
-    }
+  .container.is-fluid,
+  .fixed-grid,
+  .custom-grid-container,
+  .custom-grid-column,
+  #auth-card {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .custom-grid-container {
+    height: 100vh;
+  }
 
-    .auth-header {
-        padding: 1.5rem;
-    }
+  .custom-grid-column {
+    height: 100%;
+    display: flex;
+    align-items: stretch; 
+  }
 
-    .auth-title {
-        font-size: 1.75rem;
-    }
+  #auth-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .auth-body {
-        padding: 1.5rem;
-    }
+  #auth-header,
+  #auth-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-
+  #auth-body {
+    overflow-y: auto;
+  }
 }
 
 .custom-grid-container {
@@ -234,7 +234,6 @@
 
 @media (min-width: 767px) {
 
-    /* Estilos que se aplican desde 723px en adelante */
     .custom-grid-container {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -256,7 +255,6 @@
 
 @media (min-width: 1023px) {
 
-    /* Estilos que se aplican desde 723px en adelante */
     .custom-grid-container {
         grid-template-columns: repeat(3, 1fr);
     }
