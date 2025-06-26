@@ -100,7 +100,7 @@ function mostrarPosts(posts) {
   }
 
   //
-  //
+  //TENGO MIS SOSPECHAS DE QUE ES ESTA PARTE
   // Creamos una tarjeta por cada post
   posts.forEach((post) => {
     const postDiv = document.createElement("div");
@@ -177,11 +177,12 @@ function mostrarPosts(posts) {
     titulo.innerHTML = `<h1 style="font-size: 2em;"><strong>${nombreCorto}</strong></h1>`; //cambio el font size del titulo de 25px a 2em de esta forma cambia su tamanio
     columna2.appendChild(titulo);
 
+    //TENGO MIS OTRAS SOSPECHAS DE QUE ES ESTA OTRA PARTE
     const imagenPost = document.createElement("img");
     imagenPost.src = post.imagen || "resources/No_imagen_disponible.png";
     imagenPost.alt = "Foto del post";
     imagenPost.style.width = "100%";
-    imagenPost.style.height = "12.5em";
+    imagenPost.style.height = "16em";
     imagenPost.style.objectFit = "cover";
     imagenPost.style.borderRadius = "0.25em";
     imagenPost.style.display = "inline-block";    
