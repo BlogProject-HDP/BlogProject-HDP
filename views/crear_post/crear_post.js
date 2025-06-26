@@ -1,165 +1,200 @@
-
 import { addPost, buscarId } from "../../js/IndexedDB/indexDB.js";
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const html = document.documentElement;
   let editor = null;
   let portadaBase64 = "";
 
-
   // ===================
   // PORTADA DINÁMICA
   // ===================
-  const botonAgregarPortada = document.getElementById('botonAgregarPortada');
-  const inputAgregarPortada = document.getElementById('inputAgregarPortada');
-  const controlesImagen = document.getElementById('controlesImagen');
-  const inputCambiarImagen = document.getElementById('inputCambiarImagen');
-  const btnEliminarImagen = document.getElementById('btnEliminarImagen');
-  const previewImagen = document.getElementById('previewImagen');
-  const imgPreview = document.getElementById('imgPreview');
-  const Tamaño_Maximo_img = 5;
-  const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
+  const botonAgregarPortada   = document.getElementById("botonAgregarPortada");
+  const inputAgregarPortada   = document.getElementById("inputAgregarPortada");
+  const controlesImagen       = document.getElementById("controlesImagen");
+  const inputCambiarImagen    = document.getElementById("inputCambiarImagen");
+  const btnEliminarImagen     = document.getElementById("btnEliminarImagen");
+  const previewImagen         = document.getElementById("previewImagen");
+  const imgPreview            = document.getElementById("imgPreview");
+  const TAM_MAX_MB            = 5;
+  const TAM_MAX_BYTES         = TAM_MAX_MB * 1024 * 1024;
 
   function mostrarImagenPreview(file) {
-
-    if (file.size > Tamaño_Maximo_img_bytes) {
-    mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
-    resetearEstado();
-    return;
-  }
+    if (file.size > TAM_MAX_BYTES) {
+      mostrarAlerta(
+        `La imagen es demasiado grande. Máximo permitido: ${TAM_MAX_MB} MB.`,
+        "is-danger"
+      );
+      resetearEstado();
+      return;
+    }
 
     const reader = new FileReader();
     reader.onload = () => {
       portadaBase64 = reader.result;
       imgPreview.src = reader.result;
-      previewImagen.classList.remove('is-hidden');
+      previewImagen.classList.remove("is-hidden");
     };
     reader.readAsDataURL(file);
   }
 
   function resetearEstado() {
-    imgPreview.src = '';
-    previewImagen.classList.add('is-hidden');
-    controlesImagen.classList.add('is-hidden');
-    botonAgregarPortada.classList.remove('is-hidden');
+    imgPreview.src = "";
+    previewImagen.classList.add("is-hidden");
+    controlesImagen.classList.add("is-hidden");
+    botonAgregarPortada.classList.remove("is-hidden");
   }
 
-  inputAgregarPortada.addEventListener('change', () => {
+  inputAgregarPortada.addEventListener("change", () => {
     const file = inputAgregarPortada.files[0];
     if (file) {
       mostrarImagenPreview(file);
-      if (file.size < Tamaño_Maximo_img_bytes) {
-      botonAgregarPortada.classList.add('is-hidden');
-      controlesImagen.classList.remove('is-hidden');
+      if (file.size < TAM_MAX_BYTES) {
+        botonAgregarPortada.classList.add("is-hidden");
+        controlesImagen.classList.remove("is-hidden");
       }
     }
   });
 
-  inputCambiarImagen.addEventListener('change', () => {
+  inputCambiarImagen.addEventListener("change", () => {
     const file = inputCambiarImagen.files[0];
-    if (file) {
-      mostrarImagenPreview(file);
-    }
+    if (file) mostrarImagenPreview(file);
   });
 
-  btnEliminarImagen.addEventListener('click', (e) => {
-
-    e.preventDefault()
-    e.stopPropagation()
-
-    inputAgregarPortada.value = '';
-    inputCambiarImagen.value = '';
+  btnEliminarImagen.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    inputAgregarPortada.value = "";
+    inputCambiarImagen.value = "";
     resetearEstado();
   });
 
-  const inputCategoria = document.getElementById('inputCategoria');
-  const btnAgregarCategoria = document.getElementById('btnAgregarCategoria');
-  const listaCategorias = document.getElementById('listaCategorias');
-  //CATEGORIAS VIVOO
-  // Array para almacenar las categorías
-  let categorias = [];
+  // ===================
+  // CATEGORÍAS (select persistente, máx. 4)
+  // ===================
+  const DEFAULT_CATEGORIES = [
+    "Programación",
+    "Desarrollo Web",
+    "Inteligencia Artificial",
+    "Machine Learning",
+    "Ciberseguridad",
+    "Gadgets",
+    "Hardware",
+    "Software",
+    "Cloud Computing",
+    "Opinión",
+    "Tutoriales",
+  ];
 
-  function renderizarCategorias() {
-    // Limpiar lista visual
-    listaCategorias.innerHTML = '';
+  // Catálogo global en localStorage
+  let allCategories = JSON.parse(localStorage.getItem("blogCategories"));
+  if (!Array.isArray(allCategories) || allCategories.length === 0) {
+    allCategories = [...DEFAULT_CATEGORIES];
+    localStorage.setItem("blogCategories", JSON.stringify(allCategories));
+  }
 
-    categorias.forEach((categoria, index) => {
-      const tag = document.createElement('span');
-      tag.className = 'tag is-primary is-medium mr-2 mb-2';
+  // Referencias UI
+  const inputCategoria       = document.getElementById("inputCategoria");
+  const btnAgregarCategoria  = document.getElementById("btnAgregarCategoria");
+  const listaCategorias      = document.getElementById("listaCategorias");
 
+  // Llena el select
+  function renderSelectOptions() {
+    inputCategoria.innerHTML =
+      '<option value="" disabled selected>Seleccione una categoría…</option>';
+
+    allCategories.forEach((cat) => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat;
+      inputCategoria.appendChild(option);
+    });
+  }
+  renderSelectOptions();
+
+  // Categorías elegidas para ESTE post
+  let categoriasSeleccionadas = [];
+
+  // Pinta los tags
+  function renderizarCategoriasSeleccionadas() {
+    listaCategorias.innerHTML = "";
+    categoriasSeleccionadas.forEach((cat, idx) => {
+      const tag = document.createElement("span");
+      tag.className = "tag is-primary is-medium mr-2 mb-2";
       tag.innerHTML = `
-      ${categoria}
-      <button class="delete is-small ml-2" data-index="${index}"></button>
-    `;
-
+        ${cat}
+        <button class="delete is-small ml-2" data-index="${idx}"></button>
+      `;
       listaCategorias.appendChild(tag);
     });
   }
 
-  btnAgregarCategoria.addEventListener('click', () => {
-    const nuevaCategoria = inputCategoria.value.trim();
+  // Agregar categoría
+  btnAgregarCategoria.addEventListener("click", () => {
+    const cat = inputCategoria.value;
+    if (!cat) return;
 
-    if (nuevaCategoria === '') {
-      return; // no permitir categoría vacía
+    if (categoriasSeleccionadas.includes(cat)) {
+      mostrarAlerta("Esta categoría ya fue agregada.", "is-warning");
+      return;
     }
-
-    if (categorias.length >= 4) {
-      alert('Solo se pueden agregar hasta 4 categorías.');
+    if (categoriasSeleccionadas.length >= 4) {
+      mostrarAlerta("Solo se pueden seleccionar 4 categorías.", "is-danger");
       return;
     }
 
-    if (categorias.includes(nuevaCategoria)) {
-      alert('Esta categoría ya fue agregada.');
-      return;
-    }
+    categoriasSeleccionadas.push(cat);
+    renderizarCategoriasSeleccionadas();
 
-    categorias.push(nuevaCategoria);
-    renderizarCategorias();
+    // Deshabilitar opción para evitar duplicados
+    [...inputCategoria.options].forEach((o) => {
+      if (o.value === cat) o.disabled = true;
+    });
 
-    inputCategoria.value = '';
-    inputCategoria.focus();
+    inputCategoria.selectedIndex = 0; // Placeholder
   });
 
-  // Eliminar categoría al hacer click en botón delete
-  listaCategorias.addEventListener('click', (event) => {
-    if (event.target.classList.contains('delete')) {
-      const index = event.target.dataset.index;
-      categorias.splice(index, 1);
-      renderizarCategorias();
-    }
+  // Eliminar categoría
+  listaCategorias.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("delete")) return;
+
+    const idx = parseInt(e.target.dataset.index);
+    const cat = categoriasSeleccionadas[idx];
+    categoriasSeleccionadas.splice(idx, 1);
+    renderizarCategoriasSeleccionadas();
+
+    // Re-habilitar en el select
+    [...inputCategoria.options].forEach((o) => {
+      if (o.value === cat) o.disabled = false;
+    });
   });
 
   // ===================
   // EDITOR TOAST UI
   // ===================
-
-  function createEditor(theme, content = '') {
+  function createEditor(theme, content = "") {
     if (editor) {
       editor.destroy();
       editor = null;
     }
 
     editor = new toastui.Editor({
-      el: document.querySelector('#editor'),
-      height: '70dvh',
-      initialEditType: 'markdown',
-      previewStyle: 'vertical',
-      theme: theme,
-      initialValue: content
+      el: document.querySelector("#editor"),
+      height: "70dvh",
+      initialEditType: "markdown",
+      previewStyle: "vertical",
+      theme,
+      initialValue: content,
     });
   }
 
-  const currentTheme = html.dataset.theme || 'light';
-  createEditor(currentTheme);
+  createEditor(html.dataset.theme || "light");
 
-  window.addEventListener('themeChanged', (e) => {
-    const newTheme = e.detail.theme;
+  window.addEventListener("themeChanged", (e) => {
     const currentContent = editor.getMarkdown();
-    createEditor(newTheme, currentContent);
+    createEditor(e.detail.theme, currentContent);
   });
 
-   // ===================
+  // ===================
   // PUBLICAR POST
   // ===================
   const btnPublicar = document.getElementById("btnPublicarPost");
@@ -167,29 +202,31 @@ document.addEventListener("DOMContentLoaded", () => {
   btnPublicar.addEventListener("click", async () => {
     const tituloInput = document.querySelector(".postTitleContainer input");
     const titulo = tituloInput.value.trim();
-
-    if (titulo === "") {
-      alert("Debes ingresar un título.");
-      return;
-    }
-
-    if (categorias.length === 0) {
-      alert("Debes agregar al menos una categoría.");
-      return;
-    }
-
-    if (!editor) {
-      alert("Editor no inicializado.");
-      return;
-    }
-
+    
     const contenidoHTML = editor.getHTML();
 
-    // Obtener adminId desde localStorage
-    const adminId = parseInt(localStorage.getItem("adminId"));
+    if (titulo === "") {
+      mostrarAlerta("Debes ingresar un título.", "is-danger");
+      return;
+    }
+    if (categoriasSeleccionadas.length === 0) {
+      mostrarAlerta("Debes agregar al menos una categoría.", "is-danger");
+      return;
+    }
+    if (!editor) {
+      mostrarAlerta("Editor no inicializado.", "is-danger");
+      return;
+    }
 
+    if (!contenidoHTML || contenidoHTML.replace(/<[^>]*>/g, '').trim() === "") {
+    mostrarAlerta("El contenido del post no puede estar vacío.", "is-danger");
+    return;
+    }
+
+
+    const adminId = parseInt(localStorage.getItem("adminId"));
     if (!adminId) {
-      alert("No se encontró adminId en LocalStorage.");
+      mostrarAlerta("No se encontró adminId en LocalStorage.", "is-danger");
       return;
     }
 
@@ -197,39 +234,38 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       adminUser = await buscarId(adminId);
       if (!adminUser) {
-        alert("No se pudo obtener el usuario admin.");
+        mostrarAlerta("No se pudo obtener el usuario admin.", "is-danger");
         return;
       }
-    } catch (error) {
-      console.error("Error al buscar el usuario admin:", error);
-      alert("Error al obtener el usuario admin.");
+    } catch (err) {
+      console.error("Error al buscar el usuario admin:", err);
+      mostrarAlerta("Error al obtener el usuario admin.", "is-danger");
       return;
     }
 
-    // Construir post
     const post = {
       autor: adminUser.usuario,
-      fotoPerfilAutor: adminUser.fotoPerfil || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
+      fotoPerfilAutor:
+        adminUser.fotoPerfil ||
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s",
       nombre: titulo,
       imagen: portadaBase64,
       contenido: contenidoHTML,
       fechaDePublicacion: new Date().toISOString(),
-      categorias: categorias,
+      categorias: categoriasSeleccionadas,
       comentarios: [],
       likes: [],
     };
 
     try {
       await addPost(post);
-      alert("Post publicado con éxito!");
-      window.location.href = "../../index.html"; // o redirige donde quieras
-    } catch (error) {
-      console.error("Error al guardar el post:", error);
-      alert("Ocurrió un error al guardar el post.");
+      mostrarAlerta("¡Post publicado con éxito!", "is-success");
+      setTimeout(() => {
+        window.location.href = "../../index.html";
+      }, 2000);
+    } catch (err) {
+      console.error("Error al guardar el post:", err);
+      mostrarAlerta("Ocurrió un error al guardar el post.", "is-danger");
     }
   });
 });
-
-
-
-
