@@ -90,7 +90,7 @@ function mostrarPosts(posts) {
 
   // Titulo
   const titulo = document.createElement("h1");
-  titulo.className = "subtitle has-text-info";
+  titulo.className = "subtitle";
   titulo.textContent = "Posts recientes";
   div.appendChild(titulo);
 

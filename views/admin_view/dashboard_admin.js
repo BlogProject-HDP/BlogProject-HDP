@@ -1,3 +1,4 @@
+// dashboard_admin.js
 import {
   addPost,
   cargarPosts,

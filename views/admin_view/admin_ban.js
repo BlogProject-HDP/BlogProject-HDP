@@ -1,3 +1,4 @@
+//admin_ban.js
 //obtenemos aquí el id del admin
 const adminId = localStorage.getItem("adminId");
 if (adminId === "L") {

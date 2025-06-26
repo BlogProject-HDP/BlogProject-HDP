@@ -21,22 +21,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const Tamaño_Maximo_img = 5;
   const Tamaño_Maximo_img_bytes = Tamaño_Maximo_img * 1024 * 1024;
 
-  function mostrarImagenPreview(file) {
-
-    if (file.size > Tamaño_Maximo_img_bytes) {
+function mostrarImagenPreview(file) {
+  if (file.size > Tamaño_Maximo_img_bytes) {
     mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
     resetearEstado();
     return;
   }
 
-    const reader = new FileReader();
-    reader.onload = () => {
+  const reader = new FileReader();
+  reader.onload = () => {
+    const imgTemp = new Image();
+    imgTemp.onload = () => {
+      const minAncho = 800;
+      const minAlto = 400;
+
+      if (imgTemp.width < minAncho || imgTemp.height < minAlto) {
+        mostrarAlerta(`La imagen es demasiado pequeña. Mínimo requerido: ${minAncho}x${minAlto}px.`, "is-danger");
+        resetearEstado();
+        return;
+      }
+
       portadaBase64 = reader.result;
       imgPreview.src = reader.result;
       previewImagen.classList.remove('is-hidden');
     };
-    reader.readAsDataURL(file);
-  }
+    imgTemp.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
 
   function resetearEstado() {
     imgPreview.src = '';
