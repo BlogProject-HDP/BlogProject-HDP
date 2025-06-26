@@ -75,13 +75,31 @@ html{
     --swag-level-bg: var(--bulma-primary-90);
     --swag-level-fg: var(--bulma-primary-invert);
 
-    --swag-navbar-bg: var(--bulma-primary-base);
+    --swag-navbar-bg: var(--bulma-primary-30); /*Remplazado para el tema del modo claro
+    TODO LO QUE TENGA QUE VER CON BASE*/
     /* --swag-navbar-bg: var(--bulma-info-base); */
     --swag-navbar-border: 0.12rem solid var(--bulma-primary-30);
 
     --swag-title-input-text-color: rgb(45, 43, 43);
     /* --swag-title-input-text-color: rgb(119, 105, 105); */
-    
+  
+  --bulma-primary-h: 165deg;
+  --bulma-primary-l: 47%;
+  --bulma-link-h: 200deg;
+  --bulma-link-l: 56%;
+  --bulma-info-h: 165deg;
+  --bulma-info-l: 47%;
+  --bulma-success-h: 155deg;
+  --bulma-success-s: 100%;
+  --bulma-success-l: 43%;
+  --bulma-warning-h: 60deg;
+  --bulma-warning-l: 88%;
+  --bulma-danger-h: 349deg;
+  --bulma-danger-l: 63%;
+
+
+
+ 
 }
 
 .navbar{

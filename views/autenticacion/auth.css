@@ -15,6 +15,7 @@
     overflow: hidden;
     animation: slideUp 0.6s ease-out;
     position: relative;
+    border-radius: 0px ;
 }
 
 #auth-header {
@@ -225,6 +226,9 @@
         padding: 0 32px !important;
     }
 
+    #auth-card{
+        border-radius: 1.5rem;
+    }
 }
 
 @media (min-width: 767px) {
@@ -241,6 +245,9 @@
 
     .is-fluid {
         padding: 0 32px !important;
+    }
+    #auth-card{
+        border-radius: 1.5rem;
     }
 
 }
@@ -260,6 +267,10 @@
 
     .is-fluid {
         padding: 0 32px !important;
+       
+    }
+    #auth-card{
+        border-radius: 1.5rem;
     }
 
 }
