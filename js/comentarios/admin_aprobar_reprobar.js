@@ -129,7 +129,7 @@ window.eliminarComentario = async function (
     return;
   }
 
-  // Filtrar comentarios → quitar el comentario con esa fecha
+  // Filtrar comentarios -> quitar el comentario con esa fecha
   usuario.comentarios = usuario.comentarios.filter(
     (comentario) => comentario[3] !== fechaComentario
   );

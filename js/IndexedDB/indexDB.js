@@ -362,7 +362,6 @@ export function obtenerTodosLosUsers() {
 }
 /*ACÁ COMIENZA LA SECCIÓN PARA PODER HACER CRUD DE UN POST*/
 // Función para agregar un post
-// Función para agregar un post
 export function addPost(post) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open("dbBlog-Tech", 1);
