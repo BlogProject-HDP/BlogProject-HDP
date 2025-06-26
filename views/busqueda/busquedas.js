@@ -179,7 +179,7 @@ function crearPostHTML(post) {
   imagen.src = post.imagen || "../../resources/No_imagen_disponible.png";
   imagen.alt = "Imagen del post";
   imagen.style.width = "100%";
-  imagen.style.height = "12.5em";
+  imagen.style.height = "16em";
   imagen.style.objectFit = "cover";
   imagen.style.borderRadius = "0.25em";
   contenido.appendChild(imagen);

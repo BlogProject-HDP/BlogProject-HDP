@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AuthUI();
 });
 
-// Animaciones globales para toasts (si decides reutilizarlos visualmente en otro contexto)
+// Animaciones globales para toasts
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInRight {

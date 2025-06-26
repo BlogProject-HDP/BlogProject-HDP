@@ -56,7 +56,7 @@ async function cargarAllUsers() {
   const listaUsuarios = document.getElementById("mostrar-users");
 
   try {
-    const users = await obtenerTodosLosUsers(); // Asumo que esta función está importada y funciona
+    const users = await obtenerTodosLosUsers(); 
 
     if (!users || users.length === 0) {
       listaUsuarios.innerHTML =
@@ -254,7 +254,7 @@ async function agregarUser() {
             delete userData.password; // No actualizar contraseña si no se proveyó una nueva
           }
           await putUser(userData); //Acá lo modificamos completamente
-          //EN caso de que por ejemplo el admin se actualice a usuario (ERROR DE CAPA 6), se le sale de la vista del panel de admin
+          //EN caso de que por ejemplo el admin se actualice a usuario (ERROR DE CAPA 8), se le sale de la vista del panel de admin
           if (
             userData.id == localStorage.getItem("adminId") &&
             userData.tipo !== "admin"
