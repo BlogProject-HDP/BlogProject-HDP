@@ -184,6 +184,8 @@ function mostrarPosts(posts) {
     imagenPost.style.height = "12.5em";
     imagenPost.style.objectFit = "cover";
     imagenPost.style.borderRadius = "0.25em";
+    imagenPost.style.display = "inline-block";    
+    imagenPost.style.objectPosition = "center";
     columna2.appendChild(imagenPost);
 
     //
