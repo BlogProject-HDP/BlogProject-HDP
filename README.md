@@ -66,36 +66,7 @@ THE BLOG es una aplicación web completa de blog desarrollada con tecnologías f
 - **Font Awesome** - Iconografía moderna
 - **CryptoJS** - Encriptación de contraseñas (implementado)
 
-## 📁 Estructura del Proyecto
 
-```
-BlogProject-HDP/
-├── index.html                    # Página principal
-├── README.md                     # Documentación del proyecto
-│
-├── js/                          # Lógica JavaScript
-│   ├── autenticacion/           # Sistema de login/logout
-│   ├── baneados/               # Gestión de usuarios baneados
-│   ├── comentarios/            # Sistema de comentarios
-│   ├── IndexedDB/              # Operaciones de base de datos
-│   └── pagination/             # Sistema de paginación
-│
-├── resources/                   # Recursos estáticos
-│   ├── theBlog.svg             # Logo principal
-│   ├── theBlog_optimazdo.svg   # Logo optimizado
-│   ├── No_imagen_disponible.png # Imagen por defecto
-│   └── ...                     # Otras imágenes
-│
-└── views/                      # Vistas de la aplicación
-    ├── admin_view/             # Panel de administración
-    ├── autenticacion/          # Páginas de login/registro
-    ├── busqueda/              # Sistema de búsqueda
-    ├── crear_post/            # Editor de posts
-    ├── home/                  # Página principal
-    ├── perfil_usuario/        # Perfil de usuario
-    ├── post/                  # Vista individual de posts
-    └── shared/                # Componentes compartidos
-```
 
 ## 🚀 Instalación y Uso
 
