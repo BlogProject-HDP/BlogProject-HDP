@@ -90,7 +90,7 @@ function mostrarPosts(posts) {
 
   // Titulo
   const titulo = document.createElement("h1");
-  titulo.className = "subtitle has-text-info";
+  titulo.className = "subtitle";
   titulo.textContent = "Posts recientes";
   div.appendChild(titulo);
 
@@ -185,6 +185,8 @@ function mostrarPosts(posts) {
     imagenPost.style.height = "16em";
     imagenPost.style.objectFit = "cover";
     imagenPost.style.borderRadius = "0.25em";
+    imagenPost.style.display = "inline-block";    
+    imagenPost.style.objectPosition = "center";
     columna2.appendChild(imagenPost);
 
     //
