@@ -159,11 +159,12 @@ export async function mostrarComentarios(contenedorComentarios, post, userID) {
   for (const comentario of comentariosOtrosUsuarios) {
     const usuarioComentario = await buscarId(comentario[0]);
 
-    const articulo = document.createElement("article");
-    articulo.className = "media";
-    contenedorComentarios.appendChild(articulo);
+    if (usuarioComentario) {
+      const articulo = document.createElement("article");
+      articulo.className = "media";
+      contenedorComentarios.appendChild(articulo);
 
-    articulo.innerHTML = `
+      articulo.innerHTML = `
 <figure class="media-left">
 <p class="image is-64x64">
     <img src="${usuarioComentario.fotoPerfil}" alt="fotoPerfil"/>
@@ -182,6 +183,31 @@ export async function mostrarComentarios(contenedorComentarios, post, userID) {
     </div>   
 </div> 
     `;
+    } else {
+      const articulo = document.createElement("article");
+      articulo.className = "media";
+      contenedorComentarios.appendChild(articulo);
+
+      articulo.innerHTML = `
+<figure class="media-left">
+<p class="image is-64x64">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqf7MJNlh6GfxfrjCep_dnXOBm0EwGc0X12A&s" alt="fotoPerfil"/>
+</p>
+</figure>
+<div class="media-content">
+    <div class="content">
+        <p>
+            <strong>Cuenta eliminada</strong>
+            <br />
+            ${comentario[1]}
+            <br />
+            <br />
+            <small><strong>${comentario[3]}</strong></small>
+        </p>
+    </div>   
+</div> 
+    `;
+    }
   }
 }
 

@@ -9,7 +9,7 @@ export async function crearIndexedDB() {
     db = e.target.result;
 
     // ----------------------------------------------------------------
-    // Tabla para los usuarios
+    // Tabla para los USUARIOS
     const userStore = db.createObjectStore("users", {
       keyPath: "id",
       autoIncrement: true,
@@ -32,7 +32,7 @@ export async function crearIndexedDB() {
     userStore.createIndex("likes", "likes", { multiEntry: true });
 
     // ----------------------------------------------------------------
-    // Tabla para los posts
+    // Tabla para los POSTS
     const postStore = db.createObjectStore("posts", {
       keyPath: "id",
       autoIncrement: true,
@@ -92,6 +92,7 @@ export async function crearIndexedDB() {
       password: hash,
       banned: false, // NO BANEADO
     };
+    console.log("Admins creados ...");
 
     const transaccion = db.transaction("users", "readwrite");
     const objeto = transaccion.objectStore("users");

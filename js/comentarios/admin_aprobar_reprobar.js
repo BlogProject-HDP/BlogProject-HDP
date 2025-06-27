@@ -18,19 +18,18 @@ window.aprobar = async function (idUsuario, postId, fechaComentario) {
   const usuario = await buscarId(idUsuario);
   if (!usuario) {
     console.error(`Usuario con ID ${idUsuario} no encontrado`);
-    return;
+  } else {
+    // Modificar comentario en usuario
+    usuario.comentarios.forEach((comentario) => {
+      if (comentario[3] === fechaComentario && comentario[2]) {
+        // Buscamos comentario pendiente con esa fecha
+        comentario[2] = false; // Marcar como aprobado
+      }
+    });
+
+    // Guardar usuario
+    await putUser(usuario);
   }
-
-  // Modificar comentario en usuario
-  usuario.comentarios.forEach((comentario) => {
-    if (comentario[3] === fechaComentario && comentario[2]) {
-      // Buscamos comentario pendiente con esa fecha
-      comentario[2] = false; // Marcar como aprobado
-    }
-  });
-
-  // Guardar usuario
-  await putUser(usuario);
 
   // Buscar post
   const posts = await cargarPosts();
@@ -70,19 +69,21 @@ window.reprobar = async function (idUsuario, postId, fechaComentario) {
   const usuario = await buscarId(idUsuario);
   if (!usuario) {
     console.error(`Usuario con ID ${idUsuario} no encontrado`);
-    return;
+  } else {
+    // IMPORTANTE: EL USUARIO PUEDE ESTAR ELIMINADO
+    // EN CASO DE QUE NO ESTE ELIMINADO ACTUALIZAMOS SU COMENTARIO DE ESTADO
+    // SI NO NO ENTRA AQUI
+    // Modificar comentario en usuario
+    usuario.comentarios.forEach((comentario) => {
+      if (comentario[3] === fechaComentario && !comentario[2]) {
+        // Buscamos comentario aprobado con esa fecha
+        comentario[2] = true; // Marcar como pendiente
+      }
+    });
+
+    // Guardar usuario
+    await putUser(usuario);
   }
-
-  // Modificar comentario en usuario
-  usuario.comentarios.forEach((comentario) => {
-    if (comentario[3] === fechaComentario && !comentario[2]) {
-      // Buscamos comentario aprobado con esa fecha
-      comentario[2] = true; // Marcar como pendiente
-    }
-  });
-
-  // Guardar usuario
-  await putUser(usuario);
 
   // Buscar post
   const posts = await cargarPosts();

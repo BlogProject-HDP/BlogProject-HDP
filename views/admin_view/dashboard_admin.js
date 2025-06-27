@@ -18,10 +18,7 @@ import {
   buscarPostComentario,
   tablasComentarios,
 } from "../../js/comentarios/comentarios_admi.js";
-import{
-  logout,
-  startAutoLogout
-} from "../../js/autenticacion/logout.js"
+import { logout, startAutoLogout } from "../../js/autenticacion/logout.js";
 
 let currentEditingPost = null;
 // Manejo de las pestañas principales
@@ -133,12 +130,12 @@ function agregarEventosCrearPost() {
       if (imagenInput.files.length > 0) {
         const file = imagenInput.files[0];
 
-      if (file.size > Tamaño_Maximo_img_bytes) {
-        mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
-        resetearEstado();
-        return;
-      }
-      
+        // if (file.size > Tamaño_Maximo_img_bytes) {
+        //   mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
+        //   resetearEstado();
+        //   return;
+        // }
+
         imagenBase64 = await convertirImagenABase64(file);
       } else if (currentEditingPost && currentEditingPost.imagen) {
         imagenBase64 = currentEditingPost.imagen;

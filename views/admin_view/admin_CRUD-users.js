@@ -7,6 +7,7 @@ import {
   buscarUser,
   putUser,
   deleteUser,
+  cargarPosts,
 } from "../../js/IndexedDB/indexDB.js";
 
 const almacenadorDeUsuarios = document.createElement("div");
@@ -56,7 +57,7 @@ async function cargarAllUsers() {
   const listaUsuarios = document.getElementById("mostrar-users");
 
   try {
-    const users = await obtenerTodosLosUsers(); 
+    const users = await obtenerTodosLosUsers();
 
     if (!users || users.length === 0) {
       listaUsuarios.innerHTML =
@@ -305,6 +306,9 @@ async function eliminarUser(idUser) {
     try {
       await deleteUser(idUser);
       alert("Usuario eliminado");
+      // SE PUEDE AGREGAR:
+      // Eliminar comentarios del usuario
+      // si el usuario esta eliminado
       cargarAllUsers();
     } catch (error) {
       alert("Error al eliminar el post");
