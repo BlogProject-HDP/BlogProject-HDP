@@ -11,6 +11,14 @@
 
 THE BLOG es una aplicación web completa de blog desarrollada con tecnologías frontend modernas. Permite a los usuarios crear, leer, comentar y gestionar contenido de blog con un sistema de autenticación robusto y funcionalidades administrativas avanzadas.
 
+##EQUIPO 
+-Jefferson Alexis de la Cruz Ventra
+-David Elías Romero Claros
+-Walter Bryan Romero Hernández
+-Pedro David Ramos García
+-Cristian Alexis Ventura Ventura
+-Manuel Melendez
+
 ## ✨ Características Principales
 
 ### 🔐 Sistema de Autenticación

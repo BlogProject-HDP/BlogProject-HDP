@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const TAM_MAX_BYTES         = TAM_MAX_MB * 1024 * 1024;
 
 function mostrarImagenPreview(file) {
-  if (file.size > Tamaño_Maximo_img_bytes) {
+  if (file.size > TAM_MAX_BYTES) {
     mostrarAlerta(`La imagen es demasiado grande. Máximo permitido: ${Tamaño_Maximo_img} MB.`, "is-danger");
     resetearEstado();
     return;
